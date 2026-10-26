@@ -1,0 +1,6 @@
+format: jb-book
+root: index
+chapters:
+  - file: chapters/m1_crawling_report
+  - file: checklist
+  - file: milestone2
