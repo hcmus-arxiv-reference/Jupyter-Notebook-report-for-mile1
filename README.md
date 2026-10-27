@@ -5,11 +5,9 @@ Báo cáo Jupyter Book cho **Milestone 1 — Data Crawling** của dự án *arX
 
 | Mục | Giá trị |
 | --- | --- |
-| Repo code (crawler) | `<điền link repo code công khai>` |
-| Báo cáo (GitHub Pages) | `<điền link Pages>` |
+| Repo code (crawler) | `https://github.com/hcmus-arxiv-reference/arxiv-reference-matching` |
+| Báo cáo (GitHub Pages) | `https://github.com/hcmus-arxiv-reference/arxiv-reference-matching` |
 | Nhóm trưởng | Nguyễn Thành Bảo |
-| Deadline nộp M1 | `<điền từ Moodle>` — **không nhận nộp muộn** |
-
 ---
 
 ## 1. Repo này dùng để làm gì
