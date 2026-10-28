@@ -35,7 +35,7 @@ Repo này **chỉ chứa báo cáo**. Mã crawler nằm ở repo code riêng. B�
 ```
 .
 ├── README.md
-├── myst.yml                  # cấu hình book (hoặc _config.yml + _toc.yml nếu dùng Jupyter Book 1)
+├── myst.yml                  # cấu hình Jupyter Book 2 / MyST
 ├── requirements.txt          # pandas, plotly, ... (ghim phiên bản)
 ├── index.md                  # trang giới thiệu
 ├── 01-overview.ipynb         # thiết kế hệ thống, công cụ, API
@@ -155,9 +155,14 @@ Lệnh dưới đây giả định dùng MyST (Jupyter Book 2). Nếu nhóm ch�
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python scripts/merge_stats.py        # kiểm tra và gộp số liệu
-myst build --html                    # build book
+python scripts/merge_sessions.py
+myst build --html --execute --force # build HTML và chạy code cell
+myst build --pdf --execute --force  # xuất PDF
 ```
+
+`scripts/merge_sessions.py` tìm `.md` và `.ipynb` trong `chapters/` và `docs/`,
+chuyển code cell thành MyST `{code-cell}` và sinh `_generated/session.md`.
+Thư mục `_generated/` chỉ là artifact build và không commit.
 
 Triển khai: bật GitHub Pages với nguồn là GitHub Actions và đặt workflow build rồi publish. Với project site, cần đặt đúng `BASE_URL` theo tên repo, nếu sai thì trang sẽ mất style.
 
