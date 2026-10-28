@@ -25,10 +25,15 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
       - run: pip install -r requirements.txt
-      - run: jupyter-book build .
+      - run: python scripts/merge_sessions.py
+      - run: myst build --html --pdf --execute --force --ci
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _build/html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jupyter-book-pdf
+          path: _build/exports/*.pdf
   deploy:
     environment:
       name: github-pages

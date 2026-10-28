@@ -1,0 +1,19 @@
+version: 1
+
+project:
+  title: "Milestone 1 — arXiv data collection"
+  description: "Reproducible technical report for the arXiv reference matching project."
+  authors:
+    - name: HCMUS Data Science Group 3
+  copyright: "2026 HCMUS Data Science Group 3"
+  github: hcmus-arxiv-reference/Jupyter-Notebook-report-for-mile1
+  toc:
+    - file: index.md
+    - file: _generated/session.md
+    - file: checklist.md
+    - file: milestone2.md
+
+site:
+  template: book-theme
+  options:
+    logo_text: "arXiv Reference Matching"
