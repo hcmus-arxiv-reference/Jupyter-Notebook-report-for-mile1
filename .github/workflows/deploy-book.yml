@@ -3,6 +3,7 @@ name: Build and deploy Jupyter Book
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -11,12 +12,15 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Project site: trang nằm dưới /<tên repo>/, thiếu BASE_URL thì mất style.
+      BASE_URL: /${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,16 +29,13 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
       - run: pip install -r requirements.txt
-      - run: python scripts/merge_sessions.py
-      - run: myst build --html --pdf --execute --force --ci
+      - run: myst build --html --execute --ci
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: _build/html
-      - uses: actions/upload-artifact@v4
-        with:
-          name: jupyter-book-pdf
-          path: _build/exports/*.pdf
   deploy:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
