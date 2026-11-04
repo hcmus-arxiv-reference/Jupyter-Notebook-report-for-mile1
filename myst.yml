@@ -1,17 +1,23 @@
 version: 1
 
 project:
-  title: "Milestone 1 — arXiv data collection"
-  description: "Reproducible technical report for the arXiv reference matching project."
+  title: "arXiv Reference Matching — Nhóm 3 KHDL24"
+  description: "Báo cáo tái lập được của đồ án arXiv Reference Matching (HCMUS)."
   authors:
-    - name: HCMUS Data Science Group 3
-  copyright: "2026 HCMUS Data Science Group 3"
+    - name: Nhóm 3 KHDL24, HCMUS
+  copyright: "2026 Nhóm 3 KHDL24"
   github: hcmus-arxiv-reference/Jupyter-Notebook-report-for-mile1
+  exclude:
+    - README.md
+    - data/**
   toc:
     - file: index.md
-    - file: _generated/session.md
-    - file: checklist.md
-    - file: milestone2.md
+    - title: "Milestone 1: Thu thập dữ liệu"
+      children:
+        - file: m1/01-phuong-phap.md
+        - file: m1/02-ket-qua.md
+        - file: m1/03-hieu-nang.md
+        - file: m1/04-han-che.md
 
 site:
   template: book-theme
