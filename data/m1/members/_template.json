@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "member": "<github-username>",
+  "name": "<Tên>",
+  "range": {
+    "first": "YYMM.NNNNN",
+    "last": "YYMM.NNNNN"
+  },
+  "reported_at": "YYYY-MM-DD",
+  "source_document": "<file tóm tắt nguồn>",
+  "verification": "validated | self_checked | file_check | download_state | none",
+  "verification_note": null,
+  "publications": {
+    "assigned": 5000,
+    "with_metadata": null,
+    "complete": null
+  },
+  "versions": {
+    "expected": null,
+    "tex": null,
+    "non_tex": null,
+    "unavailable": null,
+    "other_error": null,
+    "archive_downloaded": null
+  },
+  "references": {
+    "s2_success": null,
+    "empty": null,
+    "raw_records": null,
+    "with_arxiv_id": null
+  },
+  "size": {
+    "before_bytes_total": null,
+    "after_bytes_total": null,
+    "after_mean_bytes_complete": null,
+    "rounded": false
+  },
+  "performance": {
+    "environment": null,
+    "wall_seconds": null,
+    "peak_rss_mib": null,
+    "avg_rss_mib": null,
+    "final_disk_mib": null,
+    "note": null
+  },
+  "pipeline": {
+    "discovery": null,
+    "source": null,
+    "references": null,
+    "retry": null,
+    "resume": null,
+    "storage": null
+  },
+  "notes": []
+}

@@ -18,6 +18,7 @@ project:
         - file: m1/02-ket-qua.md
         - file: m1/03-hieu-nang.md
         - file: m1/04-han-che.md
+        - file: m1/05-so-sanh-pipeline.md
 
 site:
   template: book-theme

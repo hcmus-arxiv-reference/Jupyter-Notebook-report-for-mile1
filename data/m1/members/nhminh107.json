@@ -1,0 +1,57 @@
+{
+  "format": 1,
+  "member": "nhminh107",
+  "name": "Minh",
+  "range": {
+    "first": "2409.18594",
+    "last": "2410.03024"
+  },
+  "reported_at": "2026-11-05",
+  "source_document": "Minh_Summary.md (Kaggle)",
+  "verification": "download_state",
+  "verification_note": "Chỉ biết archive tải thành công; chưa tổng hợp status.json nên chưa có số Version có TeX; chưa có số S2.",
+  "publications": {
+    "assigned": 5000,
+    "with_metadata": 5000,
+    "complete": null
+  },
+  "versions": {
+    "expected": 8486,
+    "tex": null,
+    "non_tex": null,
+    "unavailable": null,
+    "other_error": 15,
+    "archive_downloaded": 8471
+  },
+  "references": {
+    "s2_success": null,
+    "empty": null,
+    "raw_records": null,
+    "with_arxiv_id": null
+  },
+  "size": {
+    "before_bytes_total": null,
+    "after_bytes_total": null,
+    "after_mean_bytes_complete": null,
+    "rounded": false
+  },
+  "performance": {
+    "environment": "Kaggle CPU, 3 notebook chạy song song",
+    "wall_seconds": 43769,
+    "peak_rss_mib": null,
+    "avg_rss_mib": null,
+    "final_disk_mib": null,
+    "note": "Tổng runtime của 3 notebook, không phải thời gian thực; 3 kết nối arXiv cùng lúc."
+  },
+  "pipeline": {
+    "discovery": "Lô 50 ID; tìm nhị phân ID cuối tháng 9/2024",
+    "source": "3 notebook Kaggle song song, mỗi notebook một phần danh sách Version",
+    "references": "3 worker async, mỗi worker một API key S2",
+    "retry": "Metadata: 5 lần, backoff 5×2^n giây. Source/S2: 429/5xx thử lại theo vòng, chờ 1 giây, không giới hạn số vòng",
+    "resume": "Metadata có checkpoint; tải source và S2 chưa tự bỏ qua phần đã xong",
+    "storage": "<id>/v<n>/status.json, done.json; metadata.json mỗi notebook"
+  },
+  "notes": [
+    "15 Version lỗi tải chưa tách 404/410 với lỗi khác."
+  ]
+}

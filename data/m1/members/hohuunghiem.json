@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "member": "hohuunghiem",
+  "name": "Nghiêm",
+  "range": {
+    "first": "2409.08594",
+    "last": "2409.13593"
+  },
+  "reported_at": "2026-11-05",
+  "source_document": "SUMMARY_NGHIEM.md",
+  "verification": "none",
+  "verification_note": "File tóm tắt chưa có số liệu; cần outputs/summary.json và stats/benchmark.json.",
+  "publications": {
+    "assigned": 5000,
+    "with_metadata": null,
+    "complete": null
+  },
+  "versions": {
+    "expected": null,
+    "tex": null,
+    "non_tex": null,
+    "unavailable": null,
+    "other_error": null,
+    "archive_downloaded": null
+  },
+  "references": {
+    "s2_success": null,
+    "empty": null,
+    "raw_records": null,
+    "with_arxiv_id": null
+  },
+  "size": {
+    "before_bytes_total": null,
+    "after_bytes_total": null,
+    "after_mean_bytes_complete": null,
+    "rounded": false
+  },
+  "performance": {
+    "environment": null,
+    "wall_seconds": null,
+    "peak_rss_mib": null,
+    "avg_rss_mib": null,
+    "final_disk_mib": null,
+    "note": null
+  },
+  "pipeline": {
+    "discovery": "Theo lô",
+    "source": "Tải từng Version, chỉ giữ .tex/.bib",
+    "references": "Chạy độc lập, song song với tải source",
+    "retry": "Ghi nhận 429, 404, lỗi mạng; thử lại phần chưa thành công",
+    "resume": "Dùng lại dữ liệu hợp lệ đã tải",
+    "storage": "File theo bài; Parquet ở data/tables/"
+  },
+  "notes": []
+}

@@ -1,0 +1,58 @@
+{
+  "format": 1,
+  "member": "ngochai06",
+  "name": "Hải",
+  "range": {
+    "first": "2412.08848",
+    "last": "2412.13847"
+  },
+  "reported_at": "2026-11-05",
+  "source_document": "hai-summary.md (nhánh Hai_crawler)",
+  "verification": "self_checked",
+  "verification_note": "Kiểm lại cache local theo manifest/checksum và đọc Parquet theo schema; chưa chạy report_m1/validator của nhóm.",
+  "publications": {
+    "assigned": 5000,
+    "with_metadata": 4985,
+    "complete": 4775
+  },
+  "versions": {
+    "expected": 8086,
+    "tex": 7396,
+    "non_tex": 504,
+    "unavailable": 29,
+    "other_error": 157,
+    "archive_downloaded": null
+  },
+  "references": {
+    "s2_success": 4917,
+    "empty": 1121,
+    "raw_records": 172954,
+    "with_arxiv_id": 84719
+  },
+  "size": {
+    "before_bytes_total": null,
+    "after_bytes_total": 3816242614,
+    "after_mean_bytes_complete": 793990.42,
+    "rounded": false
+  },
+  "performance": {
+    "environment": null,
+    "wall_seconds": null,
+    "peak_rss_mib": null,
+    "avg_rss_mib": null,
+    "final_disk_mib": null,
+    "note": null
+  },
+  "pipeline": {
+    "discovery": "Lô ≤ 50 ID, hỏi lại từng ID khi lô lỗi hoặc thiếu",
+    "source": "Tuần tự, 1 kết nối arXiv, cách ≥ 3,1 giây",
+    "references": "Chạy sau khi xong lượt arXiv, tuần tự, 1,1 giây/request (có key)",
+    "retry": "Timeout 60 giây, tối đa 4 lần thử lại cho 429/5xx; Retry-After quá dài thì để lượt sau",
+    "resume": "Theo manifest và checksum, bỏ qua phần đã hợp lệ",
+    "storage": "Layout src/crawl/ (raw/, metadata/, references/, manifests/), tách arxiv/s2/merged; Parquet"
+  },
+  "notes": [
+    "15 ID chưa có metadata hợp lệ nên chưa biết số Version kỳ vọng của chúng.",
+    "after_bytes_total tính trên mọi Version đã giữ; after_mean_bytes_complete chỉ tính Publication hoàn chỉnh."
+  ]
+}
