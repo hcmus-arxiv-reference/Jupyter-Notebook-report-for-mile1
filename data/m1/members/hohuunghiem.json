@@ -7,13 +7,13 @@
     "last": "2409.13593"
   },
   "reported_at": "2026-11-05",
-  "source_document": "SUMMARY_NGHIEM.md",
-  "verification": "none",
-  "verification_note": "File tóm tắt chưa có số liệu; cần outputs/summary.json và stats/benchmark.json.",
+  "source_document": "stats/milestone1_summary.json; stats/size_reference_profile.json; stats/runtime_disk_summary.json; stats/data_validation.json",
+  "verification": "file_check",
+  "verification_note": "Đã đối chiếu các file thống kê và data_validation.json (0 validation_errors); chưa kiểm manifest/checksum từng Version hoặc chạy report_m1, nên chưa đạt self_checked/validated.",
   "publications": {
     "assigned": 5000,
-    "with_metadata": null,
-    "complete": null
+    "with_metadata": 5000,
+    "complete": 4970
   },
   "versions": {
     "expected": null,
@@ -24,24 +24,24 @@
     "archive_downloaded": null
   },
   "references": {
-    "s2_success": null,
+    "s2_success": 4994,
     "empty": null,
-    "raw_records": null,
-    "with_arxiv_id": null
+    "raw_records": 204198,
+    "with_arxiv_id": 92868
   },
   "size": {
     "before_bytes_total": null,
-    "after_bytes_total": null,
-    "after_mean_bytes_complete": null,
+    "after_bytes_total": 2176719822,
+    "after_mean_bytes_complete": 437971.8,
     "rounded": false
   },
   "performance": {
-    "environment": null,
-    "wall_seconds": null,
+    "environment": "Ubuntu/WSL trên máy cá nhân; nhiều lượt chạy và retry (chưa chuẩn hóa benchmark)",
+    "wall_seconds": 18043.97,
     "peak_rss_mib": null,
     "avg_rss_mib": null,
-    "final_disk_mib": null,
-    "note": null
+    "final_disk_mib": 2481.75,
+    "note": "wall_seconds là tổng 2 log chạy (17.538,39 + 505,58 giây), cả hai ghi status=incomplete; không phải thời gian end-to-end được xác minh. final_disk_mib là dung lượng hiện tại của raw/metadata/references/tables, không phải peak disk. Không đo RAM."
   },
   "pipeline": {
     "discovery": "Theo lô",
@@ -51,5 +51,13 @@
     "resume": "Dùng lại dữ liệu hợp lệ đã tải",
     "storage": "File theo bài; Parquet ở data/tables/"
   },
-  "notes": []
+  "notes": [
+    "Nguồn: stats/milestone1_summary.json, size_reference_profile.json, data_validation.json, runtime_disk_summary.json và references_per_paper.csv (các bản trong 24120390/stats/ trùng nội dung).",
+    "publications.with_metadata=5000 là số tự báo cáo trước đây, chưa được xác minh riêng bằng dữ liệu trong ZIP.",
+    "Tổng 8.011 Version chỉ tính trên 4.970 Publication có trong references_per_paper.csv; chưa thể dùng làm versions.expected của toàn bộ 5.000 ID. Thiếu trạng thái từng Version nên tex/non_tex/unavailable/other_error để null.",
+    "size.after_bytes_total dùng total_extracted_bytes của size_reference_profile.json (2.176.719.822 byte); không có bytes_before. after_mean_bytes_complete lấy trung bình trên 4.970 bài.",
+    "625 bài không có arXiv reference không đồng nghĩa S2 trả về danh sách references rỗng; references.empty để null.",
+    "Có 25.023 file .tex và 5.953 file .bib, nhưng đây là số file, không phải số Version có TeX.",
+    "Các lượt chạy đã ghi nhận đều incomplete; wall_seconds không đại diện cho tổng thời gian crawl end-to-end. RAM đỉnh/trung bình chưa đo."
+  ]
 }
