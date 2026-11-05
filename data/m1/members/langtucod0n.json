@@ -1,0 +1,59 @@
+{
+  "format": 1,
+  "member": "langtucod0n",
+  "name": "Liễu",
+  "range": {
+    "first": "2410.08025",
+    "last": "2410.13024"
+  },
+  "reported_at": "2026-11-05",
+  "source_document": "lieu_summary.md (crawler standalone cũ)",
+  "verification": "file_check",
+  "verification_note": "Kiểm trạng thái và sự hiện diện file; chưa kiểm checksum, chưa xuất/kiểm Parquet.",
+  "publications": {
+    "assigned": 5000,
+    "with_metadata": 5000,
+    "complete": 4960
+  },
+  "versions": {
+    "expected": 8393,
+    "tex": 7889,
+    "non_tex": 475,
+    "unavailable": 29,
+    "other_error": 0,
+    "archive_downloaded": null
+  },
+  "references": {
+    "s2_success": 4985,
+    "empty": 283,
+    "raw_records": 213260,
+    "with_arxiv_id": 105185
+  },
+  "size": {
+    "before_bytes_total": 50690000000,
+    "after_bytes_total": 4290000000,
+    "after_mean_bytes_complete": null,
+    "rounded": true
+  },
+  "performance": {
+    "environment": "Máy local, 11 lượt chạy (8 bị ngắt)",
+    "wall_seconds": 293952.18,
+    "peak_rss_mib": 250.7,
+    "avg_rss_mib": 51.6,
+    "final_disk_mib": 4221.41,
+    "note": "Crawler cũ có cooldown 5–30 phút sau chuỗi lỗi; không phải Colab."
+  },
+  "pipeline": {
+    "discovery": "Lô 50 ID",
+    "source": "Tuần tự, 1 kết nối arXiv; requests Session, tải tiếp bằng HTTP Range",
+    "references": "1 luồng S2 chạy song song với tải source",
+    "retry": "Retry có giới hạn; nghỉ 5–30 phút sau chuỗi lỗi liên tiếp, dừng sau 15 lỗi liền",
+    "resume": "Theo done.json và status.json của từng Version",
+    "storage": "data/<id>/meta.json, v<n>/status.json, references*.json, done.json; chưa có Parquet"
+  },
+  "notes": [
+    "non_tex = 474 Version chỉ có PDF + 1 Version có archive nhưng không có TeX.",
+    "Kích thước làm tròn từ 50,69 GB / 4,29 GB (hệ thập phân) trong file tóm tắt; cần số byte chính xác.",
+    "complete = 5.000 − 25 Publication có Version not_found − 15 thiếu file References."
+  ]
+}
