@@ -16,7 +16,9 @@ import plotly.express as px
 
 ## Cách đo
 
-Mỗi thành viên chạy **Range của mình trên một phiên Google Colab CPU riêng**,
+Một phiên Colab giới hạn khoảng 12 giờ, không đủ để chạy tuần tự cả 25.000 ID, nên
+giảng viên cho phép chia theo Range. Mỗi thành viên chạy **Range của mình trên một
+phiên Google Colab CPU riêng**,
 bằng cùng một code: notebook `notebooks/colab_m1_selftest.ipynb` của repo code ở
 tag `m1-bench-v2`, Engine `src/crawl/`. Trong mỗi phiên, crawler chỉ mở một kết
 nối tới arXiv tại một thời điểm. Một phiên Colab không đủ dài cho cả Range, nên
@@ -95,9 +97,9 @@ else:
                          gib(b["peak_disk_bytes"]), gib(b.get("final_disk_bytes"))]
     table(pd.DataFrame({"Chỉ số": METRICS, **cols}))
     walls = [b["total_wall_seconds"] for b in measured.values()]
-    md(f"Đã có số đo của **{len(measured)}/{N_RANGES} Range**. Các Range chạy song song trên "
-       f"các phiên Colab riêng, nên thời gian thực của cả nhóm là thời gian của Range lâu nhất "
-       f"(**{hours(max(walls))}**); tổng thời gian máy của các Range là {hours(sum(walls))}. "
+    md(f"Đã có số đo của **{len(measured)}/{N_RANGES} Range**. **Tổng thời gian chạy của hệ thống "
+       f"là tổng thời gian các Range: {hours(sum(walls))}**, tương đương chạy end-to-end tuần tự "
+       f"trên một máy. Để tham khảo, Range lâu nhất mất {hours(max(walls))}. "
        "Thời gian TB mỗi Publication tính trên `timings.jsonl` (tổng mọi lần ghé thăm Publication "
        "đó); thời gian chia đều cho 5.000 ID được giao là "
        + ", ".join(f"{name(m)}: {secs(b['wall_seconds_per_assigned_publication'], 2)}"
