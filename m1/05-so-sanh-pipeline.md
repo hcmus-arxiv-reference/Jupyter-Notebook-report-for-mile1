@@ -32,32 +32,59 @@ chung. Trang này đặt kết quả của năm pipeline cạnh nhau. Mỗi dòn
 ```{code-cell} python
 :tags: [remove-input]
 table(pd.DataFrame([{"Mức kiểm chứng": k, "Ý nghĩa": v} for k, v in VERIFICATION.items()]))
-md("Chỉ dòng ở mức `validated` được cộng vào số liệu nhóm ở trang *Kết quả thu thập*. "
-   "Các dòng khác chỉ để tham khảo, không cộng gộp với nhau.")
+md("Số liệu nhóm ở trang *Kết quả thu thập* chỉ lấy từ snapshot của Engine chung, không lấy "
+   "từ trang này. Các dòng ở đây mô tả pipeline ban đầu của từng thành viên, chỉ để so sánh, "
+   "không cộng gộp với nhau.")
 ```
 
 ## Kết quả theo thành viên
 
 ```{code-cell} python
 :tags: [remove-input]
+arxiv = ARXIV_VERSIONS["members"] if ARXIV_VERSIONS else {}
+
+
+def per_ok(m, key):
+    num, den = get(m, "references", key), get(m, "references", "s2_success")
+    return so(num / den, 1) if num and den else "—"
+
+
 rows = []
 for m in members:
     v = m["versions"]
     rows.append({
         "Thành viên": m["name"],
-        "Range": f"{m['range']['first']} – {m['range']['last']}",
+        "Range": range_text(m["range"]),
         "Mức kiểm chứng": m["verification"],
         "Có metadata": ratio(get(m, "publications", "with_metadata"), get(m, "publications", "assigned")),
         "Hoàn chỉnh": ratio(get(m, "publications", "complete"), get(m, "publications", "assigned")),
+        "Version trên arXiv (09/11)": so(arxiv.get(m["member"], {}).get("versions")) if arxiv.get(m["member"]) else "—",
         "Version có TeX": ratio(v.get("tex"), v.get("expected")),
         "non-TeX": ratio(v.get("non_tex"), v.get("expected")),
         "404/410": ratio(v.get("unavailable"), v.get("expected")),
         "Lỗi khác": ratio(v.get("other_error"), v.get("expected")),
         "Lấy S2 thành công": ratio(get(m, "references", "s2_success"), get(m, "publications", "with_metadata")),
-        "Reference TB/bài": (so(get(m, "references", "raw_records") / get(m, "references", "s2_success"), 2)
-                             if get(m, "references", "raw_records") and get(m, "references", "s2_success") else "—"),
+        "Dòng trích dẫn S2 TB/bài": per_ok(m, "raw_records"),
+        "Dòng có arXiv ID TB/bài": per_ok(m, "with_arxiv_id"),
     })
 table(pd.DataFrame(rows))
+```
+
+Cột *Version trên arXiv (09/11)* là số Version tra lại trên arXiv API ngày
+09/11/2026 cho mọi ID của Range. Version kỳ vọng của một pipeline thấp hơn số
+này nghĩa là pipeline đó crawl trước khi arXiv nhận thêm Version, hoặc còn
+Publication chưa có metadata.
+
+```{code-cell} python
+:tags: [remove-input]
+gaps = []
+for m in members:
+    exp, now = get(m, "versions", "expected"), arxiv.get(m["member"], {}).get("versions")
+    if exp and now and now != exp:
+        gaps.append(f"- **{m['name']}**: Version kỳ vọng {so(exp)}, arXiv ngày 09/11 có {so(now)} "
+                    f"(chênh {so(now - exp)}).")
+if gaps:
+    md("\n".join(gaps))
 ```
 
 ```{code-cell} python

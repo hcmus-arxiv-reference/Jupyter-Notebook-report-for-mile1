@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "queried_at": "2026-11-09T10:11:41.722147+00:00",
+  "source": "https://export.arxiv.org/api/query",
+  "note": "Số Version hiện có trên arXiv của mọi ID trong Range, tra theo lô id_list; dùng để đối chiếu Version kỳ vọng.",
+  "members": {
+    "NTBao-coder": {
+      "publications": 5000,
+      "versions": 7835,
+      "missing_ids": 0
+    },
+    "nhminh107": {
+      "publications": 5000,
+      "versions": 8503,
+      "missing_ids": 0
+    },
+    "hohuunghiem": {
+      "publications": 5000,
+      "versions": 8090,
+      "missing_ids": 0
+    },
+    "ngochai06": {
+      "publications": 5000,
+      "versions": 8124,
+      "missing_ids": 0
+    },
+    "langtucod0n": {
+      "publications": 5000,
+      "versions": 8408,
+      "missing_ids": 0
+    }
+  }
+}

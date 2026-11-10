@@ -25,6 +25,19 @@ Range của bốn thành viên nằm gọn trong một tháng. Range thứ năm 
 9 và tháng 10/2024, nên được ghi thành hai **Đoạn** tường minh trong
 `configs/ranges.toml`. Nhờ vậy crawler không cần hỏi arXiv ID cuối của tháng.
 
+## Công cụ và thư viện
+
+| Thành phần | Công cụ | Ghi chú |
+|---|---|---|
+| HTTP | `urllib.request` (thư viện chuẩn Python) | Không dùng `requests` hay gói `arxiv`; bộ điều tiết, retry và tải tiếp bằng header `Range` tự viết trong `src/crawl/http_client.py` |
+| Đọc Atom của arXiv API | `xml.etree.ElementTree` | Lấy title, authors, ngày nộp, số Version |
+| Giải nén source | `tarfile`, `gzip`, `zipfile` | Chỉ giữ `.tex` và `.bib` |
+| Bảng xuất ra | `pyarrow` (Parquet) | Schema tường minh trong `src/common/schema.py` |
+| Khóa thư mục dữ liệu | `filelock` | Chặn hai crawler cùng ghi một thư mục |
+| Cấu hình | `tomllib` (Range), `python-dotenv` (email liên hệ, API key) | Khóa bí mật không nằm trong repo |
+| Đo hiệu năng | `psutil` | RAM của cả cây tiến trình, dung lượng thư mục dữ liệu |
+| Kiểm thử | `pytest` | Chạy trên CI với Python 3.12 và 3.13 |
+
 ## Thiết kế crawler
 
 Crawler là một **Engine** duy nhất trong `src/crawl/`
@@ -61,7 +74,7 @@ File trên đĩa là nguồn dữ liệu gốc; Parquet chỉ là bảng xuất 
 ```text
 <data-dir>/
 ├── raw/<publication-key>/v<n>/     # .tex/.bib của từng Version + receipt checksum
-├── metadata/                       # metadata của Publication và từng Version
+├── metadata/<publication-key>.json # metadata của Publication; ngày mỗi Version nằm trong revised_dates
 ├── references/                     # phản hồi Semantic Scholar
 ├── manifests/crawl.jsonl           # trạng thái từng tác vụ, dùng để resume
 └── tables/{papers,references}.parquet

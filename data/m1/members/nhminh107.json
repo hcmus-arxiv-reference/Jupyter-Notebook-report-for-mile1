@@ -4,7 +4,17 @@
   "name": "Minh",
   "range": {
     "first": "2409.18594",
-    "last": "2410.03024"
+    "last": "2410.03024",
+    "segments": [
+      [
+        "2409.18594",
+        "2409.20569"
+      ],
+      [
+        "2410.00001",
+        "2410.03024"
+      ]
+    ]
   },
   "reported_at": "2026-11-05",
   "source_document": "Minh_Summary.md (Kaggle)",

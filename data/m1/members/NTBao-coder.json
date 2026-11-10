@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "member": "NTBao-coder",
+  "name": "Bảo",
+  "range": {
+    "first": "2508.02872",
+    "last": "2508.07871"
+  },
+  "reported_at": "2026-10-25",
+  "source_document": "data/m1/snapshots/bao.json (report_m1, commit 2e89b20)",
+  "verification": "validated",
+  "publications": {
+    "assigned": 5000,
+    "with_metadata": 5000,
+    "complete": 4941
+  },
+  "versions": {
+    "expected": 7811,
+    "tex": 7279,
+    "non_tex": 484,
+    "unavailable": 48,
+    "other_error": 0,
+    "archive_downloaded": null
+  },
+  "references": {
+    "s2_success": 4985,
+    "empty": 251,
+    "raw_records": 201402,
+    "with_arxiv_id": 94275
+  },
+  "size": {
+    "before_bytes_total": null,
+    "after_bytes_total": 2008408761,
+    "after_mean_bytes_complete": 403924.3982999393,
+    "rounded": false
+  },
+  "performance": {
+    "environment": null,
+    "wall_seconds": null,
+    "peak_rss_mib": null,
+    "avg_rss_mib": null,
+    "final_disk_mib": null,
+    "note": "Corpus tích lũy qua nhiều lượt chạy, không đo thời gian."
+  },
+  "pipeline": {
+    "discovery": "Lô 50 ID, hỏi lại từng ID khi lô lỗi",
+    "source": "Tuần tự, 1 kết nối arXiv, cách ≥ 3,1 giây",
+    "references": "1 luồng S2 song song với source, 1,1 giây/request (có key)",
+    "retry": "Retry-After hoặc bảng backoff có jitter, số lần thử có giới hạn",
+    "resume": "Theo manifest và checksum từng Version",
+    "storage": "Layout src/crawl/ + manifest JSONL; Parquet"
+  },
+  "verification_note": "Số liệu từ snapshot report_m1 ngày 25/10/2026 trên corpus crawl bằng Mac, tích lũy qua nhiều lượt chạy; đã kiểm checksum và schema Parquet.",
+  "notes": []
+}

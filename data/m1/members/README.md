@@ -4,9 +4,13 @@ Mỗi thành viên một file `<github-username>.json`, theo mẫu `_template.js
 Trang *So sánh pipeline của các thành viên* đọc các file này lúc build. File có
 tên bắt đầu bằng `_` bị bỏ qua.
 
-Range nào đã chạy `scripts/report_m1.py` của repo code thì đặt snapshot ở
-`data/m1/snapshots/`. Snapshot đó được tính là mức `validated` và thay cho file
-tự báo cáo của cùng thành viên.
+Các file này mô tả **pipeline ban đầu** của từng thành viên. Snapshot của Engine
+chung (`data/m1/snapshots/`, lượt Colab) là tầng riêng cho các trang Kết quả,
+Hiệu năng, Hạn chế; hai tầng không thay thế hay cộng gộp với nhau. Bảo dùng Engine
+chung từ đầu, nên `NTBao-coder.json` được đóng băng từ snapshot ngày 25/10/2026 của
+corpus crawl bằng Mac.
+
+`range.segments` (tùy chọn) ghi Range nhiều Đoạn, ví dụ Range của Minh.
 
 ## Quy ước
 
