@@ -36,7 +36,7 @@ table(counts_frame(), **{c: lambda v: so(v) for c in counts_frame().columns if c
 
 ```{code-cell} python
 :tags: [remove-input]
-status = pd.DataFrame([{"Thành viên": m, "Trạng thái": k, "Số Version": s["counts"][k]}
+status = pd.DataFrame([{"Thành viên": name(m), "Trạng thái": k, "Số Version": s["counts"][k]}
                        for m, s in SNAPSHOTS.items()
                        for k in ("success", "non_tex", "unavailable", "download_error", "not_attempted")])
 status["Trạng thái"] = status["Trạng thái"].map({"success": "TeX", "non_tex": "non_tex",
@@ -47,7 +47,7 @@ show(px.bar(status, x="Thành viên", y="Số Version", color="Trạng thái",
 
 ```{code-cell} python
 :tags: [remove-input]
-versions = pd.DataFrame([{"Thành viên": m, **row} for m, s in SNAPSHOTS.items()
+versions = pd.DataFrame([{"Thành viên": name(m), **row} for m, s in SNAPSHOTS.items()
                          for row in s["versions_distribution"]])
 show(px.bar(versions, x="versions", y="publications", color="Thành viên", barmode="group",
             labels={"versions": "Số Version của Publication", "publications": "Số Publication"},
@@ -60,25 +60,36 @@ md(f"Trung bình mỗi Publication có **{so(mean_versions, 2)} Version** "
 ## Kích thước source
 
 Đề yêu cầu kích thước trung bình mỗi bài **trước và sau** khi bỏ hình và các
-file không phải `.tex`/`.bib`.
+file không phải `.tex`/`.bib`. Một "bài" ở đây là một **Publication**, cộng mọi
+Version của nó. Cả hai số được đo trên **cùng tập Publication hoàn chỉnh** mà
+receipt `source.json` của mọi Version đều ghi kích thước:
+
+- *Archive tải về*: số byte nhận từ arXiv (đã nén).
+- *Trước khi bỏ hình*: số byte sau giải nén, trước khi lọc file.
+- *Sau khi bỏ hình*: tổng `.tex` và `.bib` được giữ lại.
 
 ```{code-cell} python
 :tags: [remove-input]
 rows = []
 for m, s in SNAPSHOTS.items():
     st = s["storage"]
-    rows.append({"Thành viên": m,
-                 "Trước khi bỏ hình (TB/bài)": st.get("before_extraction_bytes"),
-                 "Sau khi bỏ hình (TB/bài, Publication hoàn chỉnh)": st["complete_publication_retained_bytes"]["mean"],
-                 "Trung vị sau": st["complete_publication_retained_bytes"]["median"],
-                 "Lớn nhất sau": st["complete_publication_retained_bytes"]["max"]})
-mb = lambda v: "chưa đo" if v is None else f"{so(v / 1e6, 2)} MB"
-table(pd.DataFrame(rows), **{c: mb for c in rows[0] if c != "Thành viên"})
-missing = [m for m, s in SNAPSHOTS.items() if s["storage"].get("before_extraction_bytes") is None]
+    after = st["complete_publication_retained_bytes"]
+    sized = st.get("publications_with_before_size")
+    rows.append({"Thành viên": name(m),
+                 "Publication có đủ số đo": so(sized) if sized else "chưa đo",
+                 "Archive tải về (TB/bài)": mb((st.get("complete_publication_downloaded_bytes") or {}).get("mean")),
+                 "Trước khi bỏ hình (TB/bài)": mb(st.get("before_extraction_bytes")),
+                 "Sau khi bỏ hình (TB/bài)": mb(after["mean"]),
+                 "Trung vị sau": mb(after["median"]), "Lớn nhất sau": mb(after["max"]),
+                 "Giảm": "—" if st.get("size_reduction_fraction") is None
+                         else f"{so(100 * st['size_reduction_fraction'], 1)}%"})
+table(pd.DataFrame(rows))
+missing = [name(m) for m, s in SNAPSHOTS.items() if s["storage"].get("before_extraction_bytes") is None]
 if missing:
     md(f"Corpus của {', '.join(missing)} được crawl khi Engine chưa ghi kích thước archive trước "
-       "giải nén, nên cột *trước* còn trống. Số này sẽ được đo trong lượt benchmark cuối trên "
-       "Colab (trang Hiệu năng), không ước lượng.")
+       "giải nén, nên cột *trước* còn trống. Số này đo trong lượt benchmark trên Colab "
+       "(trang Hiệu năng), không ước lượng. Cột *sau* của các Range này tính trên mọi "
+       "Publication hoàn chỉnh.")
 ```
 
 ```{code-cell} python
@@ -94,25 +105,39 @@ if not smoke.empty:
 
 ## References
 
+Semantic Scholar trả về một **danh sách trích dẫn** cho mỗi Publication, gồm cả
+bài không có arXiv ID. **Reference** chỉ là các dòng có arXiv ID, khử trùng lặp
+theo `ref_arxiv_id` trong cùng Publication (định nghĩa trong `CONTEXT.md`).
+Báo cáo ghi cả hai số để không lẫn với nhau.
+
 ```{code-cell} python
 :tags: [remove-input]
 refs = {m: s["references"] for m, s in SNAPSHOTS.items()}
 n_ok = sum(r["per_successful_publication"]["n"] for r in refs.values())
-n_records = sum(r["per_successful_publication"]["sum"] for r in refs.values())
-md(f"- Lấy Reference thành công: {pt(total('references_success'), total('discovered'))} Publication tìm thấy "
-   f"(gồm {so(sum(r['successfully_empty_publications'] for r in refs.values()))} bài mà Semantic Scholar "
-   "trả về danh sách rỗng hợp lệ).\n"
-   f"- Trung bình **{so(n_records / n_ok, 1)} Reference mỗi Publication** "
-   f"({so(n_records)} bản ghi / {so(n_ok)} Publication lấy thành công).\n"
-   f"- Bản ghi có arXiv ID: {pt(sum(r['with_arxiv_before_dedup'] for r in refs.values()), n_records)}. "
-   "Chỉ những bản ghi này trở thành dòng của bảng `references`.")
+n_rows = sum(r["per_successful_publication"]["sum"] for r in refs.values())
+n_arxiv = sum(r["with_arxiv_before_dedup"] for r in refs.values())
+n_unique = sum(r["unique_arxiv_pairs"] for r in refs.values())
+n_table = sum(s["checks"]["tables"]["references"].get("rows") or 0 for s in SNAPSHOTS.values())
+dedup = ("không có dòng trùng nào" if n_unique == n_arxiv
+         else f"còn {so(n_unique)} Reference sau khi bỏ {so(n_arxiv - n_unique)} dòng trùng")
+md(f"- Lấy danh sách trích dẫn thành công: {pt(total('references_success'), total('discovered'))} "
+   f"Publication tìm thấy (gồm {so(sum(r['successfully_empty_publications'] for r in refs.values()))} "
+   "bài mà Semantic Scholar trả về danh sách rỗng hợp lệ).\n"
+   f"- Trung bình **{so(n_unique / n_ok, 1)} Reference mỗi Publication** "
+   f"({so(n_unique)} Reference / {so(n_ok)} Publication lấy thành công).\n"
+   f"- Trung bình {so(n_rows / n_ok, 1)} dòng trích dẫn S2 mỗi Publication ({so(n_rows)} dòng), "
+   f"trong đó {pt(n_arxiv, n_rows)} có arXiv ID; khử trùng lặp theo `ref_arxiv_id` thì {dedup}.\n"
+   f"- Bảng `references` có {so(n_table)} dòng. Export chỉ ghi Reference của "
+   f"{so(total('complete'))} Publication hoàn chỉnh, nên ít hơn {so(n_unique)} Reference của mọi "
+   "Publication lấy được danh sách trích dẫn.")
 def khoang(h):
     lo, hi = h["lower"], h["upper_exclusive"]
     return f"≥ {lo}" if hi is None else (str(lo) if hi - lo == 1 else f"{lo}–{hi - 1}")
-hist = pd.DataFrame([{"Thành viên": m, "Khoảng": khoang(h),
+hist = pd.DataFrame([{"Thành viên": name(m), "Khoảng": khoang(h),
                       "Số Publication": h["count"]} for m, r in refs.items() for h in r["histogram"]])
 show(px.bar(hist, x="Khoảng", y="Số Publication", color="Thành viên", barmode="group",
-            labels={"Khoảng": "Số Reference của Publication"}, title="Phân bố số Reference mỗi Publication"))
+            labels={"Khoảng": "Số dòng trích dẫn S2 của Publication"},
+            title="Phân bố độ dài danh sách trích dẫn S2 mỗi Publication"))
 ```
 
 ## Kiểm tra bảng xuất ra
@@ -121,8 +146,8 @@ show(px.bar(hist, x="Khoảng", y="Số Publication", color="Thành viên", barm
 :tags: [remove-input]
 rows = []
 for m, s in SNAPSHOTS.items():
-    for name, t in s["checks"]["tables"].items():
-        rows.append({"Thành viên": m, "Bảng": name, "Đọc được theo schema": "có" if t["valid"] else "không",
+    for table_name, t in s["checks"]["tables"].items():
+        rows.append({"Thành viên": name(m), "Bảng": table_name, "Đọc được theo schema": "có" if t["valid"] else "không",
                      "Số dòng": t.get("rows"), "Khóa trùng": t.get("duplicate_keys"),
                      "ID ngoài Range": t.get("outside_range")})
 table(pd.DataFrame(rows), **{"Số dòng": so, "Khóa trùng": so, "ID ngoài Range": so})
