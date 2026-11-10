@@ -60,9 +60,10 @@ md(f"Trung bình mỗi Publication có **{so(mean_versions, 2)} Version** "
 ## Kích thước source
 
 Đề yêu cầu kích thước trung bình mỗi bài **trước và sau** khi bỏ hình và các
-file không phải `.tex`/`.bib`. Một "bài" ở đây là một **Publication**, cộng mọi
-Version của nó. Cả hai số được đo trên **cùng tập Publication hoàn chỉnh** mà
-receipt `source.json` của mọi Version đều ghi kích thước:
+file không phải `.tex`/`.bib`. Báo cáo tính theo hai đơn vị: **Publication**
+(cộng mọi Version của bài) và **Version**. Cả hai bảng đo trên **cùng tập
+Publication hoàn chỉnh** mà receipt `source.json` của mọi Version đều ghi kích
+thước, nên cùng tổng số byte, chỉ khác mẫu số:
 
 - *Archive tải về*: số byte nhận từ arXiv (đã nén).
 - *Trước khi bỏ hình*: số byte sau giải nén, trước khi lọc file.
@@ -83,13 +84,30 @@ for m, s in SNAPSHOTS.items():
                  "Trung vị sau": mb(after["median"]), "Lớn nhất sau": mb(after["max"]),
                  "Giảm": "—" if st.get("size_reduction_fraction") is None
                          else f"{so(100 * st['size_reduction_fraction'], 1)}%"})
+md("**Theo Publication**")
+table(pd.DataFrame(rows))
+
+rows = []
+for m, s in SNAPSHOTS.items():
+    st = s["storage"]
+    sized = st.get("sized_version_after_bytes") or {}
+    after = sized if sized.get("n") else (st.get("complete_version_retained_bytes") or {})
+    get = lambda field: (st.get(field) or {}).get("mean")
+    rows.append({"Thành viên": name(m),
+                 "Version có đủ số đo": so(sized["n"]) if sized.get("n") else "chưa đo",
+                 "Archive tải về (TB/Version)": mb(get("sized_version_downloaded_bytes")),
+                 "Trước khi bỏ hình (TB/Version)": mb(get("sized_version_before_bytes")),
+                 "Sau khi bỏ hình (TB/Version)": mb(after.get("mean")),
+                 "Trung vị sau": mb(after.get("median")), "Lớn nhất sau": mb(after.get("max"))})
+md("**Theo Version**")
 table(pd.DataFrame(rows))
 missing = [name(m) for m, s in SNAPSHOTS.items() if s["storage"].get("before_extraction_bytes") is None]
 if missing:
     md(f"Corpus của {', '.join(missing)} được crawl khi Engine chưa ghi kích thước archive trước "
        "giải nén, nên cột *trước* còn trống. Số này đo trong lượt benchmark trên Colab "
        "(trang Hiệu năng), không ước lượng. Cột *sau* của các Range này tính trên mọi "
-       "Publication hoàn chỉnh.")
+       "Publication hoàn chỉnh; bảng theo Version cần snapshot sinh bằng `scripts.report_m1` "
+       "từ PR #37 của repo code trở đi.")
 ```
 
 ```{code-cell} python

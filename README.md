@@ -48,7 +48,10 @@ python -m scripts.report_m1 --cache data/crawl-smoke \
 
 Sau lượt benchmark trên Colab, notebook `notebooks/colab_m1_selftest.ipynb` xuất thư mục
 `report/` đúng layout `data/m1/` ở trên (snapshot kèm khối `benchmark`, và
-`benchmark/<member>/`). Chép nguyên `report/*` của từng Range vào `data/m1/`.
+`benchmark/<member>/`). Chép nguyên `report/*` của từng Range vào `data/m1/`. Notebook ở tag `m1-bench-v2` chưa
+ghi kích thước theo Version; muốn có bảng này, giải nén checkpoint rồi chạy lại
+`scripts.report_m1` từ `main` (kèm `--member`, `--ids-file`, `--benchmark`) để ghi đè
+`snapshots/<member>.json`.
 
 ## Build cục bộ
 
