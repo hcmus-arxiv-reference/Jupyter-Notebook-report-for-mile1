@@ -19,6 +19,14 @@ project:
         - file: m1/03-hieu-nang.md
         - file: m1/04-han-che.md
         - file: m1/05-so-sanh-pipeline.md
+    - title: "Milestone 2: Parser"
+      children:
+        - file: m2/01-tong-quan.md
+        - file: m2/02-source-structure.md
+        - file: m2/03-leaves.md
+        - file: m2/04-normalize-bibtex.md
+        - file: m2/05-tich-hop.md
+        - file: m2/06-han-che.md
 
 site:
   template: book-theme

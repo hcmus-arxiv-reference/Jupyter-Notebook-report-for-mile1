@@ -15,4 +15,5 @@ Mọi bảng, hình và con số trong báo cáo được tính lúc build từ 
 trong `data/m1/`. Báo cáo không chứa source LaTeX, nội dung Reference hay thông
 tin đăng nhập, và quá trình build không gọi mạng.
 
-Milestone 2 sẽ được thêm thành phần tiếp theo của cùng cuốn sách.
+Phần **Milestone 2** trình bày Parser: cấu trúc chương trình, phương pháp của từng bước và
+số liệu sơ bộ. Phần này đang là bản sơ lược và sẽ được hoàn thiện khi các bước có số đo nghiệm thu.

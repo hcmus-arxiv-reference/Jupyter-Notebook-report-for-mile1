@@ -1,0 +1,21 @@
+{
+  "source": "Hải tự báo cáo trên issue #32 của repo code, ngày 2026-11-12; nhóm chưa chạy lại",
+  "commit": "af96a99",
+  "seed": 42,
+  "publications": 100,
+  "publications_processed": 84,
+  "entries_before": 411898,
+  "entries_after": 155529,
+  "largest_publications": [
+    {"arxiv_id": "2412.12527", "entries_before": 312064},
+    {"arxiv_id": "2412.10121", "entries_before": 88653}
+  ],
+  "validate_D_failed_publications": 19,
+  "unresolved_keys": 1273,
+  "unresolved_missing_entry": 1269,
+  "unresolved_multiple_targets": 4,
+  "publications_missing_a_version": 22,
+  "versions": 166,
+  "versions_source_error": 34,
+  "versions_non_tex": 11
+}

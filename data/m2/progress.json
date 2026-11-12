@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-11-12",
+  "packages": [
+    {"package": "Source + Structure", "steps": "M2.1, M2.2", "owner": "Liễu",
+     "modules": "src/parse/source.py, src/parse/structure.py", "pr": 48,
+     "state": "PR mở, chờ review", "measured": "Đã đo M2.1 và Structure trên toàn Range Bảo"},
+    {"package": "Leaves", "steps": "M2.3", "owner": "Nghiêm",
+     "modules": "src/parse/sentences.py, src/parse/leaves.py", "pr": 43,
+     "state": "PR nháp (#43 tách câu, #39 lá)", "measured": "Chưa đo trên bộ mẫu"},
+    {"package": "Normalize + BibTeX", "steps": "M2.4a, M2.4b", "owner": "Hải",
+     "modules": "src/parse/normalize.py, src/parse/bibtex.py", "pr": 44,
+     "state": "PR nháp", "measured": "Tự đo BibTeX trên 100 Publication"},
+    {"package": "Integration", "steps": "M2.5", "owner": "Minh",
+     "modules": "src/parse/types.py, src/parse/export.py, src/parse/pipeline.py", "pr": 42,
+     "state": "types.py đã merge; export và pipeline chưa có", "measured": "Chưa có"}
+  ]
+}
