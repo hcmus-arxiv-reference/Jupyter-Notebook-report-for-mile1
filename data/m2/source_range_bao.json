@@ -1,0 +1,23 @@
+{
+  "scope": "Mọi Version đã tải của Range Bảo (2508.02872–2508.07871), corpus chỉ gồm .tex/.bib",
+  "target_ready_fraction": 0.95,
+  "runs": [
+    {"date": "2026-11-06", "commit": "trước M2", "seconds": 39,
+     "ready": 5522, "needs_review": 909, "error": 848, "empty_non_tex": 484},
+    {"date": "2026-11-12", "commit": "d9e9ce5", "seconds": 82,
+     "ready": 6031, "needs_review": 682, "error": 566, "empty_non_tex": 484,
+     "structure_validated": 5905, "structure_failed": 126,
+     "issue_versions": [
+       {"code": "unsupported_conditional", "severity": "needs_review", "versions": 452},
+       {"code": "ambiguous_root", "severity": "error", "versions": 204},
+       {"code": "include_error", "severity": "error", "versions": 174},
+       {"code": "missing_bbl", "severity": "needs_review", "versions": 134},
+       {"code": "unclosed_conditional", "severity": "error", "versions": 116},
+       {"code": "invalid_syntax", "severity": "error", "versions": 70},
+       {"code": "unsupported_control", "severity": "needs_review", "versions": 69},
+       {"code": "encoding_fallback", "severity": "needs_review", "versions": 44},
+       {"code": "macro_compilation_path", "severity": "needs_review", "versions": 15},
+       {"code": "missing_root", "severity": "error", "versions": 8}
+     ]}
+  ]
+}

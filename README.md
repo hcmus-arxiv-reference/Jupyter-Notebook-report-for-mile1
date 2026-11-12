@@ -15,6 +15,14 @@ m1/                      # Milestone 1
   04-han-che.md          # lỗi còn lại, hạn chế (code-cell)
   05-so-sanh-pipeline.md # pipeline ban đầu của từng thành viên (code-cell)
   m1data.py              # đọc data/m1/ và hàm định dạng dùng chung
+m2/                      # Milestone 2 (bản sơ lược)
+  01-tong-quan.md … 06-han-che.md   # mỗi bước Parser một trang, người viết gói đó hoàn thiện
+  m2data.py              # đọc data/m2/, dùng lại hàm định dạng của m1data
+data/m2/
+  source_range_bao.json  # trạng thái M2.1 và Structure trên Range Bảo qua các lượt đo
+  bibtex_sample.json     # số liệu BibTeX trên bộ mẫu (tự báo cáo)
+  progress.json          # trạng thái từng gói
+  metrics/<gói>.json     # số nghiệm thu của từng gói (chép từ repo code khi có)
 data/m1/
   snapshots/<member>.json                     # scripts/report_m1.py, mỗi Range một file (Engine chung)
   benchmark/<member>/benchmark_total.json     # src/merge_benchmarks.py của lượt Colab cùng Range

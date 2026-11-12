@@ -19,8 +19,17 @@ project:
         - file: m1/03-hieu-nang.md
         - file: m1/04-han-che.md
         - file: m1/05-so-sanh-pipeline.md
+    - title: "Milestone 2: Parser"
+      children:
+        - file: m2/01-tong-quan.md
+        - file: m2/02-source-structure.md
+        - file: m2/03-leaves.md
+        - file: m2/04-normalize-bibtex.md
+        - file: m2/05-tich-hop.md
+        - file: m2/06-han-che.md
 
 site:
-  template: book-theme
+  # Ghim theme: mystmd 1.5.0 không chạy được bản book-theme mới hơn 1.4.1 (build treo).
+  template: https://github.com/jupyter-book/myst-theme/releases/download/myst-to-react%401.4.1/book-theme.zip
   options:
     logo_text: "arXiv Reference Matching"
