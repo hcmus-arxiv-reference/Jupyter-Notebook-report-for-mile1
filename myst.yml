@@ -29,6 +29,7 @@ project:
         - file: m2/06-han-che.md
 
 site:
-  template: book-theme
+  # Ghim theme: mystmd 1.5.0 không chạy được bản book-theme mới hơn 1.4.1 (build treo).
+  template: https://github.com/jupyter-book/myst-theme/releases/download/myst-to-react%401.4.1/book-theme.zip
   options:
     logo_text: "arXiv Reference Matching"
