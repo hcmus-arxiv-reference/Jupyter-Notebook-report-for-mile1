@@ -1,0 +1,21 @@
+{
+  "declared_missing_recovered": 1285,
+  "format": 1,
+  "member": "bao",
+  "publications": {
+    "bib_or_bibitem": 3835,
+    "declared_missing": 983,
+    "no_bibliography": 23
+  },
+  "recovery_report": {
+    "http_error": 3,
+    "source_failed": 454,
+    "verified": 1490
+  },
+  "tex_versions": 7279,
+  "versions": {
+    "bib_or_bibitem": 5869,
+    "declared_missing": 1378,
+    "no_bibliography": 32
+  }
+}
