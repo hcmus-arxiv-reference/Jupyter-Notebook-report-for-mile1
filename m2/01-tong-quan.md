@@ -28,30 +28,65 @@ Milestone 2 nhận `.tex/.bib` của mọi Version đã thu thập ở Milestone
 Parser không dùng LLM hay mô hình pretrained. Mọi bước là code tất định: cùng input cho cùng
 output từng byte.
 
-## Cấu trúc chương trình
+## Pipeline
 
-Parser gồm năm bước, nối với nhau qua năm điểm giao có kiểu dữ liệu và hàm kiểm tra riêng
-(`src/parse/types.py`, `validate_A` … `validate_D`).
+Parser xử lý từng Publication qua hai cấp. **Cấp Version** dựng cây tài liệu và tách nguồn danh mục
+tham khảo cho từng `v1`, `v2`, …. **Cấp Publication** gộp mọi Version: dựng BibTeX entry một lần,
+chuẩn hóa, băm `element_id` rồi khử trùng lặp giữa các Version. Mọi Version, kể cả Version lỗi hoặc
+không có TeX, đều có một dòng log kèm mã lý do.
 
 ```{mermaid}
-flowchart LR
-  V[Thư mục Version] --> A["[A] SourceBundle"]
-  A --> B["[B] StructureTree"]
-  A --> Bp["[B'] BibSource"]
-  B --> C["[C] LeafTree"]
-  Bp --> D["[D] BibResult"]
-  C --> E["[E] elements, hierarchy, bibtex"]
-  D --> E
-  N["normalize()"] --> E
+flowchart TB
+  RAW[("Corpus M1<br/>.tex/.bib + receipt source.json")]
+  ROOT[/"Root đã review<br/>configs/m2-reviewed-roots.json"/]
+  SIDE[/"Sidecar bibliography<br/>.bib/.bbl khôi phục + manifest"/]
+  CK{"Checkpoint<br/>SHA-256 đầu vào + phiên bản module<br/>khớp lần chạy trước?"}
+
+  subgraph VER["Mỗi Version"]
+    direction TB
+    VS{"Version đã xác minh?"}
+    SRC["1 · Gom source<br/>chọn file gốc, theo input/include"]
+    STR["2 · Khung mục<br/>section… , bỏ References<br/>+ tách nguồn bibliography"]
+    SUP["Bổ sung bibliography<br/>từ sidecar đã kiểm SHA-256"]
+    LEAF["3 · Lá<br/>câu, công thức khối, hình, item"]
+  end
+
+  subgraph PUB["Mỗi Publication"]
+    direction TB
+    BIB["4 · BibTeX<br/>gom mọi Version, khử trùng lặp entry"]
+    EXP["5 · Tích hợp<br/>đổi key cite, chuẩn hóa,<br/>băm element_id, khử trùng lặp Version"]
+    INV{"Bất biến<br/>trước khi ghi"}
+  end
+
+  OUT[("elements · hierarchy · bibtex")]
+  LOG[["log từng Version · metrics"]]
+
+  RAW --> CK
+  CK -->|"khớp: dùng lại kết quả"| OUT
+  CK -->|"không"| VS
+  VS -->|"có TeX"| SRC --> STR --> SUP --> LEAF
+  VS -->|"không TeX hoặc thiếu"| LOG
+  ROOT -.-> SRC
+  SIDE -.-> SUP
+  LEAF --> EXP
+  SUP --> BIB --> EXP --> INV --> OUT
+  SRC -.->|"lỗi"| LOG
+  STR -.->|"lỗi"| LOG
+  INV -.-> LOG
 ```
 
-| Bước | Việc | Điểm giao ra | Trang |
-|---|---|---|---|
-| M2.1 Source | chọn file gốc, gộp `\input`/`\include` theo đường biên dịch | [A] `SourceBundle` | [Source và Structure](02-source-structure.md) |
-| M2.2 Structure | dựng khung mục, bỏ References, tách nguồn danh mục tham khảo | [B] `StructureTree`, [B'] `BibSource` | [Source và Structure](02-source-structure.md) |
-| M2.3 Leaves | tách Block thành câu, công thức khối, hình, danh sách | [C] `LeafTree` | [Leaves](03-leaves.md) |
-| M2.4 Normalize, BibTeX | chuẩn hóa nội dung; gom và khử trùng lặp BibTeX entry | `normalize()`, [D] `BibResult` | [Normalize và BibTeX](04-normalize-bibtex.md) |
-| M2.5 Integration | đổi key trích dẫn, băm `element_id`, khử trùng lặp giữa các Version, xuất bảng | [E] ba bảng, log, metrics | [Tích hợp và số liệu](05-tich-hop.md) |
+| Bước | Cấp | Việc | Module, kiểu dữ liệu ra | Trang |
+|---|---|---|---|---|
+| Checkpoint | Publication | bỏ qua Publication khi đầu vào (corpus, sidecar, root review) và phiên bản module không đổi | `pipeline.py`, `done.json` | [Tích hợp](05-tich-hop.md) |
+| 1 · Gom source | Version | kiểm receipt, chọn file gốc (hoặc dùng root đã review), gộp `\input`/`\include` theo đường biên dịch | `source.py`, `SourceBundle` | [Source và Structure](02-source-structure.md) |
+| 2 · Khung mục | Version | `\section`…`\paragraph`, giữ Acknowledgements và phụ lục, bỏ References; tách nguồn bibliography, bổ sung từ sidecar | `structure.py`, `bibtex_input.py`; `StructureTree`, `BibSource` | [Source và Structure](02-source-structure.md) |
+| 3 · Lá | Version | tách câu, công thức khối, hình (gồm bảng), mỗi `\item` là con của danh sách | `leaves.py`, `LeafTree` | [Leaves](03-leaves.md) |
+| 4 · BibTeX | Publication | đọc `.bib`/`\bibitem` của mọi Version, khử trùng lặp entry, sinh `key_map` từng Version | `bibtex.py`, `BibResult` | [Normalize và BibTeX](04-normalize-bibtex.md) |
+| 5 · Tích hợp | Publication | đổi `\cite` theo `key_map`, chuẩn hóa nội dung, băm `element_id` theo cây con, khử trùng lặp giữa các Version, kiểm bất biến, ghi bảng | `normalize.py`, `export.py` | [Normalize và BibTeX](04-normalize-bibtex.md), [Tích hợp](05-tich-hop.md) |
+
+Giữa hai bước liền nhau là một kiểu dữ liệu có hàm kiểm tra riêng (`validate_A` … `validate_E` trong
+`src/parse/types.py`). Bước nào trả dữ liệu sai thì Version dừng ở đó và được ghi lỗi, không truyền
+dữ liệu hỏng sang bước sau.
 
 ## Cách kiểm thử
 
@@ -60,11 +95,12 @@ tự viết kèm output mong đợi tại từng điểm giao. Test của một 
 nó, chạy code, so với golden của điểm giao sau nó, rồi gọi hàm `validate_*`. Nhờ vậy các bước
 phát triển song song mà không phải chờ nhau. Golden được viết tay và review trước khi viết code.
 
-## Trạng thái
+## Tổ chức nhóm
 
 ```{code-cell} python
 :tags: [remove-input]
-md(f"Trạng thái các gói việc tại ngày **{PROGRESS['as_of']}**:")
+md(f"Mỗi bước là một gói việc có người viết riêng; các gói phát triển song song nhờ golden fixture ở mục trên. "
+   f"Trạng thái tại ngày **{PROGRESS['as_of']}**:")
 table(pd.DataFrame([{"Gói": p["package"], "Bước": p["steps"], "Người viết": p["owner"],
                      "Trạng thái": p["state"], "Số liệu": p["measured"]} for p in PROGRESS["packages"]]))
 ```
