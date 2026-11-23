@@ -11,6 +11,8 @@ giá trị là ``None`` và trang ghi "chưa có số liệu" thay vì lỗi bui
 - ``bib_coverage/<member>.json``: nguồn bibliography của từng Version TeX trước/sau khôi phục
   (``scripts/measure_bib_coverage.py``); ``bib_coverage/sample_before.json`` là metrics export của
   bộ mẫu khi chưa dùng sidecar, để so với ``metrics/export.json``.
+- ``ranges/<member>.json``: metrics của ``scripts/parse_range.py --member`` trên toàn Range (có sidecar
+  và root đã review), thêm ``version_status`` và ``failed_version_issues`` đếm từ ``log/versions.jsonl``.
 """
 from __future__ import annotations
 
@@ -37,6 +39,18 @@ METRICS = {p.stem: _load(p) for p in sorted((DATA2 / "metrics").glob("*.json"))}
 BIBCOV = {p.stem: _load(p) for p in sorted((DATA2 / "bib_coverage").glob("*.json"))}
 MEMBER_ORDER = ["bao", "minh", "nghiem", "hai", "lieu"]
 MEMBER_NAME = {"bao": "Bảo", "minh": "Minh", "nghiem": "Nghiêm", "hai": "Hải", "lieu": "Liệu"}
+RANGES = {m: _load(DATA2 / "ranges" / f"{m}.json") for m in MEMBER_ORDER
+          if (DATA2 / "ranges" / f"{m}.json").exists()}
+ISSUE_LABEL = {
+    "ambiguous_root": "nhiều file gốc, chưa chọn được",
+    "parse_error": "lỗi khi dựng cây",
+    "include_error": "`\\input` tới file không có",
+    "unsupported_conditional": "lệnh điều kiện chưa hỗ trợ",
+    "unclosed_conditional": "lệnh điều kiện không đóng",
+    "invalid_syntax": "cú pháp TeX hỏng",
+    "publication_error": "lỗi cấp Publication",
+    "missing_root": "không có file gốc",
+}
 
 
 def tex_versions(run):
