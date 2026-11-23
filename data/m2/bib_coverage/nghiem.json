@@ -1,0 +1,24 @@
+{
+  "declared_missing_recovered": 1066,
+  "format": 1,
+  "member": "nghiem",
+  "publications": {
+    "bib_or_bibitem": 3972,
+    "declared_missing": 794,
+    "no_bibliography": 29
+  },
+  "recovery_report": {
+    "archive_not_tar": 3,
+    "http_error": 1,
+    "metadata_invalid": 3,
+    "source_failed": 718,
+    "source_missing": 4,
+    "verified": 1230
+  },
+  "tex_versions": 7571,
+  "versions": {
+    "bib_or_bibitem": 6359,
+    "declared_missing": 1167,
+    "no_bibliography": 45
+  }
+}
