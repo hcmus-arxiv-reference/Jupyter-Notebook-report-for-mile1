@@ -79,7 +79,7 @@ flowchart TB
 |---|---|---|---|---|
 | Checkpoint | Publication | bỏ qua Publication khi đầu vào (corpus, sidecar, root review) và phiên bản module không đổi | `pipeline.py`, `done.json` | [Tích hợp](05-tich-hop.md) |
 | 1 · Gom source | Version | kiểm receipt, chọn file gốc (hoặc dùng root đã review), gộp `\input`/`\include` theo đường biên dịch | `source.py`, `SourceBundle` | [Source và Structure](02-source-structure.md) |
-| 2 · Khung mục | Version | `\section`…`\paragraph`, giữ Acknowledgements và phụ lục, bỏ References; tách nguồn bibliography, bổ sung từ sidecar | `structure.py`, `bibtex_input.py`; `StructureTree`, `BibSource` | [Source và Structure](02-source-structure.md) |
+| 2 · Khung mục | Version | `\section`…`\paragraph`, giữ Acknowledgements và phụ lục, bỏ References; tách nguồn bibliography, bổ sung từ sidecar | `structure.py`, `bibtex_input.py`; `StructureTree`, `BibSource` | [Source và Structure](02-source-structure.md), [Khôi phục bibliography](055-khoi-phuc-bibliography.md) |
 | 3 · Lá | Version | tách câu, công thức khối, hình (gồm bảng), mỗi `\item` là con của danh sách | `leaves.py`, `LeafTree` | [Leaves](03-leaves.md) |
 | 4 · BibTeX | Publication | đọc `.bib`/`\bibitem` của mọi Version, khử trùng lặp entry, sinh `key_map` từng Version | `bibtex.py`, `BibResult` | [Normalize và BibTeX](04-normalize-bibtex.md) |
 | 5 · Tích hợp | Publication | đổi `\cite` theo `key_map`, chuẩn hóa nội dung, băm `element_id` theo cây con, khử trùng lặp giữa các Version, kiểm bất biến, ghi bảng | `normalize.py`, `export.py` | [Normalize và BibTeX](04-normalize-bibtex.md), [Tích hợp](05-tich-hop.md) |

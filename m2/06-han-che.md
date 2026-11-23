@@ -34,7 +34,7 @@ lý do; không Version nào bị bỏ qua im lặng.
 ## Bibliography sau khôi phục
 
 Phần bibliography mà M1 lọc mất đã được khôi phục có kiểm chứng (xem
-[Khôi phục bibliography](05b-khoi-phuc-bibliography.md)). Còn lại khoảng 7–10% Version "khai báo
+[Khôi phục bibliography](055-khoi-phuc-bibliography.md)). Còn lại khoảng 7–10% Version "khai báo
 nhưng thiếu" không khôi phục được, cùng các key tác giả cite mà không có trong `.bib`.
 
 ## Việc còn mở

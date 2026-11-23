@@ -48,7 +48,7 @@ Plan 100 Publication lấy ngẫu nhiên có seed, kèm lệnh tải từ Huggin
 
 Chạy `scripts/parse_range.py --member <m> --supplement-dir … --roots configs/m2-reviewed-roots.json`
 trên toàn bộ corpus M1 của từng Range, có sidecar bibliography (xem
-[Khôi phục bibliography](05b-khoi-phuc-bibliography.md)) và các file gốc đã review.
+[Khôi phục bibliography](055-khoi-phuc-bibliography.md)) và các file gốc đã review.
 
 ```{code-cell} python
 :tags: [remove-input]
