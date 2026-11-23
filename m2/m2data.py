@@ -33,12 +33,16 @@ def load(name):
 
 
 SOURCE = load("source_range_bao.json")
+LEAVES = load("leaves_ranges.json")
 BIBTEX = load("bibtex_sample.json")
 PROGRESS = load("progress.json")
 METRICS = {p.stem: _load(p) for p in sorted((DATA2 / "metrics").glob("*.json"))}
 BIBCOV = {p.stem: _load(p) for p in sorted((DATA2 / "bib_coverage").glob("*.json"))}
 MEMBER_ORDER = ["bao", "minh", "nghiem", "hai", "lieu"]
-MEMBER_NAME = {"bao": "Bảo", "minh": "Minh", "nghiem": "Nghiêm", "hai": "Hải", "lieu": "Liệu"}
+# Báo cáo gọi Range theo dải arXiv ID, không theo tên người chạy (cùng nhãn với chương M1).
+MEMBER_NAME = {"bao": "2508.02872–2508.07871", "minh": "2409.18594–2410.03024",
+               "nghiem": "2409.08594–2409.13593", "hai": "2412.08848–2412.13847",
+               "lieu": "2410.08025–2410.13024"}
 RANGES = {m: _load(DATA2 / "ranges" / f"{m}.json") for m in MEMBER_ORDER
           if (DATA2 / "ranges" / f"{m}.json").exists()}
 ISSUE_LABEL = {

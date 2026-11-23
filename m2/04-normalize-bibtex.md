@@ -14,11 +14,6 @@ from m2data import *
 import plotly.express as px
 ```
 
-```{code-cell} python
-:tags: [remove-input]
-draft("Hải")
-```
-
 ## Normalize
 
 `normalize(kind, raw)` là hàm thuần, đưa nội dung về dạng so sánh được giữa các Version:
@@ -51,7 +46,7 @@ Với mỗi Publication, bước này nhận `BibSource` của **mọi** Version
 5. **`key_map`:** ánh xạ key gốc của từng Version sang key đã chọn, dùng để đổi `\cite` ở bước
    Tích hợp.
 
-## Kết quả sơ bộ trên bộ mẫu
+## Kết quả trên bộ mẫu 100 Publication
 
 ```{code-cell} python
 :tags: [remove-input]
@@ -80,9 +75,6 @@ Phạm vi xuất bảng `bibtex`:
 2. mọi entry của các file `.bib` được khai báo.
 
 Phương án 1 tránh đưa danh mục thư viện chưa dùng vào bước Matching; phương án 2 không bỏ sót
-key khi bộ đọc `\cite` thiếu biến thể. Nhóm sẽ đối chiếu độ phủ key trên bộ mẫu rồi chốt.
+key khi bộ đọc `\cite` thiếu biến thể. Nhóm chốt phương án 1 (quyết định C12, 20/11/2026).
 
-```{code-cell} python
-:tags: [remove-input]
-if "bibtex" not in METRICS: pending("bibtex")
-```
+Số BibTeX entry trên cả 5 Range ở trang [Tích hợp và số liệu](05-tich-hop.md).

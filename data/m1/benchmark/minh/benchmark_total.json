@@ -1,0 +1,158 @@
+{
+  "segments": 14,
+  "total_wall_seconds": 36757.47,
+  "total_wall_hours": 10.21,
+  "total_cooldown_seconds": 0,
+  "wall_seconds_excl_cooldown": 36757.47,
+  "peak_rss_mb": 483.5,
+  "avg_rss_mb": 260.4,
+  "peak_disk_mb": 3576.93,
+  "final_disk_mb": 3576.93,
+  "per_segment": [
+    {
+      "name": "run_001",
+      "wall_seconds": 2715.75,
+      "peak_rss_mb": 385.9,
+      "done_papers_at_start": 0,
+      "done_papers_at_end": 524,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_002",
+      "wall_seconds": 2715.33,
+      "peak_rss_mb": 348.2,
+      "done_papers_at_start": 524,
+      "done_papers_at_end": 1063,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_003",
+      "wall_seconds": 2716.17,
+      "peak_rss_mb": 340.2,
+      "done_papers_at_start": 1063,
+      "done_papers_at_end": 1584,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_004",
+      "wall_seconds": 2726.04,
+      "peak_rss_mb": 355.0,
+      "done_papers_at_start": 1584,
+      "done_papers_at_end": 2090,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_005",
+      "wall_seconds": 2731.3,
+      "peak_rss_mb": 368.9,
+      "done_papers_at_start": 2090,
+      "done_papers_at_end": 2428,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_006",
+      "wall_seconds": 2734.03,
+      "peak_rss_mb": 363.5,
+      "done_papers_at_start": 2428,
+      "done_papers_at_end": 2830,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_007",
+      "wall_seconds": 2749.61,
+      "peak_rss_mb": 383.6,
+      "done_papers_at_start": 2830,
+      "done_papers_at_end": 3185,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_008",
+      "wall_seconds": 2752.95,
+      "peak_rss_mb": 383.0,
+      "done_papers_at_start": 3185,
+      "done_papers_at_end": 3540,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_009",
+      "wall_seconds": 2810.99,
+      "peak_rss_mb": 415.5,
+      "done_papers_at_start": 3540,
+      "done_papers_at_end": 3837,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_010",
+      "wall_seconds": 2817.36,
+      "peak_rss_mb": 436.6,
+      "done_papers_at_start": 3837,
+      "done_papers_at_end": 4180,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_011",
+      "wall_seconds": 2081.76,
+      "peak_rss_mb": 316.6,
+      "done_papers_at_start": 4180,
+      "done_papers_at_end": 4438,
+      "cooldown_seconds": 0,
+      "ended": "Ctrl+C"
+    },
+    {
+      "name": "run_012",
+      "wall_seconds": 2776.05,
+      "peak_rss_mb": 457.8,
+      "done_papers_at_start": 4438,
+      "done_papers_at_end": 4740,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_013",
+      "wall_seconds": 2757.8,
+      "peak_rss_mb": 483.5,
+      "done_papers_at_start": 4740,
+      "done_papers_at_end": 4981,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_014",
+      "wall_seconds": 1672.33,
+      "peak_rss_mb": 444.2,
+      "done_papers_at_start": 4981,
+      "done_papers_at_end": 4981,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    }
+  ],
+  "member": "minh",
+  "run_id": "2026-11-19T021031Z_6f00b0e",
+  "commit": "6f00b0ea16aa5c87e551190c80e81047ea304fca",
+  "testbed": "Google Colab CPU",
+  "finished": true,
+  "sessions": 2,
+  "papers_requested": 5000,
+  "discovery_seconds": 54.8,
+  "avg_seconds_per_paper": 6.408,
+  "median_seconds_per_paper": 4.192,
+  "max_seconds_per_paper": 222.725,
+  "http": {
+    "http_429": 0,
+    "retries": 0,
+    "backoff_seconds": 0,
+    "partial": 0,
+    "resume": 0,
+    "scope": "source downloads only; discovery/S2 retries are not logged here"
+  }
+}

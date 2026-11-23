@@ -1,0 +1,512 @@
+{
+  "format": 1,
+  "member": "lieu",
+  "scope": "Range lieu only; other Ranges have their own snapshot",
+  "snapshot_at": "2026-11-20T06:33:55.613791+00:00",
+  "source_commit": "6f00b0ea16aa5c87e551190c80e81047ea304fca",
+  "range": {
+    "first": "2410.08025",
+    "last": "2410.13024"
+  },
+  "counts": {
+    "assigned": 5000,
+    "discovered": 5000,
+    "complete": 4975,
+    "references_success": 4995,
+    "s2_not_found": 5,
+    "expected_versions": 8414,
+    "success": 7910,
+    "non_tex": 475,
+    "unavailable": 29,
+    "download_error": 0,
+    "not_attempted": 0
+  },
+  "crawl": {
+    "engine": "main",
+    "last_worker_commit": null,
+    "finished_at": "2026-11-20T05:39:54.676983+00:00",
+    "status": "incomplete",
+    "note": "Colab benchmark 2026-11-19T150231Z_6f00b0e: one cold run of Engine 6f00b0e across 2 session(s), 19 segment(s)"
+  },
+  "versions_distribution": [
+    {
+      "versions": 1,
+      "publications": 2722
+    },
+    {
+      "versions": 2,
+      "publications": 1521
+    },
+    {
+      "versions": 3,
+      "publications": 517
+    },
+    {
+      "versions": 4,
+      "publications": 163
+    },
+    {
+      "versions": 5,
+      "publications": 49
+    },
+    {
+      "versions": 6,
+      "publications": 14
+    },
+    {
+      "versions": 7,
+      "publications": 5
+    },
+    {
+      "versions": 8,
+      "publications": 3
+    },
+    {
+      "versions": 9,
+      "publications": 2
+    },
+    {
+      "versions": 10,
+      "publications": 3
+    },
+    {
+      "versions": 11,
+      "publications": 1
+    }
+  ],
+  "references": {
+    "all_records": 214315,
+    "with_arxiv_before_dedup": 105875,
+    "unique_arxiv_pairs": 105875,
+    "legacy_arxiv_pairs": 5208,
+    "successfully_empty_publications": 278,
+    "per_successful_publication": {
+      "n": 4995,
+      "sum": 214315,
+      "mean": 42.905905905905904,
+      "median": 38,
+      "max": 429
+    },
+    "histogram": [
+      {
+        "lower": 0,
+        "upper_exclusive": 1,
+        "count": 278
+      },
+      {
+        "lower": 1,
+        "upper_exclusive": 10,
+        "count": 306
+      },
+      {
+        "lower": 10,
+        "upper_exclusive": 25,
+        "count": 860
+      },
+      {
+        "lower": 25,
+        "upper_exclusive": 50,
+        "count": 1870
+      },
+      {
+        "lower": 50,
+        "upper_exclusive": 100,
+        "count": 1450
+      },
+      {
+        "lower": 100,
+        "upper_exclusive": 200,
+        "count": 209
+      },
+      {
+        "lower": 200,
+        "upper_exclusive": 500,
+        "count": 22
+      },
+      {
+        "lower": 500,
+        "upper_exclusive": 1000,
+        "count": 0
+      },
+      {
+        "lower": 1000,
+        "upper_exclusive": null,
+        "count": 0
+      }
+    ]
+  },
+  "storage": {
+    "active_output_bytes": {
+      "raw": 4301145289,
+      "metadata": 2292243,
+      "references": 240344381,
+      "tables": 12273294
+    },
+    "retained_tex_bib_bytes": 4295280603,
+    "complete_publication_retained_bytes": {
+      "n": 4975,
+      "sum": 4291735524,
+      "mean": 862660.4068341708,
+      "median": 140924,
+      "max": 201755010
+    },
+    "before_extraction_bytes": 10185805.188542714,
+    "complete_publication_before_bytes": {
+      "n": 4975,
+      "sum": 50674380813,
+      "mean": 10185805.188542714,
+      "median": 2728856,
+      "max": 261569634
+    },
+    "complete_publication_downloaded_bytes": {
+      "n": 4975,
+      "sum": 40053476677,
+      "mean": 8050950.085829145,
+      "median": 2002634,
+      "max": 257535546
+    },
+    "publications_with_before_size": 4975,
+    "complete_version_retained_bytes": {
+      "n": 8340,
+      "sum": 4291735524,
+      "mean": 514596.5856115108,
+      "median": 106333.5,
+      "max": 50651101
+    },
+    "sized_version_before_bytes": {
+      "n": 8340,
+      "sum": 50674380813,
+      "mean": 6076064.845683454,
+      "median": 1832076.5,
+      "max": 249880545
+    },
+    "sized_version_downloaded_bytes": {
+      "n": 8340,
+      "sum": 40053476677,
+      "mean": 4802575.141127098,
+      "median": 1357905.0,
+      "max": 133638946
+    },
+    "sized_version_after_bytes": {
+      "n": 8340,
+      "sum": 4291735524,
+      "mean": 514596.5856115108,
+      "median": 106333.5,
+      "max": 50651101
+    },
+    "size_reduction_fraction": 0.9153075882695542,
+    "note": "Before/after compared on complete Publications whose receipts record sizes; before = bytes after decompression, before keeping .tex/.bib. Disk is a current logical-size snapshot, not historical peak."
+  },
+  "checks": {
+    "tables": {
+      "papers": {
+        "valid": true,
+        "rows": 4975,
+        "duplicate_keys": 0,
+        "outside_range": 0,
+        "fields": [
+          {
+            "name": "arxiv_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "authors",
+            "type": "list<element: string>",
+            "nullable": true
+          },
+          {
+            "name": "submission_date",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "revised_dates",
+            "type": "list<element: string>",
+            "nullable": true
+          },
+          {
+            "name": "venue",
+            "type": "string",
+            "nullable": true
+          }
+        ]
+      },
+      "references": {
+        "valid": true,
+        "rows": 105515,
+        "duplicate_keys": 0,
+        "outside_range": 0,
+        "fields": [
+          {
+            "name": "arxiv_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "ref_arxiv_id",
+            "type": "string",
+            "nullable": false
+          },
+          {
+            "name": "ref_title",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ref_authors",
+            "type": "list<element: string>",
+            "nullable": true
+          },
+          {
+            "name": "ref_submission_date",
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "name": "ref_s2_id",
+            "type": "string",
+            "nullable": true
+          }
+        ]
+      }
+    },
+    "unexpected_raw_files": [],
+    "metadata_issues": {}
+  },
+  "failures": [
+    {
+      "arxiv_id": "2410.08132",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.08373",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09408",
+      "version": 3,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09427",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09474",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09474",
+      "version": 3,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09474",
+      "version": 4,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09583",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09594",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09742",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09757",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09763",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09763",
+      "version": 4,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09797",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09882",
+      "version": 9,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.09991",
+      "version": 1,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.10022",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.10456",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.11116",
+      "version": 4,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.11533",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.11701",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.11858",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.11976",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.11976",
+      "version": 3,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.12142",
+      "version": 3,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.12244",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.12283",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.12478",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    },
+    {
+      "arxiv_id": "2410.12606",
+      "version": 2,
+      "kind": "source",
+      "status": "unavailable",
+      "http_status": 404
+    }
+  ],
+  "provenance": {
+    "verified_input_files": 18389,
+    "aggregate_input_hash": "1cfd2a4a57c6f547f9942b2c49ce646b019648185dba211dde78766ad802dfa9",
+    "manifest_sha256": "45018f175d657341c7080241c2f68ca2caff5cf48be5221d55e06605b3321226"
+  },
+  "benchmark": {
+    "testbed": "Google Colab CPU",
+    "segments": 19,
+    "total_wall_seconds": 45360.5,
+    "wall_seconds_per_assigned_publication": 9.0721,
+    "publications_timed": 5000,
+    "seconds_per_publication": {
+      "n": 5000,
+      "sum": 40192.543,
+      "mean": 8.0385086,
+      "median": 4.9345,
+      "max": 353.012
+    },
+    "mean_seconds_per_publication": 8.0385086,
+    "discovery_seconds": 67.654,
+    "peak_rss_bytes": 535612621,
+    "mean_rss_bytes": 267911168,
+    "peak_disk_bytes": 4570082181,
+    "final_disk_bytes": 4565741076
+  }
+}

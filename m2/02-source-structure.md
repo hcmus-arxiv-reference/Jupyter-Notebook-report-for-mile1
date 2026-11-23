@@ -14,11 +14,6 @@ from m2data import *
 import plotly.express as px
 ```
 
-```{code-cell} python
-:tags: [remove-input]
-draft("Liễu")
-```
-
 ## M2.1: gom source
 
 Input là một thư mục Version đã xác minh. `assemble_source()` trả về `SourceBundle`:
@@ -56,7 +51,7 @@ Mỗi Version nhận một trong bốn trạng thái:
 Cùng lúc, bước này tách `BibSource`: nội dung các `.bib` được gọi, các `\bibitem` nguyên văn và
 danh sách key được `\cite`.
 
-## Kết quả sơ bộ trên Range Bảo
+## Kết quả trong lúc phát triển (Range 2508.02872–2508.07871)
 
 ```{code-cell} python
 :tags: [remove-input]
@@ -96,7 +91,4 @@ md(f"**Structure:** trong {so(last['ready'])} Version `ready`, {pt(last['structu
 - Kiểm trên dữ liệu thật: không bài nào lọt References vào cây.
 - So sánh bộ quét tự viết với `pylatexenc` trên bộ mẫu.
 
-```{code-cell} python
-:tags: [remove-input]
-if "structure" not in METRICS: pending("structure")
-```
+Số liệu trên cả 5 Range sau khi tích hợp ở trang [Tích hợp và số liệu](05-tich-hop.md).

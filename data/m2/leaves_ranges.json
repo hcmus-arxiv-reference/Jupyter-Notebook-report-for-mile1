@@ -1,0 +1,96 @@
+{
+ "format": 1,
+ "source": "data/parse/<m>/tables/elements.parquet (sau khử trùng lặp)",
+ "ranges": {
+  "bao": {
+   "by_kind": {
+    "sentence": 1433922,
+    "section": 42979,
+    "item": 52380,
+    "itemize": 16252,
+    "paragraph": 11739,
+    "subsection": 52278,
+    "figure": 50281,
+    "document": 6370,
+    "formula": 150200,
+    "subsubsection": 14298,
+    "chapter": 136
+   },
+   "sentence_words_mean": 21.92,
+   "sentence_words_median": 19.0,
+   "sentence_words_p95": 42
+  },
+  "minh": {
+   "by_kind": {
+    "sentence": 1474995,
+    "item": 49081,
+    "itemize": 14566,
+    "section": 46315,
+    "figure": 51315,
+    "subsubsection": 13518,
+    "formula": 159777,
+    "subsection": 52670,
+    "document": 6710,
+    "paragraph": 12222,
+    "chapter": 117
+   },
+   "sentence_words_mean": 22.46,
+   "sentence_words_median": 19,
+   "sentence_words_p95": 44
+  },
+  "nghiem": {
+   "by_kind": {
+    "sentence": 1363671,
+    "item": 38201,
+    "itemize": 12161,
+    "figure": 45157,
+    "section": 39517,
+    "formula": 148155,
+    "subsection": 45194,
+    "document": 6378,
+    "subsubsection": 13000,
+    "paragraph": 7095,
+    "chapter": 135
+   },
+   "sentence_words_mean": 22.49,
+   "sentence_words_median": 19,
+   "sentence_words_p95": 44
+  },
+  "hai": {
+   "by_kind": {
+    "sentence": 1440863,
+    "formula": 150976,
+    "figure": 49842,
+    "document": 6384,
+    "section": 43378,
+    "subsection": 49941,
+    "subsubsection": 13403,
+    "paragraph": 10263,
+    "item": 42872,
+    "itemize": 13551,
+    "chapter": 173
+   },
+   "sentence_words_mean": 22.35,
+   "sentence_words_median": 19,
+   "sentence_words_p95": 43
+  },
+  "lieu": {
+   "by_kind": {
+    "sentence": 1508210,
+    "item": 49464,
+    "itemize": 14901,
+    "subsection": 54492,
+    "section": 47190,
+    "figure": 53248,
+    "subsubsection": 14104,
+    "formula": 162668,
+    "document": 6713,
+    "paragraph": 12109,
+    "chapter": 257
+   },
+   "sentence_words_mean": 22.31,
+   "sentence_words_median": 19.0,
+   "sentence_words_p95": 44
+  }
+ }
+}

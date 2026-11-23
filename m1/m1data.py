@@ -30,9 +30,15 @@ MEMBER_NAMES = {"bao": ("NTBao-coder", "Bảo"), "minh": ("nhminh107", "Minh"),
 N_RANGES = len(MEMBER_NAMES)  # số Range được giao cho nhóm
 
 
+# Báo cáo gọi Range theo dải arXiv ID, không theo tên người chạy.
+RANGE_LABELS = {"bao": "2508.02872–2508.07871", "minh": "2409.18594–2410.03024",
+                "nghiem": "2409.08594–2409.13593", "hai": "2412.08848–2412.13847",
+                "lieu": "2410.08025–2410.13024"}
+
+
 def name(key):
-    """Tên hiển thị của một khóa snapshot."""
-    return MEMBER_NAMES.get(key, (key, key))[1]
+    """Nhãn hiển thị của một Range: dải arXiv ID (hai đầu đều tính)."""
+    return RANGE_LABELS.get(key, key)
 
 
 def _load(path):
@@ -71,8 +77,8 @@ def pt(numerator, denominator, digits=1):
 
 
 def mb(value, digits=2):
-    """Byte -> MB thập phân (10^6), ``chưa đo`` khi thiếu."""
-    return "chưa đo" if value is None else f"{so(value / 1e6, digits)} MB"
+    """Byte -> MB thập phân (10^6); ``không ghi lại`` khi Engine của lượt crawl không đo số này."""
+    return "không ghi lại" if value is None else f"{so(value / 1e6, digits)} MB"
 
 
 def md(text):
@@ -110,7 +116,7 @@ def counts_frame():
     rows = []
     for member, snap in SNAPSHOTS.items():
         c = snap["counts"]
-        rows.append({"Thành viên": name(member), "Range": range_text(snap["range"]),
+        rows.append({"Range": name(member),
                      "ID được giao": c["assigned"], "Publication tìm thấy": c["discovered"],
                      "Publication hoàn chỉnh": c["complete"], "Version kỳ vọng": c["expected_versions"],
                      "Version có TeX": c["success"], "Version non-TeX": c["non_tex"],
@@ -118,8 +124,8 @@ def counts_frame():
                      "References thành công": c["references_success"]})
     df = pd.DataFrame(rows)
     if len(df) > 1:
-        total = df.drop(columns=["Thành viên", "Range"]).sum()
-        df = pd.concat([df, pd.DataFrame([{"Thành viên": "Tổng", "Range": "", **total}])], ignore_index=True)
+        total = df.drop(columns=["Range"]).sum()
+        df = pd.concat([df, pd.DataFrame([{"Range": "Tổng", **total}])], ignore_index=True)
     return df
 
 
@@ -128,9 +134,8 @@ def total(key):
 
 
 def snapshot_scope():
-    members = ", ".join(name(m) for m in SNAPSHOTS)
     times = ", ".join(f"{name(m)}: {s['snapshot_at'][:10]}" for m, s in SNAPSHOTS.items())
-    return (f"Số liệu lấy từ **{len(SNAPSHOTS)}/{N_RANGES} Range** đã có snapshot ({members}). "
+    return (f"Số liệu lấy từ **{len(SNAPSHOTS)}/{N_RANGES} Range** của nhóm. "
             f"Ngày snapshot (UTC): {times}.")
 
 

@@ -14,11 +14,6 @@ from m2data import *
 import plotly.express as px
 ```
 
-```{code-cell} python
-:tags: [remove-input]
-draft("Minh")
-```
-
 ## Thứ tự xử lý một Publication
 
 1. Với từng Version, đổi `\cite{k}` theo `key_map` của Version đó.
