@@ -26,6 +26,7 @@ project:
         - file: m2/03-leaves.md
         - file: m2/04-normalize-bibtex.md
         - file: m2/05-tich-hop.md
+        - file: m2/05b-khoi-phuc-bibliography.md
         - file: m2/06-han-che.md
 
 site:

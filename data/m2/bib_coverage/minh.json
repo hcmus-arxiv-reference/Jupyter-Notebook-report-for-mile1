@@ -1,0 +1,22 @@
+{
+  "declared_missing_recovered": 1160,
+  "format": 1,
+  "member": "minh",
+  "publications": {
+    "bib_or_bibitem": 3988,
+    "declared_missing": 818,
+    "no_bibliography": 28
+  },
+  "recovery_report": {
+    "archive_not_tar": 2,
+    "source_failed": 723,
+    "source_missing": 1,
+    "verified": 1351
+  },
+  "tex_versions": 7946,
+  "versions": {
+    "bib_or_bibitem": 6656,
+    "declared_missing": 1252,
+    "no_bibliography": 38
+  }
+}

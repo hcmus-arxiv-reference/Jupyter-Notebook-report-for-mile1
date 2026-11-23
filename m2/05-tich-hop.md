@@ -44,18 +44,66 @@ Thứ tự anh em không nằm trong bảng; nó được giữ ở dữ liệu 
 Plan 100 Publication lấy ngẫu nhiên có seed, kèm lệnh tải từ Hugging Face. Mọi gói đo
 `metrics/<gói>.json` trên cùng bộ mẫu này để số liệu so sánh được.
 
-## Số liệu đề yêu cầu
+## Số liệu đề yêu cầu trên 5 Range
+
+Chạy `scripts/parse_range.py --member <m> --supplement-dir … --roots configs/m2-reviewed-roots.json`
+trên toàn bộ corpus M1 của từng Range, có sidecar bibliography (xem
+[Khôi phục bibliography](05b-khoi-phuc-bibliography.md)) và các file gốc đã review.
 
 ```{code-cell} python
 :tags: [remove-input]
-e = METRICS.get("export", {})
-table(pd.DataFrame([{"Chỉ số": label, "Giá trị": e.get(key, "chưa đo")} for label, key in [
-    ("Tỉ lệ parse thành công", "success_rate"), ("Độ phủ Version", "version_coverage"),
-    ("Số Element trước khử trùng lặp", "elements_before"), ("Số Element sau khử trùng lặp", "elements_after"),
-    ("Số BibTeX entry trước khử trùng lặp", "entries_before"), ("Số BibTeX entry sau khử trùng lặp", "entries_after"),
-    ("Thời gian tổng và trung bình mỗi Publication", "seconds"), ("RAM đỉnh", "peak_rss_mb"),
-    ("Dung lượng đầu ra", "output_mb")]]))
-if not e: pending("export")
+if RANGES:
+    rows, tot = [], {}
+    keys = ["publications_total", "publications_succeeded", "versions_total_metadata", "versions_parsed",
+            "versions_empty_non_tex", "versions_failed", "elements_before_dedup", "elements_after_dedup",
+            "bibtex_entries_before_dedup", "bibtex_entries_after_dedup", "elapsed_seconds", "output_dir_size_mb"]
+    for m, r in RANGES.items():
+        for k in keys:
+            tot[k] = tot.get(k, 0) + r[k]
+        tot["peak_rss_mb"] = max(tot.get("peak_rss_mb", 0), r["peak_rss_mb"])
+    def row(name, r):
+        tex = r["versions_parsed"] + r["versions_failed"]
+        return {
+            "Range": name,
+            "Publication parse đủ": pt(r["publications_succeeded"], r["publications_total"]),
+            "Version TeX parse được": pt(r["versions_parsed"], tex),
+            "Element trước → sau khử trùng lặp": f"{so(r['elements_before_dedup'])} → {so(r['elements_after_dedup'])}",
+            "BibTeX entry trước → sau": f"{so(r['bibtex_entries_before_dedup'])} → {so(r['bibtex_entries_after_dedup'])}",
+            "Thời gian (phút)": so(r["elapsed_seconds"] / 60),
+            "RAM đỉnh (MB)": so(r["peak_rss_mb"]),
+            "Đầu ra (MB)": so(r["output_dir_size_mb"]),
+        }
+    rows = [row(MEMBER_NAME[m], r) for m, r in RANGES.items()]
+    if len(RANGES) == len(MEMBER_ORDER):
+        rows.append(row("**Tổng**", tot))
+    table(pd.DataFrame(rows))
+    md(f"Độ phủ Version: mọi Version trong metadata đều có một dòng log; "
+       f"{so(tot['versions_empty_non_tex'])} Version không có TeX được ghi bản ghi rỗng. "
+       f"Thời gian tổng là tổng của các Range (cách tính thầy chốt cho M1). "
+       f"Trung bình {so(tot['elapsed_seconds'] / tot['publications_total'], 2)} giây mỗi Publication.")
+else:
+    pending("ranges")
 ```
 
-Hiệu năng đo trên Google Colab CPU bằng cùng harness `src.benchmark` của Milestone 1.
+Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 23/11, chạy cục bộ, không phải
+Google Colab; thời gian và RAM trên Colab CPU sẽ khác.
+
+### Version lỗi theo lý do
+
+Một Version lỗi có thể mang nhiều mã. Bảng đếm số Version có mỗi mã, cộng 5 Range.
+
+```{code-cell} python
+:tags: [remove-input]
+if RANGES:
+    from collections import Counter
+    total = Counter()
+    for r in RANGES.values():
+        total.update(r["failed_version_issues"])
+    failed = sum(r["versions_failed"] for r in RANGES.values())
+    table(pd.DataFrame([{"Mã": f"`{code}`", "Ý nghĩa": ISSUE_LABEL.get(code, ""), "Version": so(n),
+                         "Tỉ lệ trên Version lỗi": pt(n, failed)}
+                        for code, n in total.most_common(8)]))
+```
+
+`ambiguous_root` là nhóm lớn nhất và giảm được bằng review file gốc, không cần sửa Parser.
+Các nhóm còn lại là giới hạn của cách đọc tĩnh, xem [Hạn chế](06-han-che.md).

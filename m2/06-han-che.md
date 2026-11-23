@@ -31,10 +31,15 @@ md(f"- **Corpus chỉ có `.tex/.bib`.** {so(by['missing_bbl'])} Version gọi f
 Parser không đạt 100% `ready` trên dữ liệu thật. Mọi Version vẫn có một dòng trong log kèm mã
 lý do; không Version nào bị bỏ qua im lặng.
 
+## Bibliography sau khôi phục
+
+Phần bibliography mà M1 lọc mất đã được khôi phục có kiểm chứng (xem
+[Khôi phục bibliography](05b-khoi-phuc-bibliography.md)). Còn lại khoảng 7–10% Version "khai báo
+nhưng thiếu" không khôi phục được, cùng các key tác giả cite mà không có trong `.bib`.
+
 ## Việc còn mở
 
-- Bước Tích hợp (`export`, `pipeline`) chưa có code, nên chưa có ba bảng và chưa có số liệu
-  đề yêu cầu.
+- Đã chạy M2 trên cả 5 Range (xem [Tích hợp](05-tich-hop.md)). Còn 1.963 Version `ambiguous_root`
+  cần review file gốc.
 - Chưa có bộ nhãn tay 30 bài để đo độ đúng cấp mục và ranh giới câu.
-- Chưa chốt phạm vi xuất bảng `bibtex` (xem [Normalize và BibTeX](04-normalize-bibtex.md)).
-- Số liệu hiện tại đo trên Range Bảo và một bộ mẫu; chưa chạy trên cả năm Range.
+- Bảng `bibtex` chỉ giữ entry được cite (C12, chốt 20/11; xem [Normalize và BibTeX](04-normalize-bibtex.md)).
