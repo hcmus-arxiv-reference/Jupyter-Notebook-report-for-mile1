@@ -1,0 +1,22 @@
+{
+  "declared_missing_recovered": 1085,
+  "format": 1,
+  "member": "hai",
+  "publications": {
+    "bib_or_bibitem": 3997,
+    "declared_missing": 792,
+    "no_bibliography": 47
+  },
+  "recovery_report": {
+    "archive_not_tar": 1,
+    "source_failed": 749,
+    "source_missing": 4,
+    "verified": 1247
+  },
+  "tex_versions": 7580,
+  "versions": {
+    "bib_or_bibitem": 6327,
+    "declared_missing": 1184,
+    "no_bibliography": 69
+  }
+}
