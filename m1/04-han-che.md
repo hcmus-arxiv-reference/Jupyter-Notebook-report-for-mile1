@@ -18,7 +18,9 @@ from m1data import *
 Mỗi tác vụ lỗi được ghi kèm ID, loại tác vụ, trạng thái và mã HTTP. Mã 404
 chỉ phản ánh kết quả tại thời điểm crawl, không chứng minh source đã mất vĩnh
 viễn. Vì vậy nó được ghi là `unavailable`/`error`, không bao giờ đổi thành
-`non_tex` hay danh sách Reference rỗng.
+`non_tex` hay danh sách Reference rỗng. Riêng trường hợp Semantic Scholar không có bài
+(mục dưới), file references rỗng mang nhãn `s2_status: "not_found"` để không lẫn với
+"S2 có bài nhưng 0 trích dẫn".
 
 ```{code-cell} python
 :tags: [remove-input]
@@ -43,6 +45,54 @@ for m, s in SNAPSHOTS.items():
         md(f"Đã thử lại riêng {so(t['requested'])} Publication còn thiếu của {name(m)} "
            f"(mất {so(t['elapsed_seconds'], 1)} giây). Kết quả: source ({src}), Reference ({ref}); "
            f"phục hồi thêm được **{so(t['recovered_publications'])} Publication**.")
+```
+
+## Trường hợp thực tế gặp khi crawl
+
+Engine ghi mọi request và mọi tác vụ (Discovery, Source fetch, References) kèm mã HTTP vào
+Manifest và log request, nên lỗi phía nguồn dữ liệu hiện ra thành số đếm được, không bị nuốt
+thành dữ liệu rỗng. Hai lượt chạy thử trên Colab ngày 15/11/2026 (Range Bảo) gặp các trường hợp
+sau:
+
+| Nguồn | Hiện tượng | Số lần | Engine xử lý |
+|---|---|---|---|
+| arXiv API `/api/query` | HTTP 429 (giới hạn tần suất) | 43/55 request (lượt 1) | Chờ lùi, thử lại cả lô; sau đó bỏ API, lấy metadata từ snapshot arXiv |
+| arXiv `/src/` | HTTP 404 cho một số Version | 12 Version của 11 Publication (lượt 2, 978 bài đầu) | Ghi `unavailable`, thử lại ở lượt sau |
+| Semantic Scholar | HTTP 429 | 5/16 request lô (lượt 2) | Chờ lùi ở luồng nền, luồng arXiv không phải chờ |
+| Semantic Scholar | **HTTP 404: S2 không có bài** | 1 Publication (`2508.03220`) | Ghi `s2_status: "not_found"`, không hỏi lại |
+
+Nguồn số liệu: lượt 1 `2026-11-15T035527Z_b60f3b6`, lượt 2 `2026-11-15T064334Z_5f66486`
+(file `run.json`, Manifest và log trong checkpoint của từng lượt).
+
+### Semantic Scholar không có bài
+
+Ở lượt 2, validator báo `2508.03220` không có file references. Tra Manifest thấy cả hai lần
+hỏi Semantic Scholar đều trả HTTP 404. Hỏi lại trực tiếp
+`GET /graph/v1/paper/arXiv:2508.03220` ngày 15/11/2026 vẫn nhận
+`Paper with id arXiv:2508.03220 not found`. Bài vẫn tồn tại trên arXiv (một Version, chỉ có
+PDF), nên đây là **lỗ hổng dữ liệu của Semantic Scholar**, không phải lỗi của crawler.
+
+Hỏi lại không thay đổi kết quả, nên từ 15/11 Engine:
+
+- ghi file references rỗng với `s2_status: "not_found"`, task `references` là `unavailable`
+  (HTTP 404), giống cách ghi một Version mà arXiv trả 404;
+- giữ Publication là hoàn chỉnh: có dòng `papers`, không có dòng `references`;
+- đếm riêng trường hợp này trong validator, thống kê và snapshot báo cáo, và không tính nó vào
+  trung bình số trích dẫn mỗi bài.
+
+Quy tắc này là mục C10 của hợp đồng dữ liệu (`docs/data-contract.md` mục 3.3 trong repo code).
+Các lỗi S2 khác (429, 5xx, mất mạng) vẫn là `error` và được thử lại.
+
+```{code-cell} python
+:tags: [remove-input]
+s2_missing = {name(m): s["counts"]["s2_not_found"] for m, s in SNAPSHOTS.items()
+              if "s2_not_found" in s.get("counts", {})}
+if s2_missing:
+    md("Trong các snapshot hiện có: " + ", ".join(f"{k}: {so(v)} Publication S2 không có bài"
+                                                   for k, v in s2_missing.items()) + ".")
+else:
+    md("Các snapshot hiện có được tạo trước quy tắc này; số Publication S2 không có bài của từng "
+       "Range sẽ hiện ở đây sau lượt benchmark chính thức.")
 ```
 
 ## Độ phủ Version theo thời gian
