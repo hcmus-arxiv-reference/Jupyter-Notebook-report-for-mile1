@@ -26,7 +26,7 @@ DATA = ROOT / "data" / "m1"
 # Khóa snapshot (tham số MEMBER của notebook Colab) -> (GitHub username, tên hiển thị).
 MEMBER_NAMES = {"bao": ("NTBao-coder", "Bảo"), "minh": ("nhminh107", "Minh"),
                 "nghiem": ("hohuunghiem", "Nghiêm"), "hai": ("ngochai06", "Hải"),
-                "lieu": ("langtucod0n", "Liễu")}
+                "lieu": ("langtucod0n", "Liệu")}
 N_RANGES = len(MEMBER_NAMES)  # số Range được giao cho nhóm
 
 
