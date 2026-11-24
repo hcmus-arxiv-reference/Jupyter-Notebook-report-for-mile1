@@ -27,6 +27,7 @@ project:
         - file: m2/04-normalize-bibtex.md
         - file: m2/05-tich-hop.md
         - file: m2/055-khoi-phuc-bibliography.md
+        - file: m2/07-tang-dan-mo-rong.md
         - file: m2/06-han-che.md
 
 site:

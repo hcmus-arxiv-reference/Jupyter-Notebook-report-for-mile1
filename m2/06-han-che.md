@@ -39,7 +39,7 @@ nhưng thiếu" không khôi phục được, cùng các key tác giả cite mà
 
 ## Việc còn mở
 
-- Đã chạy M2 trên cả 5 Range (xem [Tích hợp](05-tich-hop.md)). Còn 1.963 Version `ambiguous_root`
-  cần review file gốc.
+- Đã chạy M2 trên cả 5 Range (xem [Tích hợp](05-tich-hop.md)). Còn 590 Version `ambiguous_root`
+  mà luật chọn file gốc không cho kết quả duy nhất, ví dụ `Manuscript1.tex` với `Manuscript2.tex`.
 - Chưa có bộ nhãn tay 30 bài để đo độ đúng cấp mục và ranh giới câu.
 - Bảng `bibtex` chỉ giữ entry được cite (C12, chốt 20/11; xem [Normalize và BibTeX](04-normalize-bibtex.md)).

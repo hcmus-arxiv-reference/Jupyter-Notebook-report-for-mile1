@@ -80,7 +80,7 @@ else:
     pending("ranges")
 ```
 
-Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 23/11, chạy cục bộ, không phải
+Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 24/11, chạy cục bộ, không phải
 Google Colab; thời gian và RAM trên Colab CPU sẽ khác.
 
 ### Version lỗi theo lý do
@@ -100,5 +100,9 @@ if RANGES:
                         for code, n in total.most_common(8)]))
 ```
 
-`ambiguous_root` là nhóm lớn nhất và giảm được bằng review file gốc, không cần sửa Parser.
+Trước ADR 0005, `ambiguous_root` là nhóm lớn nhất với 1.963 Version. Luật chọn file gốc theo tiêu đề
+metadata, rồi theo tên file (`docs/adr/0005-mot-van-ban-chinh-moi-version.md` trong repo code) giải
+được 1.373 Version và còn lại 590 Version. Mỗi lựa chọn theo luật được ghi `root_selected_by_title`
+hoặc `root_selected_by_name` trong log nên kiểm tra lại được. Bảng trên Hugging Face được sinh từ
+commit `c813d20` (main ghép bản sửa môi trường toán và luật chọn file gốc), ngày 24/11.
 Các nhóm còn lại là giới hạn của cách đọc tĩnh, xem [Hạn chế](06-han-che.md).
