@@ -24,13 +24,13 @@ viễn. Vì vậy nó được ghi là `unavailable`/`error`, không bao giờ �
 
 ```{code-cell} python
 :tags: [remove-input]
-failures = pd.DataFrame([{"Thành viên": m, **f} for m, s in SNAPSHOTS.items() for f in s["failures"]])
+failures = pd.DataFrame([{"Range": name(m), **f} for m, s in SNAPSHOTS.items() for f in s["failures"]])
 if failures.empty:
     md("Không có tác vụ lỗi trong các snapshot hiện có.")
 else:
     kinds = {"discovery": "Discovery", "source": "Source fetch", "references": "References"}
     summary = (failures.assign(kind=failures["kind"].map(kinds), http_status=failures["http_status"].fillna("—"))
-               .groupby(["Thành viên", "kind", "status", "http_status"]).size().reset_index(name="Số tác vụ")
+               .groupby(["Range", "kind", "status", "http_status"]).size().reset_index(name="Số tác vụ")
                .rename(columns={"kind": "Stage", "status": "Trạng thái", "http_status": "HTTP"}))
     table(summary, **{"Số tác vụ": so})
 ```
@@ -51,7 +51,7 @@ for m, s in SNAPSHOTS.items():
 
 Engine ghi mọi request và mọi tác vụ (Discovery, Source fetch, References) kèm mã HTTP vào
 Manifest và log request, nên lỗi phía nguồn dữ liệu hiện ra thành số đếm được, không bị nuốt
-thành dữ liệu rỗng. Hai lượt chạy thử trên Colab ngày 15/11/2026 (Range Bảo) gặp các trường hợp
+thành dữ liệu rỗng. Hai lượt chạy thử trên Colab ngày 15/11/2026 (Range 2508.02872–2508.07871) gặp các trường hợp
 sau:
 
 | Nguồn | Hiện tượng | Số lần | Engine xử lý |

@@ -95,16 +95,5 @@ tự viết kèm output mong đợi tại từng điểm giao. Test của một 
 nó, chạy code, so với golden của điểm giao sau nó, rồi gọi hàm `validate_*`. Nhờ vậy các bước
 phát triển song song mà không phải chờ nhau. Golden được viết tay và review trước khi viết code.
 
-## Tổ chức nhóm
-
-```{code-cell} python
-:tags: [remove-input]
-md(f"Mỗi bước là một gói việc có người viết riêng; các gói phát triển song song nhờ golden fixture ở mục trên. "
-   f"Trạng thái tại ngày **{PROGRESS['as_of']}**:")
-table(pd.DataFrame([{"Gói": p["package"], "Bước": p["steps"], "Người viết": p["owner"],
-                     "Trạng thái": p["state"], "Số liệu": p["measured"]} for p in PROGRESS["packages"]]))
-```
-
-Số liệu trong các trang sau đọc từ `data/m2/` lúc build. Con số ghi *sơ bộ* là số đo trong lúc
-phát triển; số nghiệm thu sẽ lấy từ `metrics/<gói>.json` của từng gói, đo trên bộ mẫu 100
-Publication và trên toàn Range.
+Số liệu trong các trang sau đọc từ `data/m2/` lúc build: số đo trên cả 5 Range của nhóm và trên bộ
+mẫu phát triển 100 Publication.

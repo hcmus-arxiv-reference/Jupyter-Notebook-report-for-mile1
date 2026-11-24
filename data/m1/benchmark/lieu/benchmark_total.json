@@ -1,0 +1,203 @@
+{
+  "segments": 19,
+  "total_wall_seconds": 45360.5,
+  "total_wall_hours": 12.6,
+  "total_cooldown_seconds": 0,
+  "wall_seconds_excl_cooldown": 45360.5,
+  "peak_rss_mb": 510.8,
+  "avg_rss_mb": 255.5,
+  "peak_disk_mb": 4358.37,
+  "final_disk_mb": 4354.23,
+  "per_segment": [
+    {
+      "name": "run_001",
+      "wall_seconds": 1447.13,
+      "peak_rss_mb": 320.9,
+      "done_papers_at_start": 0,
+      "done_papers_at_end": 178,
+      "cooldown_seconds": 0,
+      "ended": "Ctrl+C"
+    },
+    {
+      "name": "run_002",
+      "wall_seconds": 2710.32,
+      "peak_rss_mb": 317.2,
+      "done_papers_at_start": 178,
+      "done_papers_at_end": 493,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_003",
+      "wall_seconds": 2723.7,
+      "peak_rss_mb": 457.3,
+      "done_papers_at_start": 493,
+      "done_papers_at_end": 825,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_004",
+      "wall_seconds": 2714.49,
+      "peak_rss_mb": 326.3,
+      "done_papers_at_start": 825,
+      "done_papers_at_end": 1152,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_005",
+      "wall_seconds": 2724.81,
+      "peak_rss_mb": 471.3,
+      "done_papers_at_start": 1152,
+      "done_papers_at_end": 1412,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_006",
+      "wall_seconds": 2728.07,
+      "peak_rss_mb": 339.6,
+      "done_papers_at_start": 1412,
+      "done_papers_at_end": 1775,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_007",
+      "wall_seconds": 2724.86,
+      "peak_rss_mb": 350.6,
+      "done_papers_at_start": 1775,
+      "done_papers_at_end": 2075,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_008",
+      "wall_seconds": 2730.51,
+      "peak_rss_mb": 364.8,
+      "done_papers_at_start": 2075,
+      "done_papers_at_end": 2419,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_009",
+      "wall_seconds": 2746.11,
+      "peak_rss_mb": 368.4,
+      "done_papers_at_start": 2419,
+      "done_papers_at_end": 2724,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_010",
+      "wall_seconds": 2767.15,
+      "peak_rss_mb": 404.3,
+      "done_papers_at_start": 2724,
+      "done_papers_at_end": 3052,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_011",
+      "wall_seconds": 2738.46,
+      "peak_rss_mb": 418.0,
+      "done_papers_at_start": 3052,
+      "done_papers_at_end": 3395,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_012",
+      "wall_seconds": 2798.19,
+      "peak_rss_mb": 418.0,
+      "done_papers_at_start": 3395,
+      "done_papers_at_end": 3717,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_013",
+      "wall_seconds": 2756.81,
+      "peak_rss_mb": 440.2,
+      "done_papers_at_start": 3717,
+      "done_papers_at_end": 4034,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_014",
+      "wall_seconds": 2788.34,
+      "peak_rss_mb": 433.0,
+      "done_papers_at_start": 4034,
+      "done_papers_at_end": 4320,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_015",
+      "wall_seconds": 801.77,
+      "peak_rss_mb": 434.6,
+      "done_papers_at_start": 4320,
+      "done_papers_at_end": 4400,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_016",
+      "wall_seconds": 115.95,
+      "peak_rss_mb": 218.7,
+      "done_papers_at_start": 4400,
+      "done_papers_at_end": 4400,
+      "cooldown_seconds": 0,
+      "ended": "Ctrl+C"
+    },
+    {
+      "name": "run_017",
+      "wall_seconds": 2769.76,
+      "peak_rss_mb": 435.2,
+      "done_papers_at_start": 4400,
+      "done_papers_at_end": 4740,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_018",
+      "wall_seconds": 2766.41,
+      "peak_rss_mb": 510.8,
+      "done_papers_at_start": 4740,
+      "done_papers_at_end": 4975,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    },
+    {
+      "name": "run_019",
+      "wall_seconds": 1807.66,
+      "peak_rss_mb": 453.3,
+      "done_papers_at_start": 4975,
+      "done_papers_at_end": 4975,
+      "cooldown_seconds": 0,
+      "ended": "finished"
+    }
+  ],
+  "member": "lieu",
+  "run_id": "2026-11-19T150231Z_6f00b0e",
+  "commit": "6f00b0ea16aa5c87e551190c80e81047ea304fca",
+  "testbed": "Google Colab CPU",
+  "finished": true,
+  "sessions": 2,
+  "papers_requested": 5000,
+  "discovery_seconds": 67.7,
+  "avg_seconds_per_paper": 8.039,
+  "median_seconds_per_paper": 4.934,
+  "max_seconds_per_paper": 353.012,
+  "http": {
+    "http_429": 1,
+    "retries": 9,
+    "backoff_seconds": 225.8,
+    "partial": 5,
+    "resume": 3,
+    "scope": "source downloads only; discovery/S2 retries are not logged here"
+  }
+}

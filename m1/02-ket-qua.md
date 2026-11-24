@@ -16,7 +16,7 @@ import plotly.express as px
 
 ```{code-cell} python
 :tags: [remove-input]
-md(snapshot_scope() + " Range chưa có snapshot không được tính vào tử số hay mẫu số.")
+md(snapshot_scope() + ("" if len(SNAPSHOTS) == N_RANGES else " Range chưa có snapshot không được tính vào tử số hay mẫu số."))
 ```
 
 ## Publication và Version
@@ -31,25 +31,25 @@ md(f"- Publication tìm thấy trên arXiv: {pt(total('discovered'), total('assi
    f"- Version có source TeX: {pt(total('success'), total('expected_versions'))} Version kỳ vọng; "
    f"`non_tex` (chỉ có PDF/docx): {pt(total('non_tex'), total('expected_versions'))}; "
    f"không tải được: {pt(total('unavailable') + total('download_error'), total('expected_versions'))}.")
-table(counts_frame(), **{c: lambda v: so(v) for c in counts_frame().columns if c not in ("Thành viên", "Range")})
+table(counts_frame(), **{c: lambda v: so(v) for c in counts_frame().columns if c != "Range"})
 ```
 
 ```{code-cell} python
 :tags: [remove-input]
-status = pd.DataFrame([{"Thành viên": name(m), "Trạng thái": k, "Số Version": s["counts"][k]}
+status = pd.DataFrame([{"Range": name(m), "Trạng thái": k, "Số Version": s["counts"][k]}
                        for m, s in SNAPSHOTS.items()
                        for k in ("success", "non_tex", "unavailable", "download_error", "not_attempted")])
 status["Trạng thái"] = status["Trạng thái"].map({"success": "TeX", "non_tex": "non_tex",
     "unavailable": "không tải được (404/410)", "download_error": "lỗi tải", "not_attempted": "chưa thử"})
-show(px.bar(status, x="Thành viên", y="Số Version", color="Trạng thái",
+show(px.bar(status, x="Range", y="Số Version", color="Trạng thái",
             title="Trạng thái source theo Version"))
 ```
 
 ```{code-cell} python
 :tags: [remove-input]
-versions = pd.DataFrame([{"Thành viên": name(m), **row} for m, s in SNAPSHOTS.items()
+versions = pd.DataFrame([{"Range": name(m), **row} for m, s in SNAPSHOTS.items()
                          for row in s["versions_distribution"]])
-show(px.bar(versions, x="versions", y="publications", color="Thành viên", barmode="group",
+show(px.bar(versions, x="versions", y="publications", color="Range", barmode="group",
             labels={"versions": "Số Version của Publication", "publications": "Số Publication"},
             title="Phân bố số Version mỗi Publication"))
 mean_versions = total("expected_versions") / total("discovered")
@@ -76,8 +76,8 @@ for m, s in SNAPSHOTS.items():
     st = s["storage"]
     after = st["complete_publication_retained_bytes"]
     sized = st.get("publications_with_before_size")
-    rows.append({"Thành viên": name(m),
-                 "Publication có đủ số đo": so(sized) if sized else "chưa đo",
+    rows.append({"Range": name(m),
+                 "Publication có đủ số đo": so(sized) if sized else "không ghi lại",
                  "Archive tải về (TB/bài)": mb((st.get("complete_publication_downloaded_bytes") or {}).get("mean")),
                  "Trước khi bỏ hình (TB/bài)": mb(st.get("before_extraction_bytes")),
                  "Sau khi bỏ hình (TB/bài)": mb(after["mean"]),
@@ -93,8 +93,8 @@ for m, s in SNAPSHOTS.items():
     sized = st.get("sized_version_after_bytes") or {}
     after = sized if sized.get("n") else (st.get("complete_version_retained_bytes") or {})
     get = lambda field: (st.get(field) or {}).get("mean")
-    rows.append({"Thành viên": name(m),
-                 "Version có đủ số đo": so(sized["n"]) if sized.get("n") else "chưa đo",
+    rows.append({"Range": name(m),
+                 "Version có đủ số đo": so(sized["n"]) if sized.get("n") else "không ghi lại",
                  "Archive tải về (TB/Version)": mb(get("sized_version_downloaded_bytes")),
                  "Trước khi bỏ hình (TB/Version)": mb(get("sized_version_before_bytes")),
                  "Sau khi bỏ hình (TB/Version)": mb(after.get("mean")),
@@ -103,11 +103,9 @@ md("**Theo Version**")
 table(pd.DataFrame(rows))
 missing = [name(m) for m, s in SNAPSHOTS.items() if s["storage"].get("before_extraction_bytes") is None]
 if missing:
-    md(f"Corpus của {', '.join(missing)} được crawl khi Engine chưa ghi kích thước archive trước "
-       "giải nén, nên cột *trước* còn trống. Số này đo trong lượt benchmark trên Colab "
-       "(trang Hiệu năng), không ước lượng. Cột *sau* của các Range này tính trên mọi "
-       "Publication hoàn chỉnh; bảng theo Version cần snapshot sinh bằng `scripts.report_m1` "
-       "từ PR #37 của repo code trở đi.")
+    md(f"Range {', '.join(missing)} được crawl bằng phiên bản Engine trước khi có bước ghi kích thước "
+       "archive, nên không có số *trước giải nén*; nhóm không ước lượng số này. Cột *sau* vẫn tính "
+       "trên mọi Publication hoàn chỉnh của các Range đó.")
 ```
 
 ```{code-cell} python
@@ -151,9 +149,9 @@ md(f"- Lấy danh sách trích dẫn thành công: {pt(total('references_success
 def khoang(h):
     lo, hi = h["lower"], h["upper_exclusive"]
     return f"≥ {lo}" if hi is None else (str(lo) if hi - lo == 1 else f"{lo}–{hi - 1}")
-hist = pd.DataFrame([{"Thành viên": name(m), "Khoảng": khoang(h),
+hist = pd.DataFrame([{"Range": name(m), "Khoảng": khoang(h),
                       "Số Publication": h["count"]} for m, r in refs.items() for h in r["histogram"]])
-show(px.bar(hist, x="Khoảng", y="Số Publication", color="Thành viên", barmode="group",
+show(px.bar(hist, x="Khoảng", y="Số Publication", color="Range", barmode="group",
             labels={"Khoảng": "Số dòng trích dẫn S2 của Publication"},
             title="Phân bố độ dài danh sách trích dẫn S2 mỗi Publication"))
 ```
@@ -165,7 +163,7 @@ show(px.bar(hist, x="Khoảng", y="Số Publication", color="Thành viên", barm
 rows = []
 for m, s in SNAPSHOTS.items():
     for table_name, t in s["checks"]["tables"].items():
-        rows.append({"Thành viên": name(m), "Bảng": table_name, "Đọc được theo schema": "có" if t["valid"] else "không",
+        rows.append({"Range": name(m), "Bảng": table_name, "Đọc được theo schema": "có" if t["valid"] else "không",
                      "Số dòng": t.get("rows"), "Khóa trùng": t.get("duplicate_keys"),
                      "ID ngoài Range": t.get("outside_range")})
 table(pd.DataFrame(rows), **{"Số dòng": so, "Khóa trùng": so, "ID ngoài Range": so})

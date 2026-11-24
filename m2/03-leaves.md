@@ -14,11 +14,6 @@ from m2data import *
 import plotly.express as px
 ```
 
-```{code-cell} python
-:tags: [remove-input]
-draft("Nghiêm")
-```
-
 ## Việc của bước này
 
 Input là `StructureTree`. Mỗi `Block` được thay bằng nút lá hoặc nút danh sách, cho ra `LeafTree`:
@@ -52,16 +47,28 @@ và mọi lá chỉ ngược về được dòng gốc.
 
 ## Kết quả
 
-Theo PR của Nghiêm (ngày 12/11, nhóm chưa review): bộ câu khó và phép kiểm "không mất chữ" đạt
-trên fixture. Chưa có số đo trên bộ mẫu và chưa có bộ nhãn tay.
+Bộ câu khó và phép kiểm "không mất chữ" đạt trên golden fixture. Bảng dưới đếm Element theo loại
+trong bảng `elements` của cả 5 Range (sau khử trùng lặp giữa các Version) và độ dài câu tính bằng số
+từ (tách theo khoảng trắng, công thức inline tính là một từ).
 
 ```{code-cell} python
 :tags: [remove-input]
-if "leaves" not in METRICS: pending("leaves")
+if LEAVES:
+    order = ["sentence", "formula", "figure", "item", "itemize", "section", "subsection", "subsubsection",
+             "paragraph", "chapter", "document"]
+    rows = []
+    for m in MEMBER_ORDER:
+        r = LEAVES["ranges"].get(m)
+        if r is None:
+            continue
+        rows.append({"Range": MEMBER_NAME[m], **{k: so(r["by_kind"].get(k, 0)) for k in order[:4]},
+                     "Câu: TB / trung vị / p95 (từ)": f"{so(r['sentence_words_mean'], 1)} / {so(r['sentence_words_median'])} / {so(r['sentence_words_p95'])}"})
+    table(pd.DataFrame(rows))
+    tot = {k: sum(r["by_kind"].get(k, 0) for r in LEAVES["ranges"].values()) for k in order}
+    md("Tổng 5 Range: " + ", ".join(f"`{k}` {so(v)}" for k, v in tot.items() if v) + ".")
 ```
 
-Số liệu sẽ báo cáo: số lá theo loại, độ dài câu trung bình và trung vị, số Block không tách
-được, thời gian.
+Chưa có bộ nhãn tay để đo độ đúng ranh giới câu; đây là việc còn mở ở trang Hạn chế.
 
 ## Quyết định cần ghi lại
 
