@@ -150,7 +150,7 @@ Từ bảng này, Engine chung giữ lại:
 
 - **Discovery theo lô 50 ID**, hỏi lại từng ID khi lô lỗi. Cả năm pipeline đều
   truy vấn metadata theo lô.
-- **Tải tiếp file bị cắt bằng HTTP Range**, lấy từ pipeline của Liễu.
+- **Tải tiếp file bị cắt bằng HTTP Range**, lấy từ pipeline của Liệu.
 - **Một luồng S2 chạy song song với tải source**, giúp tận dụng thời gian chờ
   giữa các request arXiv mà không tăng số kết nối tới arXiv.
 - **Resume theo manifest và checksum**, không chỉ dựa vào file đánh dấu `done`.

@@ -1,7 +1,7 @@
 {
   "as_of": "2026-11-12",
   "packages": [
-    {"package": "Source + Structure", "steps": "M2.1, M2.2", "owner": "Liễu",
+    {"package": "Source + Structure", "steps": "M2.1, M2.2", "owner": "Liệu",
      "modules": "src/parse/source.py, src/parse/structure.py", "pr": 48,
      "state": "PR mở, chờ review", "measured": "Đã đo M2.1 và Structure trên toàn Range Bảo"},
     {"package": "Leaves", "steps": "M2.3", "owner": "Nghiêm",

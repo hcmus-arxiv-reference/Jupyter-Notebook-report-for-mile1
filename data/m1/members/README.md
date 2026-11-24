@@ -40,7 +40,7 @@ corpus crawl bằng Mac.
 >
 > - **Hải**: chạy `python -m scripts.report_m1` trên thư mục `merged/` để lên mức
 >   `validated`.
-> - **Liễu**: tổng `bytes_before` / `bytes_after` dạng byte (không làm tròn) và
+> - **Liệu**: tổng `bytes_before` / `bytes_after` dạng byte (không làm tròn) và
 >   `stats/benchmark_total.json`.
 > - **Minh**: tổng hợp mọi `status.json` (số Version có TeX, non-TeX, kích thước
 >   trước/sau), số liệu S2, và `last_september_id`.
