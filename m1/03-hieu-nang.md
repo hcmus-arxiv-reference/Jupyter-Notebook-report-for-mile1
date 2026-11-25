@@ -81,7 +81,7 @@ METRICS = ["Testbed", "Số đoạn chạy", "Tổng thời gian chạy", "Publi
            "Tổng thời gian Discovery", "RAM lớn nhất (cả cây tiến trình)", "RAM trung bình",
            "Dung lượng đĩa lớn nhất", "Dung lượng output cuối"]
 if not measured:
-    md(f"**Chưa có số đo.** Chưa Range nào nộp kết quả benchmark trên Colab (hạn 17/11/2026). "
+    md(f"**Chưa có số đo.** Chưa Range nào có kết quả benchmark trên Colab. "
        "Bảng dưới liệt kê các chỉ số đề yêu cầu; trang này tự điền số khi có snapshot "
        "kèm khối `benchmark`.")
     table(pd.DataFrame({"Chỉ số đề yêu cầu": METRICS[2:], "Giá trị": ["chưa đo"] * (len(METRICS) - 2)}))
@@ -97,13 +97,32 @@ else:
                          gib(b["peak_disk_bytes"]), gib(b.get("final_disk_bytes"))]
     table(pd.DataFrame({"Chỉ số": METRICS, **cols}))
     walls = [b["total_wall_seconds"] for b in measured.values()]
-    md(f"Đã có số đo của **{len(measured)}/{N_RANGES} Range**. **Tổng thời gian chạy của hệ thống "
-       f"là tổng thời gian các Range: {hours(sum(walls))}**, tương đương chạy end-to-end tuần tự "
-       f"trên một máy. Để tham khảo, Range lâu nhất mất {hours(max(walls))}. "
+    if len(measured) == N_RANGES:
+        total_md = (f"**Tổng thời gian chạy của hệ thống là tổng thời gian các Range: {hours(sum(walls))}**, "
+                    "tương đương chạy end-to-end tuần tự trên một máy. ")
+    else:
+        total_md = (f"Tổng thời gian của {len(measured)} Range đã đo là {hours(sum(walls))}; con số này "
+                    f"**chưa phải** tổng thời gian của hệ thống vì còn {N_RANGES - len(measured)} Range chưa đo. ")
+    md(f"Đã có số đo của **{len(measured)}/{N_RANGES} Range**. " + total_md +
+       f"Để tham khảo, Range lâu nhất mất {hours(max(walls))}. "
        "Thời gian TB mỗi Publication tính trên `timings.jsonl` (tổng mọi lần ghé thăm Publication "
        "đó); thời gian chia đều cho 5.000 ID được giao là "
        + ", ".join(f"{name(m)}: {secs(b['wall_seconds_per_assigned_publication'], 2)}"
                    for m, b in measured.items()) + ".")
+```
+
+```{code-cell} python
+:tags: [remove-input]
+if BENCHMARKS:
+    table(pd.DataFrame([{"Range": name(m), "Commit": f"`{b['commit'][:7]}`", "Số phiên Colab": so(b["sessions"]),
+                         "Discovery": hours(b["discovery_seconds"]),
+                         "HTTP 429 khi tải source": so(b["http"]["http_429"]),
+                         "Thời gian chờ lùi (giây)": so(b["http"]["backoff_seconds"])}
+                        for m, b in BENCHMARKS.items()]))
+    md("Các Range không chạy cùng một commit. Lượt chạy bằng commit cũ hơn lấy metadata qua arXiv API "
+       "nên Discovery mất nhiều giờ và gặp nhiều HTTP 429; các lượt sau lấy metadata từ "
+       "snapshot arXiv nên Discovery chỉ mất khoảng một phút. Chênh lệch tổng thời gian giữa các Range "
+       "chủ yếu đến từ khác biệt này và số lần phải chờ lùi, không phải từ kích thước Range.")
 ```
 
 ```{code-cell} python
