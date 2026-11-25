@@ -71,5 +71,33 @@
   "root_selected_by_name": 3,
   "encoding_fallback": 2,
   "include_case_mismatch": 2
+ },
+ "publication_coverage": {
+  "100%": 4629,
+  "50–99%": 64,
+  "1–49%": 12,
+  "0%": 295
+ },
+ "coverage_by_versions": {
+  "1": {
+   "publications": 3062,
+   "full": 2881
+  },
+  "2": {
+   "publications": 1337,
+   "full": 1225
+  },
+  "3": {
+   "publications": 426,
+   "full": 375
+  },
+  "4": {
+   "publications": 119,
+   "full": 98
+  },
+  "5": {
+   "publications": 56,
+   "full": 50
+  }
  }
 }

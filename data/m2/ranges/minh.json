@@ -69,5 +69,33 @@
   "encoding_fallback": 2,
   "macro_compilation_path": 1,
   "missing_bbl": 1
+ },
+ "publication_coverage": {
+  "100%": 4541,
+  "50–99%": 100,
+  "1–49%": 16,
+  "0%": 324
+ },
+ "coverage_by_versions": {
+  "1": {
+   "publications": 2735,
+   "full": 2551
+  },
+  "2": {
+   "publications": 1475,
+   "full": 1324
+  },
+  "3": {
+   "publications": 506,
+   "full": 450
+  },
+  "4": {
+   "publications": 165,
+   "full": 142
+  },
+  "5": {
+   "publications": 100,
+   "full": 74
+  }
  }
 }

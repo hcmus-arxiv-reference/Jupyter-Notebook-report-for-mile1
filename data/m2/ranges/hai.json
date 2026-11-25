@@ -72,5 +72,33 @@
   "macro_compilation_path": 2,
   "missing_bbl": 2,
   "nested_documentclass": 1
+ },
+ "publication_coverage": {
+  "100%": 4573,
+  "50–99%": 79,
+  "1–49%": 15,
+  "0%": 333
+ },
+ "coverage_by_versions": {
+  "1": {
+   "publications": 2884,
+   "full": 2681
+  },
+  "2": {
+   "publications": 1431,
+   "full": 1295
+  },
+  "3": {
+   "publications": 465,
+   "full": 408
+  },
+  "4": {
+   "publications": 157,
+   "full": 143
+  },
+  "5": {
+   "publications": 63,
+   "full": 46
+  }
  }
 }

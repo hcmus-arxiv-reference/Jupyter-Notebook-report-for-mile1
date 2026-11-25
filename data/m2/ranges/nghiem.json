@@ -69,5 +69,33 @@
   "unsupported_control": 12,
   "missing_bbl": 6,
   "macro_compilation_path": 3
+ },
+ "publication_coverage": {
+  "100%": 4541,
+  "50–99%": 78,
+  "1–49%": 19,
+  "0%": 358
+ },
+ "coverage_by_versions": {
+  "1": {
+   "publications": 2893,
+   "full": 2680
+  },
+  "2": {
+   "publications": 1425,
+   "full": 1282
+  },
+  "3": {
+   "publications": 475,
+   "full": 417
+  },
+  "4": {
+   "publications": 140,
+   "full": 113
+  },
+  "5": {
+   "publications": 63,
+   "full": 49
+  }
  }
 }

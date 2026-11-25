@@ -71,5 +71,33 @@
   "macro_compilation_path": 3,
   "nested_documentclass": 1,
   "encoding_fallback": 1
+ },
+ "publication_coverage": {
+  "100%": 4549,
+  "50–99%": 88,
+  "1–49%": 22,
+  "0%": 341
+ },
+ "coverage_by_versions": {
+  "1": {
+   "publications": 2722,
+   "full": 2534
+  },
+  "2": {
+   "publications": 1521,
+   "full": 1380
+  },
+  "3": {
+   "publications": 517,
+   "full": 439
+  },
+  "4": {
+   "publications": 163,
+   "full": 131
+  },
+  "5": {
+   "publications": 77,
+   "full": 65
+  }
  }
 }
