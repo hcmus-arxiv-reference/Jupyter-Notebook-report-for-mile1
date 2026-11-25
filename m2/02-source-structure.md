@@ -53,13 +53,17 @@ danh sách key được `\cite`.
 
 ## Kết quả trong lúc phát triển (Range 2508.02872–2508.07871)
 
+Các lượt đo dưới đây chạy trên một Range trong lúc phát triển (tới 12/11), trước khi có khôi phục
+bibliography và luật chọn file gốc. Số cuối trên 5 Range ở trang [Tích hợp và số liệu](05-tich-hop.md).
+
 ```{code-cell} python
 :tags: [remove-input]
 runs = SOURCE["runs"]
 rows = [{"Ngày đo": r["date"], "Commit": r["commit"], "ready": pt(r["ready"], tex_versions(r)),
          "needs_review": r["needs_review"], "error": r["error"], "empty_non_tex": r["empty_non_tex"],
          "Thời gian (giây)": r["seconds"]} for r in runs]
-md(f"Phạm vi: {SOURCE['scope']}. Mẫu số của tỉ lệ `ready` là số Version có TeX.")
+md("Phạm vi: mọi Version đã tải của Range 2508.02872–2508.07871, corpus chỉ gồm `.tex/.bib`. "
+   "Mẫu số của tỉ lệ `ready` là số Version có TeX.")
 table(pd.DataFrame(rows), **{c: so for c in ("needs_review", "error", "empty_non_tex", "Thời gian (giây)")})
 last = runs[-1]
 need = round(SOURCE["target_ready_fraction"] * tex_versions(last)) - last["ready"]

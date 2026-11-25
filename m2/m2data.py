@@ -3,9 +3,9 @@
 Chỉ đọc file trong ``data/m2/``; không gọi mạng, không đọc corpus. File chưa có thì
 giá trị là ``None`` và trang ghi "chưa có số liệu" thay vì lỗi build.
 
-- ``source_range_bao.json``: trạng thái M2.1 và Structure trên Range Bảo qua các lượt đo.
-- ``bibtex_sample.json``: số liệu BibTeX trên bộ mẫu 100 Publication (thành viên tự báo cáo).
-- ``progress.json``: trạng thái từng gói việc tại ngày ghi trong file.
+- ``source_range_bao.json``: trạng thái M2.1 và Structure trên Range 2508.02872–2508.07871 qua các lượt đo
+  trong lúc phát triển.
+- ``bibtex_sample.json``: số liệu BibTeX trên bộ mẫu 100 Publication, đo trong lúc phát triển.
 - ``metrics/<gói>.json``: số liệu nghiệm thu do lệnh đo của từng gói ghi ra
   (``export.json``: ``scripts/parse_range.py`` trên bộ mẫu 100 Publication).
 - ``bib_coverage/<member>.json``: nguồn bibliography của từng Version TeX trước/sau khôi phục
@@ -35,7 +35,6 @@ def load(name):
 SOURCE = load("source_range_bao.json")
 LEAVES = load("leaves_ranges.json")
 BIBTEX = load("bibtex_sample.json")
-PROGRESS = load("progress.json")
 METRICS = {p.stem: _load(p) for p in sorted((DATA2 / "metrics").glob("*.json"))}
 BIBCOV = {p.stem: _load(p) for p in sorted((DATA2 / "bib_coverage").glob("*.json"))}
 MEMBER_ORDER = ["bao", "minh", "nghiem", "hai", "lieu"]
@@ -62,12 +61,6 @@ def tex_versions(run):
     return run["ready"] + run["needs_review"] + run["error"]
 
 
-def draft(owner, due="28/11/2026"):
-    """Ghi chú đầu trang cho phần còn là bản sơ lược."""
-    md(f"> **Bản sơ lược ngày {PROGRESS['as_of'][8:]}/{PROGRESS['as_of'][5:7]}.** {owner} hoàn thiện "
-       f"phần phương pháp trước {due}. Số liệu đánh dấu *sơ bộ* sẽ được thay bằng số đo nghiệm thu.")
-
-
-def pending(name):
-    """Câu báo thiếu số liệu nghiệm thu của một gói."""
-    md(f"*Chưa có `data/m2/metrics/{name}.json`. Phần này sẽ sinh bảng và hình khi file có mặt.*")
+def pending(path):
+    """Câu báo thiếu file số liệu ``data/m2/<path>``."""
+    md(f"*Chưa có `data/m2/{path}`. Phần này sẽ sinh bảng và hình khi file có mặt.*")
