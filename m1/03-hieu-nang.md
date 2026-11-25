@@ -123,7 +123,7 @@ if BENCHMARKS:
                         for m, b in BENCHMARKS.items()]))
     md("Các Range không chạy cùng một commit. Lượt chạy bằng commit cũ hơn lấy metadata qua arXiv API "
        "nên Discovery mất nhiều giờ và gặp nhiều HTTP 429; các lượt sau lấy metadata từ "
-       "snapshot arXiv nên Discovery chỉ mất khoảng một phút. Chênh lệch tổng thời gian giữa các Range "
+       "snapshot arXiv nên Discovery chỉ mất khoảng một phút. Chênh lệch tổng thời gian "
        "giữa Range chạy `m1-bench-v2` và các Range còn lại chủ yếu đến từ khác biệt này.")
     md("Từ `m1-bench-v2` tới `m1-bench-v4`, Engine đổi những điểm ảnh hưởng tới tốc độ: Discovery đọc "
        "metadata snapshot của arXiv thay vì gọi API, lô Discovery bị HTTP 429 được thử lại cả lô, và "
