@@ -201,7 +201,8 @@
     "tables": {
       "papers": {
         "valid": true,
-        "rows": 4975,
+        "source": "Hugging Face tables/lieu/papers.parquet",
+        "rows": 5000,
         "duplicate_keys": 0,
         "outside_range": 0,
         "fields": [
@@ -239,7 +240,8 @@
       },
       "references": {
         "valid": true,
-        "rows": 105515,
+        "source": "Hugging Face tables/lieu/references.parquet",
+        "rows": 105875,
         "duplicate_keys": 0,
         "outside_range": 0,
         "fields": [

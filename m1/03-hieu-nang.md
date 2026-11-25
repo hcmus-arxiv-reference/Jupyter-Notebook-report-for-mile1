@@ -135,7 +135,8 @@ for m, b in BENCHMARKS.items():
     table(segments.drop(columns=["cooldown_seconds"], errors="ignore").rename(columns={
         "name": "Đoạn", "wall_seconds": "Thời gian (giây)", "peak_rss_mb": "RAM lớn nhất (MiB)",
         "done_papers_at_start": "Xong lúc bắt đầu", "done_papers_at_end": "Xong lúc kết thúc",
-        "ended": "Kết thúc"}))
+        "ended": "Kết thúc"}), **{"Thời gian (giây)": so, "RAM lớn nhất (MiB)": lambda v: so(v, 1),
+                                  "Xong lúc bắt đầu": so, "Xong lúc kết thúc": so})
 ```
 
 ```{code-cell} python

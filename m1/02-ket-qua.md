@@ -143,9 +143,8 @@ md(f"- Lấy danh sách trích dẫn thành công: {pt(total('references_success
    f"({so(n_unique)} Reference / {so(n_ok)} Publication lấy thành công).\n"
    f"- Trung bình {so(n_rows / n_ok, 1)} dòng trích dẫn S2 mỗi Publication ({so(n_rows)} dòng), "
    f"trong đó {pt(n_arxiv, n_rows)} có arXiv ID; khử trùng lặp theo `ref_arxiv_id` thì {dedup}.\n"
-   f"- Bảng `references` có {so(n_table)} dòng. Export chỉ ghi Reference của "
-   f"{so(total('complete'))} Publication hoàn chỉnh, nên ít hơn {so(n_unique)} Reference của mọi "
-   "Publication lấy được danh sách trích dẫn.")
+   f"- Bảng `references` có {so(n_table)} dòng, ít hơn {so(n_unique)} Reference ở trên vì Export chỉ "
+   "ghi Reference của các Publication có dòng trong bảng `papers` (xem mục kiểm tra bảng bên dưới).")
 def khoang(h):
     lo, hi = h["lower"], h["upper_exclusive"]
     return f"≥ {lo}" if hi is None else (str(lo) if hi - lo == 1 else f"{lo}–{hi - 1}")
@@ -167,6 +166,14 @@ for m, s in SNAPSHOTS.items():
                      "Số dòng": t.get("rows"), "Khóa trùng": t.get("duplicate_keys"),
                      "ID ngoài Range": t.get("outside_range")})
 table(pd.DataFrame(rows), **{"Số dòng": so, "Khóa trùng": so, "ID ngoài Range": so})
+n_papers = sum(s["checks"]["tables"]["papers"].get("rows") or 0 for s in SNAPSHOTS.values())
+extra = n_papers - total("complete")
+md("Số dòng ở bảng này đếm trên các bảng `papers`/`references` đã nộp lên Hugging Face "
+   f"(`tables/<Range>/`). Bảng `papers` có {so(n_papers)} dòng"
+   + (f": ngoài {so(total('complete'))} Publication hoàn chỉnh còn {so(extra)} Publication có metadata "
+      "hợp lệ nhưng chưa hoàn chỉnh theo snapshot (ví dụ một Version tải lỗi, hoặc snapshot tạo trước "
+      "quy tắc S2 không có bài). Các Publication này giữ dòng `papers`/`references` để M2 vẫn parse "
+      "các Version đã có, nhưng không có file thô chưa xác minh trên Hugging Face." if extra > 0 else ".") )
 md(f"Snapshot được sinh sau khi kiểm tra lại checksum của "
    f"{so(sum(s['provenance']['verified_input_files'] for s in SNAPSHOTS.values()))} file đầu vào.")
 ```
