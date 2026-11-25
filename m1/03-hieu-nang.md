@@ -19,8 +19,8 @@ import plotly.express as px
 Một phiên Colab giới hạn khoảng 12 giờ, không đủ để chạy tuần tự cả 25.000 ID, nên
 giảng viên cho phép chia theo Range. Mỗi thành viên chạy **Range của mình trên một
 phiên Google Colab CPU riêng**,
-bằng cùng một code: notebook `notebooks/colab_m1_selftest.ipynb` của repo code ở
-tag `m1-bench-v2`, Engine `src/crawl/`. Trong mỗi phiên, crawler chỉ mở một kết
+bằng notebook `notebooks/colab_m1_selftest.ipynb` của repo code và Engine `src/crawl/`.
+Tag của repo code mà từng Range dùng ghi ở bảng commit trong mục Kết quả. Trong mỗi phiên, crawler chỉ mở một kết
 nối tới arXiv tại một thời điểm. Một phiên Colab không đủ dài cho cả Range, nên
 lượt chạy được chia thành nhiều **đoạn chạy** (segment):
 
@@ -114,7 +114,9 @@ else:
 ```{code-cell} python
 :tags: [remove-input]
 if BENCHMARKS:
-    table(pd.DataFrame([{"Range": name(m), "Commit": f"`{b['commit'][:7]}`", "Số phiên Colab": so(b["sessions"]),
+    TAGS = {"be9e7f9": "m1-bench-v2", "b0c2ff1": "m1-bench-v3", "6f00b0e": "m1-bench-v4", "4c734ce": "m1-bench-v5"}
+    table(pd.DataFrame([{"Range": name(m), "Tag": TAGS.get(b["commit"][:7], "—"), "Commit": f"`{b['commit'][:7]}`",
+                         "Số phiên Colab": so(b["sessions"]),
                          "Discovery": hours(b["discovery_seconds"]),
                          "HTTP 429 khi tải source": so(b["http"]["http_429"]),
                          "Thời gian chờ lùi (giây)": so(b["http"]["backoff_seconds"])}
@@ -122,7 +124,14 @@ if BENCHMARKS:
     md("Các Range không chạy cùng một commit. Lượt chạy bằng commit cũ hơn lấy metadata qua arXiv API "
        "nên Discovery mất nhiều giờ và gặp nhiều HTTP 429; các lượt sau lấy metadata từ "
        "snapshot arXiv nên Discovery chỉ mất khoảng một phút. Chênh lệch tổng thời gian giữa các Range "
-       "chủ yếu đến từ khác biệt này và số lần phải chờ lùi, không phải từ kích thước Range.")
+       "giữa Range chạy `m1-bench-v2` và các Range còn lại chủ yếu đến từ khác biệt này.")
+    md("Từ `m1-bench-v2` tới `m1-bench-v4`, Engine đổi những điểm ảnh hưởng tới tốc độ: Discovery đọc "
+       "metadata snapshot của arXiv thay vì gọi API, lô Discovery bị HTTP 429 được thử lại cả lô, và "
+       "references được lấy theo lô qua `/paper/batch` của Semantic Scholar trên một luồng riêng, không "
+       "chặn luồng tải từ arXiv. `m1-bench-v5` chỉ khác `m1-bench-v4` ở cách ghi Version mà arXiv trả "
+       "HTTP 404 (thành bản ghi rỗng, quy tắc C11), không đổi tốc độ. Vì vậy chênh lệch giữa các Range "
+       "chạy v4 và v5 đến từ dữ liệu của Range (số Version, kích thước archive) và số lần bị HTTP 429, "
+       "không phải từ phiên bản Engine.")
 ```
 
 ```{code-cell} python
