@@ -102,8 +102,18 @@ if PERF:
 
 Song song hóa không miễn phí. Mỗi tiến trình con gửi kết quả của nó (hàng triệu dòng Element
 và cạnh) về tiến trình chính, rồi tiến trình chính mới gộp bảng. Việc đóng gói và giải nén này làm
-tổng thời gian CPU tăng: khoảng 2.600 giây CPU với 2 tiến trình, so với khoảng 1.500 giây khi chạy
-tuần tự. Vì vậy, với 2 tiến trình, mức tăng tốc gần như không đáng kể. Colab CPU chỉ có 2 vCPU và
+tổng thời gian CPU tăng:
+
+```{code-cell} python
+:tags: [remove-input]
+two = next(r for r in PERF["parallel"] if r["workers"] == 2)
+seq = PERF["sequential"]["seconds"]
+md(f"với 2 tiến trình, tổng thời gian CPU là {so(two['cpu_seconds'])} giây, trong khi bản tuần tự "
+   f"(một nhân) chạy hết {so(seq)} giây; thời gian thực chỉ giảm từ {so(seq)} xuống "
+   f"{so(two['seconds'])} giây.")
+```
+
+Vì vậy, với 2 tiến trình, mức tăng tốc gần như không đáng kể. Colab CPU chỉ có 2 vCPU và
 khoảng 12 GB RAM, nên trên Colab nhóm chạy tuần tự (`--workers 1`). Song song hóa chỉ có lợi trên
 máy nhiều nhân.
 

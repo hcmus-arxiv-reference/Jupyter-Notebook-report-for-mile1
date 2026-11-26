@@ -26,7 +26,7 @@
     "last_worker_commit": "0068a7401c39463967113ac8c5ff32eb7a6fd26f",
     "finished_at": "2026-11-19T11:20:08.658895+00:00",
     "status": "complete",
-    "note": "Crawl cục bộ trên MacBook bằng Engine main, không phải lượt benchmark Colab"
+    "note": "Crawl cục bộ trên MacBook bằng Engine main (dữ liệu nộp). Khối benchmark lấy từ lượt Colab 2026-11-25T033456Z_4c734ce: chạy lại Range từ đầu bằng Engine 4c734ce, 3 phiên, 13 đoạn; lượt này chỉ để đo hiệu năng."
   },
   "versions_distribution": [
     {
@@ -142,22 +142,22 @@
       "median": 116972.5,
       "max": 175356515
     },
-    "before_extraction_bytes": null,
+    "before_extraction_bytes": 7253253.250201776,
     "complete_publication_before_bytes": {
-      "n": 0,
-      "sum": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "n": 4956,
+      "sum": 35947123108,
+      "mean": 7253253.250201776,
+      "median": 2203627.0,
+      "max": 214473291
     },
     "complete_publication_downloaded_bytes": {
-      "n": 0,
-      "sum": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "n": 4956,
+      "sum": 29812075954,
+      "mean": 6015350.273204197,
+      "median": 1651710.0,
+      "max": 207717231
     },
-    "publications_with_before_size": 0,
+    "publications_with_before_size": 4956,
     "complete_version_retained_bytes": {
       "n": 7811,
       "sum": 2008408761,
@@ -166,34 +166,35 @@
       "max": 72510532
     },
     "sized_version_before_bytes": {
-      "n": 0,
-      "sum": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "n": 7727,
+      "sum": 35947123108,
+      "mean": 4652144.830852854,
+      "median": 1607284,
+      "max": 73999369
     },
     "sized_version_downloaded_bytes": {
-      "n": 0,
-      "sum": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "n": 7727,
+      "sum": 29812075954,
+      "mean": 3858169.529442216,
+      "median": 1193546,
+      "max": 73151315
     },
     "sized_version_after_bytes": {
-      "n": 0,
-      "sum": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "n": 7727,
+      "sum": 2007432091,
+      "mean": 259794.4986411285,
+      "median": 94094,
+      "max": 72510532
     },
-    "size_reduction_fraction": null,
-    "note": "Before/after compared on complete Publications whose receipts record sizes; before = bytes after decompression, before keeping .tex/.bib. Disk is a current logical-size snapshot, not historical peak."
+    "size_reduction_fraction": 0.944155973623568,
+    "note": "Before/after compared on complete Publications whose receipts record sizes; before = bytes after decompression, before keeping .tex/.bib. Disk is a current logical-size snapshot, not historical peak. Kích thước trước giải nén và archive tải về lấy từ lượt Colab 2026-11-25T033456Z_4c734ce cùng Range (4956 Publication, 7727 Version có số đo), vì bản crawl trên MacBook không ghi kích thước archive."
   },
   "checks": {
     "tables": {
       "papers": {
         "valid": true,
-        "rows": 59,
+        "source": "Hugging Face tables/bao/papers.parquet",
+        "rows": 5000,
         "duplicate_keys": 0,
         "outside_range": 0,
         "fields": [
@@ -231,7 +232,8 @@
       },
       "references": {
         "valid": true,
-        "rows": 1236,
+        "source": "Hugging Face tables/bao/references.parquet",
+        "rows": 94520,
         "duplicate_keys": 0,
         "outside_range": 0,
         "fields": [
@@ -278,12 +280,23 @@
     "manifest_sha256": "d8a758d2884829605c7346e499c9cb504c3b29b8790ae54c4324d952af6bff73"
   },
   "benchmark": {
-    "testbed": "not measured on Colab",
-    "total_wall_seconds": null,
-    "mean_seconds_per_publication": null,
-    "discovery_seconds": null,
-    "peak_rss_bytes": null,
-    "mean_rss_bytes": null,
-    "peak_disk_bytes": null
+    "testbed": "Google Colab CPU",
+    "segments": 13,
+    "total_wall_seconds": 33607.56,
+    "wall_seconds_per_assigned_publication": 6.721512,
+    "publications_timed": 5000,
+    "seconds_per_publication": {
+      "n": 5000,
+      "sum": 31773.999,
+      "mean": 6.3547998,
+      "median": 3.9065000000000003,
+      "max": 145.203
+    },
+    "mean_seconds_per_publication": 6.3547998,
+    "discovery_seconds": 55.455,
+    "peak_rss_bytes": 459171430,
+    "mean_rss_bytes": 258369126,
+    "peak_disk_bytes": 2263498097,
+    "final_disk_bytes": 2263498097
   }
 }

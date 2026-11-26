@@ -70,18 +70,23 @@ if RANGES:
         }
     rows = [row(MEMBER_NAME[m], r) for m, r in RANGES.items()]
     if len(RANGES) == len(MEMBER_ORDER):
-        rows.append(row("**Tổng**", tot))
+        rows.append(row("Tổng", tot))
     table(pd.DataFrame(rows))
     md(f"Độ phủ Version: mọi Version trong metadata đều có một dòng log; "
        f"{so(tot['versions_empty_non_tex'])} Version không có TeX được ghi bản ghi rỗng. "
-       f"Thời gian tổng là tổng của các Range (cách tính thầy chốt cho M1). "
+       f"Thời gian tổng là tổng thời gian chạy của các Range, cùng cách tính với M1. "
        f"Trung bình {so(tot['elapsed_seconds'] / tot['publications_total'], 2)} giây mỗi Publication.")
+    short = {MEMBER_NAME[m]: r["publications_total"] for m, r in RANGES.items() if r["publications_total"] < 5000}
+    if short:
+        md("Mẫu số Publication là số Publication có file metadata trong corpus M1 của Range "
+           "(`parse_range.py --member` chỉ lấy ID có metadata), nên có Range dưới 5.000: "
+           + "; ".join(f"{k}: {so(v)}" for k, v in short.items()) + ".")
 else:
-    pending("ranges")
+    pending("ranges/<member>.json")
 ```
 
-Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 24/11, chạy cục bộ, không phải
-Google Colab; thời gian và RAM trên Colab CPU sẽ khác.
+Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 24/11, chạy tuần tự (một tiến trình),
+không phải Google Colab CPU như đề quy định cho benchmark; thời gian và RAM trên Colab sẽ khác.
 
 ### Độ phủ Version của từng Publication
 

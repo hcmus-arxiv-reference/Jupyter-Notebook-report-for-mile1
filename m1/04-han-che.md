@@ -87,9 +87,15 @@ Các lỗi S2 khác (429, 5xx, mất mạng) vẫn là `error` và được th�
 :tags: [remove-input]
 s2_missing = {name(m): s["counts"]["s2_not_found"] for m, s in SNAPSHOTS.items()
               if "s2_not_found" in s.get("counts", {})}
+older = {name(m): s["counts"]["discovered"] - s["counts"]["references_success"] for m, s in SNAPSHOTS.items()
+         if "s2_not_found" not in s.get("counts", {})}
 if s2_missing:
     md("Trong các snapshot hiện có: " + ", ".join(f"{k}: {so(v)} Publication S2 không có bài"
                                                    for k, v in s2_missing.items()) + ".")
+    if older:
+        md("Snapshot của Range " + ", ".join(f"{k} được tạo trước quy tắc này nên không tách riêng HTTP 404; "
+                                              f"Range này có {so(v)} Publication chưa lấy được danh sách trích dẫn"
+                                              for k, v in older.items()) + ".")
 else:
     md("Các snapshot hiện có được tạo trước quy tắc này; số Publication S2 không có bài của từng "
        "Range sẽ hiện ở đây sau lượt benchmark chính thức.")

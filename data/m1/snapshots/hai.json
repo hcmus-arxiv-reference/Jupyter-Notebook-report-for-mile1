@@ -26,7 +26,7 @@
     "last_worker_commit": null,
     "finished_at": "2026-11-23T05:18:00.227315+00:00",
     "status": "incomplete",
-    "note": "Crawl cục bộ trên MacBook bằng Engine main, không phải lượt benchmark Colab"
+    "note": "Crawl cục bộ trên MacBook bằng Engine main (dữ liệu nộp). Khối benchmark lấy từ lượt Colab 2026-11-16T022020Z_6f00b0e: chạy lại Range từ đầu bằng Engine 6f00b0e, 2 phiên (phiên 2 tiếp từ checkpoint ngày 16/11), 19 đoạn; lượt này chỉ để đo hiệu năng."
   },
   "versions_distribution": [
     {
@@ -197,7 +197,8 @@
     "tables": {
       "papers": {
         "valid": true,
-        "rows": 250,
+        "source": "Hugging Face tables/hai/papers.parquet",
+        "rows": 5000,
         "duplicate_keys": 0,
         "outside_range": 0,
         "fields": [
@@ -235,7 +236,8 @@
       },
       "references": {
         "valid": true,
-        "rows": 5007,
+        "source": "Hugging Face tables/hai/references.parquet",
+        "rows": 86615,
         "duplicate_keys": 0,
         "outside_range": 0,
         "fields": [
@@ -311,12 +313,23 @@
     "manifest_sha256": "01404eba2c4747d033d237cf94d08ce18fab83001e5415089865678a10abf435"
   },
   "benchmark": {
-    "testbed": "not measured on Colab",
-    "total_wall_seconds": null,
-    "mean_seconds_per_publication": null,
-    "discovery_seconds": null,
-    "peak_rss_bytes": null,
-    "mean_rss_bytes": null,
-    "peak_disk_bytes": null
+    "testbed": "Google Colab CPU",
+    "segments": 19,
+    "total_wall_seconds": 44577.61,
+    "wall_seconds_per_assigned_publication": 8.915522,
+    "publications_timed": 5000,
+    "seconds_per_publication": {
+      "n": 5000,
+      "sum": 39132.453,
+      "mean": 7.8264906,
+      "median": 4.6175,
+      "max": 312.933
+    },
+    "mean_seconds_per_publication": 7.8264906,
+    "discovery_seconds": 54.086,
+    "peak_rss_bytes": 748788122,
+    "mean_rss_bytes": 259207987,
+    "peak_disk_bytes": 4193989427,
+    "final_disk_bytes": 4191902761
   }
 }
