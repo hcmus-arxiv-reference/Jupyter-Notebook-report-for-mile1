@@ -205,6 +205,7 @@
     "tables": {
       "papers": {
         "valid": true,
+        "source": "Hugging Face tables/minh/papers.parquet",
         "rows": 4981,
         "duplicate_keys": 0,
         "outside_range": 0,
@@ -243,6 +244,7 @@
       },
       "references": {
         "valid": true,
+        "source": "Hugging Face tables/minh/references.parquet",
         "rows": 102667,
         "duplicate_keys": 0,
         "outside_range": 0,

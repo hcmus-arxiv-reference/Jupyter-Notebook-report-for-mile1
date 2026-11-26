@@ -19,8 +19,8 @@ import plotly.express as px
 Một phiên Colab giới hạn khoảng 12 giờ, không đủ để chạy tuần tự cả 25.000 ID, nên
 giảng viên cho phép chia theo Range. Mỗi thành viên chạy **Range của mình trên một
 phiên Google Colab CPU riêng**,
-bằng cùng một code: notebook `notebooks/colab_m1_selftest.ipynb` của repo code ở
-tag `m1-bench-v2`, Engine `src/crawl/`. Trong mỗi phiên, crawler chỉ mở một kết
+bằng notebook `notebooks/colab_m1_selftest.ipynb` của repo code và Engine `src/crawl/`.
+Tag của repo code mà từng Range dùng ghi ở bảng commit trong mục Kết quả. Trong mỗi phiên, crawler chỉ mở một kết
 nối tới arXiv tại một thời điểm. Một phiên Colab không đủ dài cho cả Range, nên
 lượt chạy được chia thành nhiều **đoạn chạy** (segment):
 
@@ -81,7 +81,7 @@ METRICS = ["Testbed", "Số đoạn chạy", "Tổng thời gian chạy", "Publi
            "Tổng thời gian Discovery", "RAM lớn nhất (cả cây tiến trình)", "RAM trung bình",
            "Dung lượng đĩa lớn nhất", "Dung lượng output cuối"]
 if not measured:
-    md(f"**Chưa có số đo.** Chưa Range nào nộp kết quả benchmark trên Colab (hạn 17/11/2026). "
+    md(f"**Chưa có số đo.** Chưa Range nào có kết quả benchmark trên Colab. "
        "Bảng dưới liệt kê các chỉ số đề yêu cầu; trang này tự điền số khi có snapshot "
        "kèm khối `benchmark`.")
     table(pd.DataFrame({"Chỉ số đề yêu cầu": METRICS[2:], "Giá trị": ["chưa đo"] * (len(METRICS) - 2)}))
@@ -97,13 +97,41 @@ else:
                          gib(b["peak_disk_bytes"]), gib(b.get("final_disk_bytes"))]
     table(pd.DataFrame({"Chỉ số": METRICS, **cols}))
     walls = [b["total_wall_seconds"] for b in measured.values()]
-    md(f"Đã có số đo của **{len(measured)}/{N_RANGES} Range**. **Tổng thời gian chạy của hệ thống "
-       f"là tổng thời gian các Range: {hours(sum(walls))}**, tương đương chạy end-to-end tuần tự "
-       f"trên một máy. Để tham khảo, Range lâu nhất mất {hours(max(walls))}. "
+    if len(measured) == N_RANGES:
+        total_md = (f"**Tổng thời gian chạy của hệ thống là tổng thời gian các Range: {hours(sum(walls))}**, "
+                    "tương đương chạy end-to-end tuần tự trên một máy. ")
+    else:
+        total_md = (f"Tổng thời gian của {len(measured)} Range đã đo là {hours(sum(walls))}; con số này "
+                    f"**chưa phải** tổng thời gian của hệ thống vì còn {N_RANGES - len(measured)} Range chưa đo. ")
+    md(f"Đã có số đo của **{len(measured)}/{N_RANGES} Range**. " + total_md +
+       f"Để tham khảo, Range lâu nhất mất {hours(max(walls))}. "
        "Thời gian TB mỗi Publication tính trên `timings.jsonl` (tổng mọi lần ghé thăm Publication "
        "đó); thời gian chia đều cho 5.000 ID được giao là "
        + ", ".join(f"{name(m)}: {secs(b['wall_seconds_per_assigned_publication'], 2)}"
                    for m, b in measured.items()) + ".")
+```
+
+```{code-cell} python
+:tags: [remove-input]
+if BENCHMARKS:
+    TAGS = {"be9e7f9": "m1-bench-v2", "b0c2ff1": "m1-bench-v3", "6f00b0e": "m1-bench-v4", "4c734ce": "m1-bench-v5"}
+    table(pd.DataFrame([{"Range": name(m), "Tag": TAGS.get(b["commit"][:7], "—"), "Commit": f"`{b['commit'][:7]}`",
+                         "Số phiên Colab": so(b["sessions"]),
+                         "Discovery": hours(b["discovery_seconds"]),
+                         "HTTP 429 khi tải source": so(b["http"]["http_429"]),
+                         "Thời gian chờ lùi (giây)": so(b["http"]["backoff_seconds"])}
+                        for m, b in BENCHMARKS.items()]))
+    md("Các Range không chạy cùng một commit. Lượt chạy bằng commit cũ hơn lấy metadata qua arXiv API "
+       "nên Discovery mất nhiều giờ và gặp nhiều HTTP 429; các lượt sau lấy metadata từ "
+       "snapshot arXiv nên Discovery chỉ mất khoảng một phút. Chênh lệch tổng thời gian "
+       "giữa Range chạy `m1-bench-v2` và các Range còn lại chủ yếu đến từ khác biệt này.")
+    md("Từ `m1-bench-v2` tới `m1-bench-v4`, Engine đổi những điểm ảnh hưởng tới tốc độ: Discovery đọc "
+       "metadata snapshot của arXiv thay vì gọi API, lô Discovery bị HTTP 429 được thử lại cả lô, và "
+       "references được lấy theo lô qua `/paper/batch` của Semantic Scholar trên một luồng riêng, không "
+       "chặn luồng tải từ arXiv. `m1-bench-v5` chỉ khác `m1-bench-v4` ở cách ghi Version mà arXiv trả "
+       "HTTP 404 (thành bản ghi rỗng, quy tắc C11), không đổi tốc độ. Vì vậy chênh lệch giữa các Range "
+       "chạy v4 và v5 đến từ dữ liệu của Range (số Version, kích thước archive) và số lần bị HTTP 429, "
+       "không phải từ phiên bản Engine.")
 ```
 
 ```{code-cell} python
@@ -116,7 +144,8 @@ for m, b in BENCHMARKS.items():
     table(segments.drop(columns=["cooldown_seconds"], errors="ignore").rename(columns={
         "name": "Đoạn", "wall_seconds": "Thời gian (giây)", "peak_rss_mb": "RAM lớn nhất (MiB)",
         "done_papers_at_start": "Xong lúc bắt đầu", "done_papers_at_end": "Xong lúc kết thúc",
-        "ended": "Kết thúc"}))
+        "ended": "Kết thúc"}), **{"Thời gian (giây)": so, "RAM lớn nhất (MiB)": lambda v: so(v, 1),
+                                  "Xong lúc bắt đầu": so, "Xong lúc kết thúc": so})
 ```
 
 ```{code-cell} python

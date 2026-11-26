@@ -51,7 +51,8 @@ Với mỗi Publication, bước này nhận `BibSource` của **mọi** Version
 ```{code-cell} python
 :tags: [remove-input]
 b = BIBTEX
-md(f"Nguồn: {b['source']}. Bộ mẫu {b['publications']} Publication, seed {b['seed']}, commit `{b['commit']}`.")
+md(f"Số đo trong lúc phát triển (12/11), trước khi có khôi phục bibliography. Bộ mẫu "
+   f"{b['publications']} Publication, seed {b['seed']}, commit `{b['commit']}`.")
 table(pd.DataFrame([
     {"Chỉ số": "Entry trước khử trùng lặp", "Giá trị": so(b["entries_before"])},
     {"Chỉ số": "Entry sau khử trùng lặp", "Giá trị": so(b["entries_after"])},
@@ -77,4 +78,23 @@ Phạm vi xuất bảng `bibtex`:
 Phương án 1 tránh đưa danh mục thư viện chưa dùng vào bước Matching; phương án 2 không bỏ sót
 key khi bộ đọc `\cite` thiếu biến thể. Nhóm chốt phương án 1 (quyết định C12, 20/11/2026).
 
-Số BibTeX entry trên cả 5 Range ở trang [Tích hợp và số liệu](05-tich-hop.md).
+## Kết quả trên 5 Range
+
+```{code-cell} python
+:tags: [remove-input]
+if RANGES:
+    rows = [{"Range": MEMBER_NAME[m],
+             "Entry trước khử trùng lặp": so(r["bibtex_entries_before_dedup"]),
+             "Entry sau khử trùng lặp": so(r["bibtex_entries_after_dedup"]),
+             "Tỉ lệ giảm": pt(r["bibtex_dedup_saved"], r["bibtex_entries_before_dedup"]),
+             "Key cite chưa phân giải": so(r["bibtex_unresolved_keys"])} for m, r in RANGES.items()]
+    before = sum(r["bibtex_entries_before_dedup"] for r in RANGES.values())
+    after = sum(r["bibtex_entries_after_dedup"] for r in RANGES.values())
+    if len(RANGES) == len(MEMBER_ORDER):
+        rows.append({"Range": "Tổng", "Entry trước khử trùng lặp": so(before),
+                     "Entry sau khử trùng lặp": so(after), "Tỉ lệ giảm": pt(before - after, before),
+                     "Key cite chưa phân giải": so(sum(r["bibtex_unresolved_keys"] for r in RANGES.values()))})
+    table(pd.DataFrame(rows))
+    md("Số trước khử trùng lặp đếm mọi entry đọc được từ mọi Version; số sau là entry được cite và "
+       "đã gộp giữa các Version (quyết định C12). Chạy có sidecar bibliography và root đã review.")
+```

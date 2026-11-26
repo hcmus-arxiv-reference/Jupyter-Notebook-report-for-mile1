@@ -172,7 +172,8 @@
     "tables": {
       "papers": {
         "valid": true,
-        "rows": 4969,
+        "source": "Hugging Face tables/nghiem/papers.parquet",
+        "rows": 4996,
         "duplicate_keys": 0,
         "outside_range": 0,
         "fields": [
@@ -210,7 +211,8 @@
       },
       "references": {
         "valid": true,
-        "rows": 92987,
+        "source": "Hugging Face tables/nghiem/references.parquet",
+        "rows": 93270,
         "duplicate_keys": 0,
         "outside_range": 0,
         "fields": [
