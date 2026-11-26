@@ -80,8 +80,37 @@ else:
     pending("ranges")
 ```
 
-Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 23/11, chạy cục bộ, không phải
+Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 24/11, chạy cục bộ, không phải
 Google Colab; thời gian và RAM trên Colab CPU sẽ khác.
+
+### Độ phủ Version của từng Publication
+
+Độ phủ của một Publication là số Version đã xử lý chia cho số Version trong metadata. Version
+"đã xử lý" là Version parse được, hoặc Version không có TeX nên được ghi bản ghi rỗng. Version
+lỗi và Version không có source (`missing`) không được tính.
+
+```{code-cell} python
+:tags: [remove-input]
+if RANGES:
+    order = ["100%", "50–99%", "1–49%", "0%"]
+    cov = pd.DataFrame([{"Range": MEMBER_NAME[m], "Độ phủ": k, "Số Publication": n}
+                        for m, r in RANGES.items() for k, n in r["publication_coverage"].items()])
+    show(px.bar(cov, x="Range", y="Số Publication", color="Độ phủ",
+                category_orders={"Độ phủ": order}, title="Độ phủ Version của từng Publication"))
+    pubs = sum(r["publications_total"] for r in RANGES.values())
+    count = {k: sum(r["publication_coverage"][k] for r in RANGES.values()) for k in order}
+    md(f"{pt(count['100%'], pubs)} Publication có mọi Version được xử lý; {so(count['50–99%'] + count['1–49%'])} Publication được xử lý một "
+       f"phần; {so(count['0%'])} Publication không có Version nào xử lý được.")
+    rows = []
+    for k in ["1", "2", "3", "4", "5"]:
+        n = sum(r["coverage_by_versions"].get(k, {}).get("publications", 0) for r in RANGES.values())
+        full = sum(r["coverage_by_versions"].get(k, {}).get("full", 0) for r in RANGES.values())
+        rows.append({"Số Version": "5 trở lên" if k == "5" else k, "Publication": so(n),
+                     "Độ phủ 100%": pt(full, n)})
+    table(pd.DataFrame(rows))
+    md("Publication càng nhiều Version thì càng ít đạt độ phủ 100%, vì chỉ cần một Version lỗi là "
+       "Publication không còn được tính là đủ.")
+```
 
 ### Version lỗi theo lý do
 
@@ -100,5 +129,9 @@ if RANGES:
                         for code, n in total.most_common(8)]))
 ```
 
-`ambiguous_root` là nhóm lớn nhất và giảm được bằng review file gốc, không cần sửa Parser.
+Trước ADR 0005, `ambiguous_root` là nhóm lớn nhất với 1.963 Version. Luật chọn file gốc theo tiêu đề
+metadata, rồi theo tên file (`docs/adr/0005-mot-van-ban-chinh-moi-version.md` trong repo code) giải
+được 1.373 Version và còn lại 590 Version. Mỗi lựa chọn theo luật được ghi `root_selected_by_title`
+hoặc `root_selected_by_name` trong log nên kiểm tra lại được. Bảng trên Hugging Face được sinh từ
+commit `c813d20` (main ghép bản sửa môi trường toán và luật chọn file gốc), ngày 24/11.
 Các nhóm còn lại là giới hạn của cách đọc tĩnh, xem [Hạn chế](06-han-che.md).

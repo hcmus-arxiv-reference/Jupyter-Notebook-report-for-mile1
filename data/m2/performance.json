@@ -1,0 +1,14 @@
+{
+  "as_of": "24/11/2026",
+  "machine": "MacBook Apple silicon (10 nhân, 24 GB RAM), chạy cục bộ, không phải Colab",
+  "range": "bao",
+  "publications": 5000,
+  "code": "main + PR #61 + PR #62 + perf/m2-parallel-publications",
+  "sequential": {"seconds": 1526.1416, "peak_rss_mb": 3427.44, "cpu_seconds": null},
+  "parallel": [
+    {"workers": 8, "seconds": 655.2214, "peak_rss_mb": 4452.89, "peak_rss_children_mb": 1304.91, "cpu_seconds": 4036.51, "identical": true},
+    {"workers": 2, "seconds": 1365.5505, "peak_rss_mb": 4348.25, "peak_rss_children_mb": 1770.09, "cpu_seconds": 2635.35, "identical": true}
+  ],
+  "incremental": {"half_publications": 2500, "half_seconds": 303.1416, "full_publications": 5000,
+                  "resumed": 2481, "parsed": 2519, "full_seconds": 256.9744, "workers": 8, "identical": true}
+}
