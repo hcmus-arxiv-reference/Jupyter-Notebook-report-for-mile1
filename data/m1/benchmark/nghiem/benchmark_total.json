@@ -1,905 +1,176 @@
 {
-  "segments": 97,
-  "total_wall_seconds": 264912.15,
-  "total_wall_hours": 73.59,
+  "segments": 16,
+  "total_wall_seconds": 43459.59,
+  "total_wall_hours": 12.07,
   "total_cooldown_seconds": 0,
-  "wall_seconds_excl_cooldown": 264912.15,
-  "peak_rss_mb": 405.9,
-  "avg_rss_mb": 172.4,
-  "peak_disk_mb": 2336.75,
-  "final_disk_mb": 2326.59,
+  "wall_seconds_excl_cooldown": 43459.59,
+  "peak_rss_mb": 485.1,
+  "avg_rss_mb": 252.2,
+  "peak_disk_mb": 2326.93,
+  "final_disk_mb": 2326.93,
   "per_segment": [
     {
       "name": "run_001",
-      "wall_seconds": 2902.87,
-      "peak_rss_mb": 184.0,
+      "wall_seconds": 2703.48,
+      "peak_rss_mb": 310.9,
       "done_papers_at_start": 0,
-      "done_papers_at_end": 51,
+      "done_papers_at_end": 299,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_002",
-      "wall_seconds": 2726.84,
-      "peak_rss_mb": 271.7,
-      "done_papers_at_start": 51,
-      "done_papers_at_end": 86,
+      "wall_seconds": 2715.67,
+      "peak_rss_mb": 316.4,
+      "done_papers_at_start": 299,
+      "done_papers_at_end": 606,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_003",
-      "wall_seconds": 2711.13,
-      "peak_rss_mb": 237.5,
-      "done_papers_at_start": 86,
-      "done_papers_at_end": 144,
+      "wall_seconds": 2743.19,
+      "peak_rss_mb": 295.3,
+      "done_papers_at_start": 606,
+      "done_papers_at_end": 933,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_004",
-      "wall_seconds": 2783.01,
-      "peak_rss_mb": 244.5,
-      "done_papers_at_start": 144,
-      "done_papers_at_end": 230,
+      "wall_seconds": 2711.39,
+      "peak_rss_mb": 296.1,
+      "done_papers_at_start": 933,
+      "done_papers_at_end": 1211,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_005",
-      "wall_seconds": 2729.66,
-      "peak_rss_mb": 228.6,
-      "done_papers_at_start": 230,
-      "done_papers_at_end": 311,
+      "wall_seconds": 2707.31,
+      "peak_rss_mb": 312.1,
+      "done_papers_at_start": 1211,
+      "done_papers_at_end": 1500,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_006",
-      "wall_seconds": 2812.66,
-      "peak_rss_mb": 238.4,
-      "done_papers_at_start": 311,
-      "done_papers_at_end": 356,
+      "wall_seconds": 2731.97,
+      "peak_rss_mb": 311.3,
+      "done_papers_at_start": 1500,
+      "done_papers_at_end": 1794,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_007",
-      "wall_seconds": 2705.85,
-      "peak_rss_mb": 201.9,
-      "done_papers_at_start": 356,
-      "done_papers_at_end": 444,
+      "wall_seconds": 2717.38,
+      "peak_rss_mb": 342.8,
+      "done_papers_at_start": 1794,
+      "done_papers_at_end": 2062,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_008",
-      "wall_seconds": 2737.94,
-      "peak_rss_mb": 247.2,
-      "done_papers_at_start": 444,
-      "done_papers_at_end": 549,
+      "wall_seconds": 2762.59,
+      "peak_rss_mb": 341.3,
+      "done_papers_at_start": 2062,
+      "done_papers_at_end": 2331,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_009",
-      "wall_seconds": 2783.74,
-      "peak_rss_mb": 238.7,
-      "done_papers_at_start": 549,
-      "done_papers_at_end": 655,
+      "wall_seconds": 2735.78,
+      "peak_rss_mb": 362.3,
+      "done_papers_at_start": 2331,
+      "done_papers_at_end": 2623,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_010",
-      "wall_seconds": 2715.63,
-      "peak_rss_mb": 274.6,
-      "done_papers_at_start": 655,
-      "done_papers_at_end": 749,
+      "wall_seconds": 2730.36,
+      "peak_rss_mb": 362.2,
+      "done_papers_at_start": 2623,
+      "done_papers_at_end": 3007,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_011",
-      "wall_seconds": 2712.24,
-      "peak_rss_mb": 196.1,
-      "done_papers_at_start": 749,
-      "done_papers_at_end": 810,
+      "wall_seconds": 2737.99,
+      "peak_rss_mb": 485.1,
+      "done_papers_at_start": 3007,
+      "done_papers_at_end": 3388,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_012",
-      "wall_seconds": 2767.35,
-      "peak_rss_mb": 218.5,
-      "done_papers_at_start": 810,
-      "done_papers_at_end": 900,
+      "wall_seconds": 2733.38,
+      "peak_rss_mb": 414.3,
+      "done_papers_at_start": 3388,
+      "done_papers_at_end": 3736,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_013",
-      "wall_seconds": 2930.04,
-      "peak_rss_mb": 230.5,
-      "done_papers_at_start": 900,
-      "done_papers_at_end": 972,
+      "wall_seconds": 2730.1,
+      "peak_rss_mb": 440.7,
+      "done_papers_at_start": 3736,
+      "done_papers_at_end": 4144,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_014",
-      "wall_seconds": 1473.57,
-      "peak_rss_mb": 188.8,
-      "done_papers_at_start": 972,
-      "done_papers_at_end": 1016,
+      "wall_seconds": 2740.87,
+      "peak_rss_mb": 437.2,
+      "done_papers_at_start": 4144,
+      "done_papers_at_end": 4473,
       "cooldown_seconds": 0,
-      "ended": "Ctrl+C"
+      "ended": "finished"
     },
     {
       "name": "run_015",
-      "wall_seconds": 2712.62,
-      "peak_rss_mb": 169.8,
-      "done_papers_at_start": 1016,
-      "done_papers_at_end": 1072,
+      "wall_seconds": 2743.12,
+      "peak_rss_mb": 453.2,
+      "done_papers_at_start": 4473,
+      "done_papers_at_end": 4842,
       "cooldown_seconds": 0,
       "ended": "finished"
     },
     {
       "name": "run_016",
-      "wall_seconds": 2879.23,
-      "peak_rss_mb": 205.0,
-      "done_papers_at_start": 1072,
-      "done_papers_at_end": 1138,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_017",
-      "wall_seconds": 2872.73,
-      "peak_rss_mb": 259.6,
-      "done_papers_at_start": 1138,
-      "done_papers_at_end": 1181,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_018",
-      "wall_seconds": 2742.3,
-      "peak_rss_mb": 195.1,
-      "done_papers_at_start": 1181,
-      "done_papers_at_end": 1217,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_019",
-      "wall_seconds": 2858.45,
-      "peak_rss_mb": 225.3,
-      "done_papers_at_start": 1217,
-      "done_papers_at_end": 1259,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_020",
-      "wall_seconds": 2742.81,
-      "peak_rss_mb": 221.4,
-      "done_papers_at_start": 1259,
-      "done_papers_at_end": 1280,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_021",
-      "wall_seconds": 2740.54,
-      "peak_rss_mb": 236.2,
-      "done_papers_at_start": 1280,
-      "done_papers_at_end": 1293,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_022",
-      "wall_seconds": 2725.91,
-      "peak_rss_mb": 238.0,
-      "done_papers_at_start": 1293,
-      "done_papers_at_end": 1332,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_023",
-      "wall_seconds": 2707.84,
-      "peak_rss_mb": 191.1,
-      "done_papers_at_start": 1332,
-      "done_papers_at_end": 1352,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_024",
-      "wall_seconds": 2776.92,
-      "peak_rss_mb": 247.8,
-      "done_papers_at_start": 1352,
-      "done_papers_at_end": 1402,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_025",
-      "wall_seconds": 2737.58,
-      "peak_rss_mb": 259.0,
-      "done_papers_at_start": 1402,
-      "done_papers_at_end": 1463,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_026",
-      "wall_seconds": 2797.45,
-      "peak_rss_mb": 231.5,
-      "done_papers_at_start": 1463,
-      "done_papers_at_end": 1514,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_027",
-      "wall_seconds": 2891.49,
-      "peak_rss_mb": 256.6,
-      "done_papers_at_start": 1514,
-      "done_papers_at_end": 1563,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_028",
-      "wall_seconds": 2781.82,
-      "peak_rss_mb": 248.3,
-      "done_papers_at_start": 1563,
-      "done_papers_at_end": 1606,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_029",
-      "wall_seconds": 2711.27,
-      "peak_rss_mb": 225.5,
-      "done_papers_at_start": 1606,
-      "done_papers_at_end": 1664,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_030",
-      "wall_seconds": 2872.7,
-      "peak_rss_mb": 241.2,
-      "done_papers_at_start": 1664,
-      "done_papers_at_end": 1714,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_031",
-      "wall_seconds": 2847.78,
-      "peak_rss_mb": 221.1,
-      "done_papers_at_start": 1714,
-      "done_papers_at_end": 1733,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_032",
-      "wall_seconds": 2710.59,
-      "peak_rss_mb": 225.5,
-      "done_papers_at_start": 1733,
-      "done_papers_at_end": 1776,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_033",
-      "wall_seconds": 2892.58,
-      "peak_rss_mb": 189.5,
-      "done_papers_at_start": 1776,
-      "done_papers_at_end": 1819,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_034",
-      "wall_seconds": 2923.57,
-      "peak_rss_mb": 244.7,
-      "done_papers_at_start": 1819,
-      "done_papers_at_end": 1861,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_035",
-      "wall_seconds": 3092.0,
-      "peak_rss_mb": 247.8,
-      "done_papers_at_start": 1861,
-      "done_papers_at_end": 1879,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_036",
-      "wall_seconds": 2730.17,
-      "peak_rss_mb": 252.6,
-      "done_papers_at_start": 1879,
-      "done_papers_at_end": 1903,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_037",
-      "wall_seconds": 2736.21,
-      "peak_rss_mb": 281.7,
-      "done_papers_at_start": 1903,
-      "done_papers_at_end": 1975,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_038",
-      "wall_seconds": 2721.9,
-      "peak_rss_mb": 241.4,
-      "done_papers_at_start": 1975,
-      "done_papers_at_end": 2043,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_039",
-      "wall_seconds": 2906.95,
-      "peak_rss_mb": 245.9,
-      "done_papers_at_start": 2043,
-      "done_papers_at_end": 2084,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_040",
-      "wall_seconds": 2719.31,
-      "peak_rss_mb": 287.2,
-      "done_papers_at_start": 2084,
-      "done_papers_at_end": 2153,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_041",
-      "wall_seconds": 2743.45,
-      "peak_rss_mb": 270.5,
-      "done_papers_at_start": 2153,
-      "done_papers_at_end": 2272,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_042",
-      "wall_seconds": 2716.39,
-      "peak_rss_mb": 298.1,
-      "done_papers_at_start": 2272,
-      "done_papers_at_end": 2326,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_043",
-      "wall_seconds": 1808.23,
-      "peak_rss_mb": 203.4,
-      "done_papers_at_start": 2326,
-      "done_papers_at_end": 2366,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_044",
-      "wall_seconds": 2853.23,
-      "peak_rss_mb": 234.6,
-      "done_papers_at_start": 2366,
-      "done_papers_at_end": 2393,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_045",
-      "wall_seconds": 2734.59,
-      "peak_rss_mb": 253.1,
-      "done_papers_at_start": 2393,
-      "done_papers_at_end": 2423,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_046",
-      "wall_seconds": 2820.71,
-      "peak_rss_mb": 243.9,
-      "done_papers_at_start": 2423,
-      "done_papers_at_end": 2448,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_047",
-      "wall_seconds": 2851.88,
-      "peak_rss_mb": 242.2,
-      "done_papers_at_start": 2448,
-      "done_papers_at_end": 2451,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_048",
-      "wall_seconds": 2879.18,
-      "peak_rss_mb": 252.2,
-      "done_papers_at_start": 2451,
-      "done_papers_at_end": 2479,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_049",
-      "wall_seconds": 2797.79,
-      "peak_rss_mb": 241.7,
-      "done_papers_at_start": 2479,
-      "done_papers_at_end": 2536,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_050",
-      "wall_seconds": 2743.1,
-      "peak_rss_mb": 248.3,
-      "done_papers_at_start": 2536,
-      "done_papers_at_end": 2580,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_051",
-      "wall_seconds": 2879.03,
-      "peak_rss_mb": 284.8,
-      "done_papers_at_start": 2580,
-      "done_papers_at_end": 2625,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_052",
-      "wall_seconds": 2753.73,
-      "peak_rss_mb": 213.4,
-      "done_papers_at_start": 2625,
-      "done_papers_at_end": 2670,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_053",
-      "wall_seconds": 2843.16,
-      "peak_rss_mb": 295.0,
-      "done_papers_at_start": 2670,
-      "done_papers_at_end": 2722,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_054",
-      "wall_seconds": 2734.56,
-      "peak_rss_mb": 278.8,
-      "done_papers_at_start": 2722,
-      "done_papers_at_end": 2754,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_055",
-      "wall_seconds": 2772.59,
-      "peak_rss_mb": 269.0,
-      "done_papers_at_start": 2754,
-      "done_papers_at_end": 2787,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_056",
-      "wall_seconds": 2732.36,
-      "peak_rss_mb": 306.7,
-      "done_papers_at_start": 2787,
-      "done_papers_at_end": 2825,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_057",
-      "wall_seconds": 1758.79,
-      "peak_rss_mb": 257.8,
-      "done_papers_at_start": 2825,
-      "done_papers_at_end": 2846,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_058",
-      "wall_seconds": 2770.76,
-      "peak_rss_mb": 279.5,
-      "done_papers_at_start": 2846,
-      "done_papers_at_end": 2895,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_059",
-      "wall_seconds": 2836.95,
-      "peak_rss_mb": 302.2,
-      "done_papers_at_start": 2895,
-      "done_papers_at_end": 2966,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_060",
-      "wall_seconds": 2823.18,
-      "peak_rss_mb": 302.8,
-      "done_papers_at_start": 2966,
-      "done_papers_at_end": 3027,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_061",
-      "wall_seconds": 2736.86,
-      "peak_rss_mb": 281.1,
-      "done_papers_at_start": 3027,
-      "done_papers_at_end": 3082,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_062",
-      "wall_seconds": 2918.52,
-      "peak_rss_mb": 305.2,
-      "done_papers_at_start": 3082,
-      "done_papers_at_end": 3144,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_063",
-      "wall_seconds": 2789.58,
-      "peak_rss_mb": 323.2,
-      "done_papers_at_start": 3144,
-      "done_papers_at_end": 3203,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_064",
-      "wall_seconds": 2749.65,
-      "peak_rss_mb": 265.0,
-      "done_papers_at_start": 3203,
-      "done_papers_at_end": 3268,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_065",
-      "wall_seconds": 2743.08,
-      "peak_rss_mb": 310.1,
-      "done_papers_at_start": 3268,
-      "done_papers_at_end": 3313,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_066",
-      "wall_seconds": 2755.59,
-      "peak_rss_mb": 314.8,
-      "done_papers_at_start": 3313,
-      "done_papers_at_end": 3355,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_067",
-      "wall_seconds": 2958.11,
-      "peak_rss_mb": 292.4,
-      "done_papers_at_start": 3355,
-      "done_papers_at_end": 3428,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_068",
-      "wall_seconds": 2765.06,
-      "peak_rss_mb": 260.3,
-      "done_papers_at_start": 3428,
-      "done_papers_at_end": 3486,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_069",
-      "wall_seconds": 2826.37,
-      "peak_rss_mb": 306.2,
-      "done_papers_at_start": 3486,
-      "done_papers_at_end": 3537,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_070",
-      "wall_seconds": 2751.9,
-      "peak_rss_mb": 276.7,
-      "done_papers_at_start": 3537,
-      "done_papers_at_end": 3604,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_071",
-      "wall_seconds": 2778.82,
-      "peak_rss_mb": 322.3,
-      "done_papers_at_start": 3604,
-      "done_papers_at_end": 3662,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_072",
-      "wall_seconds": 2761.85,
-      "peak_rss_mb": 284.6,
-      "done_papers_at_start": 3662,
-      "done_papers_at_end": 3742,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_073",
-      "wall_seconds": 2946.57,
-      "peak_rss_mb": 287.4,
-      "done_papers_at_start": 3742,
-      "done_papers_at_end": 3815,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_074",
-      "wall_seconds": 2753.12,
-      "peak_rss_mb": 338.6,
-      "done_papers_at_start": 3815,
-      "done_papers_at_end": 3886,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_075",
-      "wall_seconds": 1471.61,
-      "peak_rss_mb": 313.2,
-      "done_papers_at_start": 3886,
-      "done_papers_at_end": 3935,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_076",
-      "wall_seconds": 2764.46,
-      "peak_rss_mb": 364.7,
-      "done_papers_at_start": 3935,
-      "done_papers_at_end": 4029,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_077",
-      "wall_seconds": 2896.77,
-      "peak_rss_mb": 326.9,
-      "done_papers_at_start": 4029,
-      "done_papers_at_end": 4093,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_078",
-      "wall_seconds": 2740.63,
-      "peak_rss_mb": 317.6,
-      "done_papers_at_start": 4093,
-      "done_papers_at_end": 4150,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_079",
-      "wall_seconds": 2759.79,
-      "peak_rss_mb": 326.3,
-      "done_papers_at_start": 4150,
-      "done_papers_at_end": 4180,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_080",
-      "wall_seconds": 2777.67,
-      "peak_rss_mb": 316.5,
-      "done_papers_at_start": 4180,
-      "done_papers_at_end": 4221,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_081",
-      "wall_seconds": 2781.88,
-      "peak_rss_mb": 310.1,
-      "done_papers_at_start": 4221,
-      "done_papers_at_end": 4228,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_082",
-      "wall_seconds": 2775.88,
-      "peak_rss_mb": 344.7,
-      "done_papers_at_start": 4228,
-      "done_papers_at_end": 4254,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_083",
-      "wall_seconds": 2842.28,
-      "peak_rss_mb": 359.8,
-      "done_papers_at_start": 4254,
-      "done_papers_at_end": 4286,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_084",
-      "wall_seconds": 2807.85,
-      "peak_rss_mb": 351.7,
-      "done_papers_at_start": 4286,
-      "done_papers_at_end": 4333,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_085",
-      "wall_seconds": 2886.57,
-      "peak_rss_mb": 353.7,
-      "done_papers_at_start": 4333,
-      "done_papers_at_end": 4391,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_086",
-      "wall_seconds": 2788.78,
-      "peak_rss_mb": 313.5,
-      "done_papers_at_start": 4391,
-      "done_papers_at_end": 4482,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_087",
-      "wall_seconds": 2740.06,
-      "peak_rss_mb": 328.6,
-      "done_papers_at_start": 4482,
-      "done_papers_at_end": 4568,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_088",
-      "wall_seconds": 2890.28,
-      "peak_rss_mb": 375.9,
-      "done_papers_at_start": 4568,
-      "done_papers_at_end": 4614,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_089",
-      "wall_seconds": 1195.19,
-      "peak_rss_mb": 353.0,
-      "done_papers_at_start": 4614,
-      "done_papers_at_end": 4629,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_090",
-      "wall_seconds": 2772.84,
-      "peak_rss_mb": 334.0,
-      "done_papers_at_start": 4629,
-      "done_papers_at_end": 4721,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_091",
-      "wall_seconds": 2890.26,
-      "peak_rss_mb": 349.1,
-      "done_papers_at_start": 4721,
-      "done_papers_at_end": 4817,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_092",
-      "wall_seconds": 2822.64,
-      "peak_rss_mb": 333.5,
-      "done_papers_at_start": 4817,
-      "done_papers_at_end": 4832,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_093",
-      "wall_seconds": 2861.77,
-      "peak_rss_mb": 350.3,
-      "done_papers_at_start": 4832,
-      "done_papers_at_end": 4895,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_094",
-      "wall_seconds": 2796.13,
-      "peak_rss_mb": 364.7,
-      "done_papers_at_start": 4895,
-      "done_papers_at_end": 4941,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_095",
-      "wall_seconds": 3031.11,
-      "peak_rss_mb": 361.4,
-      "done_papers_at_start": 4941,
-      "done_papers_at_end": 4942,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_096",
-      "wall_seconds": 2754.06,
-      "peak_rss_mb": 400.0,
-      "done_papers_at_start": 4942,
-      "done_papers_at_end": 4967,
-      "cooldown_seconds": 0,
-      "ended": "finished"
-    },
-    {
-      "name": "run_097",
-      "wall_seconds": 2449.65,
-      "peak_rss_mb": 405.9,
-      "done_papers_at_start": 4967,
-      "done_papers_at_end": 4969,
+      "wall_seconds": 2515.01,
+      "peak_rss_mb": 473.2,
+      "done_papers_at_start": 4842,
+      "done_papers_at_end": 4996,
       "cooldown_seconds": 0,
       "ended": "finished"
     }
   ],
   "member": "nghiem",
-  "run_id": "2026-11-11T140947Z_be9e7f9",
-  "commit": "be9e7f9159cfaf70c19593bbdc4a309f084a986f",
+  "run_id": "2026-11-25T152508Z_4c734ce",
+  "commit": "4c734ce79da510dd18d7332eda9d7519abad5322",
   "testbed": "Google Colab CPU",
   "finished": true,
-  "sessions": 12,
+  "sessions": 2,
   "papers_requested": 5000,
-  "discovery_seconds": 20136.1,
-  "avg_seconds_per_paper": 51.134,
-  "median_seconds_per_paper": 16.741,
-  "max_seconds_per_paper": 3330.939,
+  "discovery_seconds": 62.6,
+  "avg_seconds_per_paper": 8.077,
+  "median_seconds_per_paper": 4.655,
+  "max_seconds_per_paper": 279.159,
   "http": {
-    "http_429": 80,
-    "retries": 186,
-    "backoff_seconds": 5173.5,
-    "partial": 101,
-    "resume": 70,
+    "http_429": 0,
+    "retries": 0,
+    "backoff_seconds": 0,
+    "partial": 0,
+    "resume": 0,
     "scope": "source downloads only; discovery/S2 retries are not logged here"
   }
 }
