@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "myst.yml").exists()) / "m1"))
 from m1data import *
+import json
 import plotly.express as px
 ```
 
@@ -121,10 +122,19 @@ if BENCHMARKS:
                          "HTTP 429 khi tải source": so(b["http"]["http_429"]),
                          "Thời gian chờ lùi (giây)": so(b["http"]["backoff_seconds"])}
                         for m, b in BENCHMARKS.items()]))
-    md("Các Range không chạy cùng một commit. Lượt chạy bằng commit cũ hơn lấy metadata qua arXiv API "
-       "nên Discovery mất nhiều giờ và gặp nhiều HTTP 429; các lượt sau lấy metadata từ "
-       "snapshot arXiv nên Discovery chỉ mất khoảng một phút. Chênh lệch tổng thời gian "
-       "giữa Range chạy `m1-bench-v2` và các Range còn lại chủ yếu đến từ khác biệt này.")
+    md("Các Range chạy bằng `m1-bench-v4` hoặc `m1-bench-v5`. Cả hai đều lấy metadata từ snapshot "
+       "arXiv nên Discovery chỉ mất khoảng một phút.")
+    old_path = DATA / "history" / "nghiem-m1-bench-v2.json"
+    if old_path.exists():
+        old = json.loads(old_path.read_text(encoding="utf-8"))
+        new = BENCHMARKS.get("nghiem", {})
+        md(f"Range {name('nghiem')} lúc đầu chạy bằng `m1-bench-v2`, khi Discovery còn gọi arXiv API: "
+           f"lượt đó mất {hours(old['total_wall_seconds'])} qua {so(old['segments'])} đoạn chạy, riêng "
+           f"Discovery {hours(old['discovery_seconds'])}, và gặp {so(old['http']['http_429'])} lần HTTP 429 "
+           f"khi tải source. Range này đã được chạy lại bằng `m1-bench-v5` "
+           f"({hours(new.get('total_wall_seconds'))}, {so(new.get('segments'))} đoạn chạy); "
+           "các bảng trên dùng số của lượt chạy lại. File tổng của lượt cũ giữ ở "
+           "`data/m1/history/` để đối chiếu.")
     md("Từ `m1-bench-v2` tới `m1-bench-v4`, Engine đổi những điểm ảnh hưởng tới tốc độ: Discovery đọc "
        "metadata snapshot của arXiv thay vì gọi API, lô Discovery bị HTTP 429 được thử lại cả lô, và "
        "references được lấy theo lô qua `/paper/batch` của Semantic Scholar trên một luồng riêng, không "
