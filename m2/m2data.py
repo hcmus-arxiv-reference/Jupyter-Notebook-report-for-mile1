@@ -47,7 +47,9 @@ RANGES = {m: _load(DATA2 / "ranges" / f"{m}.json") for m in MEMBER_ORDER
 ISSUE_LABEL = {
     "ambiguous_root": "nhiều file gốc, chưa chọn được",
     "parse_error": "lỗi khi dựng cây",
-    "include_error": "`\\input` tới file không có",
+    "include_error": "`\\input` không đọc được (tên động, ra ngoài thư mục, vòng lặp)",
+    "missing_content": "thiếu file mục sau `\\begin{document}`",
+    "root_selected_by_title": "file gốc chọn theo tiêu đề (kèm lỗi khác)",
     "unsupported_conditional": "lệnh điều kiện chưa hỗ trợ",
     "unclosed_conditional": "lệnh điều kiện không đóng",
     "invalid_syntax": "cú pháp TeX hỏng",
