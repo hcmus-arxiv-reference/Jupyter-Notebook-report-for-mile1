@@ -18,3 +18,17 @@ tin đăng nhập, và quá trình build không gọi mạng.
 Phần **Milestone 2** trình bày Parser: cấu trúc chương trình, phương pháp của từng bước, số liệu
 trên cả 5 Range và hiệu năng, theo các yêu cầu trong
 [đề Parsing](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/).
+
+## Thành viên
+
+| Thành viên | GitHub | Range được giao | Phần phụ trách chính |
+|---|---|---|---|
+| Nguyễn Thành Bảo (nhóm trưởng) | `NTBao-coder` | 2508.02872–2508.07871 | Engine crawler chung, tích hợp Parser, khôi phục bibliography, dataset Hugging Face, Jupyter Book |
+| Võ Nhật Liệu | `langtucod0n` | 2410.08025–2410.13024 | Parser: gom source và khung mục; mô hình xếp hạng M3 |
+| Hồ Hữu Nghiêm | `hohuunghiem` | 2409.08594–2409.13593 | Parser: tách lá (câu, công thức, hình); matcher tự động và chia tập M3 |
+| Đỗ Ngọc Hải | `ngochai06` | 2412.08848–2412.13847 | Parser: chuẩn hóa và BibTeX |
+| Ngô Hoàng Minh | `nhminh107` | 2409.18594–2410.03024 | Parser: kiểu dữ liệu giữa các bước, xuất bảng, batch; đặc trưng hierarchy M3 |
+
+Ở Milestone 1, mỗi thành viên tự xây một pipeline và crawl Range của mình, rồi nhóm ghép các
+cách làm tốt nhất vào một Engine chung (trang *So sánh pipeline của các thành viên*). Các trang
+sau gọi Range theo dải arXiv ID; bảng trên cho biết Range nào thuộc về ai.
