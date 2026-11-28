@@ -130,7 +130,7 @@ mã nguồn LaTeX đầu vào hay không.
 | Tầng | Pipeline đang có | Bằng chứng | Còn thiếu |
 |---|---|---|---|
 | Kiến trúc | Mỗi Stage là một module có interface nhỏ (gom source, khung mục, lá, chuẩn hóa, BibTeX, xuất bảng); bản sửa của mỗi lỗi chỉ nằm trong một module | Hai bản sửa gần nhất (môi trường toán, chọn file gốc) đều chỉ đổi một file | Hàm điều phối `parse_publication` có quá nhiều tham số |
-| Parse đúng | Chỉ theo đường biên dịch từ `\documentclass`; không tách câu ở toán, viết tắt, URL, số thập phân | Test fixture cho từng gói; kiểm ngẫu nhiên 30 Version chọn file gốc | Chưa có bộ nhãn tay để đo độ đúng cấp mục và ranh giới câu |
+| Parse đúng | Chỉ theo đường biên dịch từ `\documentclass`; không tách câu ở toán, viết tắt, URL, số thập phân | Test fixture cho từng gói; kiểm ngẫu nhiên 30 Version chọn file gốc | Cấp mục mới đo trên 30 Version trước ADR 0005; chưa có nhãn tay để đo ranh giới câu |
 | Kiểm dữ liệu | Receipt và checksum ở đầu vào; bất biến `parent_id`, `key_map`, schema ở đầu ra | `validate()` chạy trước mỗi lần ghi bảng | — |
 | Xử lý lỗi | Lỗi của một Version được ghi kèm mã lý do và không dừng cả lô; Version không có TeX vẫn có bản ghi rỗng | `log/versions.jsonl`: mọi Version trong metadata có đúng một dòng | Parser tất định nên không cần retry; chạy lại thì dùng checkpoint |
 | Hiệu năng | Checkpoint, chạy tăng dần, song song theo Publication | Bảng ở mục trên | Kết quả cả Range vẫn được giữ trong RAM tới bước gộp cuối |
