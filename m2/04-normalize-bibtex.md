@@ -68,9 +68,9 @@ md(f"**Số trước khử trùng lặp bị chi phối bởi hai Publication:**
    "mà bài chỉ trích dẫn một phần nhỏ.")
 ```
 
-## Quyết định còn mở
+## Phạm vi bảng `bibtex` (C12)
 
-Phạm vi xuất bảng `bibtex`:
+Nhóm đã cân nhắc hai phạm vi xuất bảng `bibtex`:
 
 1. chỉ entry được trích dẫn trên đường biên dịch (tính cả `\nocite` và entry cha qua `crossref`);
 2. mọi entry của các file `.bib` được khai báo.

@@ -62,5 +62,6 @@ md("Phần bibliography mà M1 lọc mất đã được khôi phục có kiểm
 - Các Version `ambiguous_root` còn lại là trường hợp luật chọn file gốc không cho kết quả duy nhất,
   ví dụ `Manuscript1.tex` với `Manuscript2.tex`.
 - Thời gian và RAM của M2 đo trên MacBook, chưa có lượt đo trên Google Colab CPU.
-- Chưa có bộ nhãn tay 30 bài để đo độ đúng cấp mục và ranh giới câu.
+- Độ đúng cấp mục mới đo trên 30 Version duyệt tay trước ADR 0005 (98,3% heading, trang
+  [Source và Structure](02-source-structure.md)), chưa đo lại. Chưa có nhãn tay để đo ranh giới câu.
 - Bảng `bibtex` chỉ giữ entry được cite (C12, chốt 20/11; xem [Normalize và BibTeX](04-normalize-bibtex.md)).

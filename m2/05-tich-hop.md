@@ -29,7 +29,8 @@ Thứ tự anh em không nằm trong bảng; nó được giữ ở dữ liệu 
 ## Log, checkpoint, bất biến
 
 - **Log Version:** mỗi Version theo metadata có đúng một dòng, trạng thái `parsed`,
-  `empty_non_tex`, `failed` hoặc `missing`. Version không có TeX vẫn có bản ghi rỗng.
+  `empty_non_tex` (chỉ có PDF/docx), `empty_unavailable` (arXiv trả 404/410), `failed` hoặc
+  `missing` (chưa có source đã xác minh). Version không có TeX vẫn có bản ghi rỗng.
 - **Checkpoint:** bỏ qua Publication khi sha256 của input và phiên bản mọi module không đổi.
 - **Bất biến trước khi ghi bảng:** mọi `parent_id` trỏ tới `element_id` có thật, mọi key trích
   dẫn có trong `key_map`, ba bảng qua `validate()` của schema chung.

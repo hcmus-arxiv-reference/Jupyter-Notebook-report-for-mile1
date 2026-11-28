@@ -88,11 +88,33 @@ md(f"**Structure:** trong {so(last['ready'])} Version `ready`, {pt(last['structu
    f"dựng được cây qua `validate_B` và `validate_B_prime`; {so(last['structure_failed'])} Version chưa qua.")
 ```
 
-## Việc còn lại
+## Độ đúng cấp mục và so sánh với `pylatexenc`
 
-- Xử lý `unsupported_conditional`, quy tắc tự chọn file gốc khi có nhiều ứng viên, `include_error`.
-- Độ đúng cấp mục trên 30 bài gán nhãn tay (mục tiêu ≥ 95% số heading).
-- Kiểm trên dữ liệu thật: không bài nào lọt References vào cây.
-- So sánh bộ quét tự viết với `pylatexenc` trên bộ mẫu.
+Đo trên bộ mẫu 100 Publication bằng `scripts/compare_structure.py`, kết quả ở
+`metrics/structure-comparison.json` của repo code (commit `fe2aad7`, 14/11):
+
+- **Cấp mục trên 30 Version duyệt tay:** đúng 468/476 heading (98,3%, mục tiêu ≥ 95%).
+  Cả 8 heading sót nằm trong 2 Version: 7 heading ở `2508.03777` (6 `\paragraph`, 1
+  `\section`) và 1 `\section` ở `2508.06728`. Không có heading thừa.
+- **So với `pylatexenc` 2.10** (`LatexWalker`) trên 135 Version: hai bộ quét thấy chung 2.723
+  heading. `pylatexenc` thấy thêm 24 heading; bộ quét tự viết không thấy heading nào mà
+  `pylatexenc` không thấy. Trên 476 heading duyệt tay, bộ quét tự viết đúng 469, còn
+  `pylatexenc` đúng cả 476 nhưng thừa 1. Bộ quét tự viết chạy 2,5 giây, `pylatexenc` mất
+  51,4 giây. Nhóm giữ bộ quét tự viết vì nó nhanh hơn khoảng 20 lần, và đây cũng là bộ quét
+  mà bước gom source dùng để theo `\input` và bỏ comment.
+
+Số đo này có trước khi có luật chọn file gốc (ADR 0005) và các bản sửa ngày 27/11, và chưa
+được đo lại.
+
+## Tình trạng sau lượt chạy 27/11
+
+- **References lọt vào cây:** `validate_B` loại mọi Version còn heading References hoặc
+  Bibliography trong cây, nên không Version nào có References lọt vào bảng.
+- **Nhiều ứng viên file gốc:** luật ở ADR 0005 giải được phần lớn. Còn 480 Version lỗi mang mã
+  `ambiguous_root`.
+- **Lệnh điều kiện:** chỉ nhánh chắc chắn tắt (`\iffalse`, `\ifnum` với hai số cụ thể) bị bỏ. Còn 448 Version lỗi có mã
+  `unsupported_conditional` và 408 Version lỗi có mã `unclosed_conditional`.
+- **`include_error`:** còn 27 Version lỗi. Riêng `\input` tới file không có (ví dụ file của bản
+  phân phối TeX) nay chỉ là cảnh báo `missing_input`.
 
 Số liệu trên cả 5 Range sau khi tích hợp ở trang [Tích hợp và số liệu](05-tich-hop.md).

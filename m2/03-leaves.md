@@ -70,7 +70,9 @@ if LEAVES:
 
 Chưa có bộ nhãn tay để đo độ đúng ranh giới câu; đây là việc còn mở ở trang Hạn chế.
 
-## Quyết định cần ghi lại
+## Quyết định đã chốt
 
 - `enumerate` và `description` dùng chung `kind = "itemize"`, vì schema không có loại riêng.
-- Môi trường nhiều dòng (`align`, `gather`) là một hay nhiều `formula`.
+- Một môi trường toán nhiều dòng (`align`, `gather`, `eqnarray`, …) là **một** lá `formula`.
+  Bước chuẩn hóa đưa thân môi trường vào `aligned` hoặc `gathered` bên trong
+  `\begin{equation}…\end{equation}`, giữ nguyên các dòng (`src/parse/normalize.py`).
