@@ -29,6 +29,16 @@ Luồng dữ liệu từ M1 đến M3. Mỗi thành viên chạy cùng codebase 
 gộp 6 bảng của 5 Range thành dataset nộp. Sơ đồ vẽ theo code ở commit `f1972ad` của repo code.
 :::
 
+## Tổ chức dữ liệu
+
+:::{figure} images/erd-six-tables.svg
+:label: fig-erd-six-tables
+:alt: Sơ đồ quan hệ sáu bảng: references, elements, hierarchy, bibtex trỏ về papers qua arxiv_id; hierarchy trỏ hai lần vào elements qua element_id và parent_id; predictions ứng với một dòng bibtex qua (arxiv_id, citation_key) và lấy cand_1..cand_5 từ references.ref_arxiv_id.
+
+Sáu bảng của dataset, theo `src/common/schema.py` ở commit `f1972ad`. `papers` là bảng trung tâm;
+`predictions` ứng với từng BibTeX entry và chọn ứng viên trong `references` của cùng bài.
+:::
+
 ## Thành viên
 
 | Thành viên | GitHub | Range được giao | Phần phụ trách chính |
