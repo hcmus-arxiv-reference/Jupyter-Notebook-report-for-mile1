@@ -94,7 +94,24 @@ if PERF:
                      "RAM tiến trình chính (MB)": so(run["peak_rss_mb"]),
                      "RAM tiến trình con lớn nhất (MB)": so(run["peak_rss_children_mb"]),
                      "Bảng giống bản tuần tự": "có" if run["identical"] else "không"})
-    table(pd.DataFrame(rows))
+    import plotly.graph_objects as go
+    runs = sorted([(1, PERF["sequential"]["seconds"])] + [(r["workers"], r["seconds"]) for r in PERF["parallel"]])
+    workers = [w for w, _ in runs]
+    speed = [seq["seconds"] / t for _, t in runs]
+    fig = go.Figure([
+        go.Scatter(name="Lý tưởng (tăng tuyến tính)", x=workers, y=workers, mode="lines",
+                   line=dict(color=COLOR_BASE, width=2, dash="dash"), hoverinfo="skip"),
+        go.Scatter(name="Đo được", x=workers, y=speed, mode="lines+markers+text",
+                   line=dict(color=COLOR_MAIN, width=2), marker=dict(size=9),
+                   text=[f"{so(v, 1)}×" for v in speed], textposition="top left",
+                   hovertemplate="%{x} tiến trình: nhanh %{y:.2f}×<extra></extra>")])
+    fig.update_layout(title=(f"8 tiến trình chỉ nhanh {so(speed[-1], 1)}×; "
+                             f"2 tiến trình gần như không nhanh hơn ({so(speed[1], 1)}×)"),
+                      xaxis=dict(title="Số tiến trình", tickvals=workers),
+                      yaxis_title="Tăng tốc so với tuần tự", legend=dict(orientation="h", y=-0.2),
+                      height=400)
+    show(fig)
+    details("Chi tiết thời gian và RAM", pd.DataFrame(rows))
     md(f"Đo trên {PERF['machine']} ngày {PERF['as_of']}, Range {MEMBER_NAME[PERF['range']]} "
        f"({so(PERF['publications'])} Publication). RAM đỉnh toàn máy có thể tới RAM tiến trình chính "
        "cộng số tiến trình nhân RAM tiến trình con lớn nhất.")

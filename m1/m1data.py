@@ -90,9 +90,9 @@ def md(text):
     display(HTML(_markdown.markdown(text)))
 
 
-def show(fig):
-    """Hiển thị hình Plotly tương tác trong trang HTML."""
-    fig.update_layout(template="plotly_white", margin=dict(l=40, r=20, t=50, b=40))
+def show(fig, top=50):
+    """Hiển thị hình Plotly tương tác trong trang HTML; ``top`` là lề trên (chỗ cho tiêu đề và chú thích)."""
+    fig.update_layout(template="plotly_white", margin=dict(l=40, r=20, t=top, b=40))
     display(HTML(pio.to_html(fig, include_plotlyjs="cdn", full_html=False)))
 
 
@@ -102,6 +102,19 @@ def table(df, **formats):
     if formats:
         style = style.format(formats, na_rep="—", escape="html")
     display(style)
+
+
+# Màu của các biểu đồ tóm tắt: một màu chính, một màu phụ (đã kiểm bằng bộ kiểm bảng màu
+# của skill dataviz: tách biệt cả với người mù màu), và xám cho số "trước" làm mốc so sánh.
+COLOR_MAIN, COLOR_SECOND, COLOR_BASE = "#2a78d6", "#eb6834", "#8a8880"
+
+
+def details(summary, df, **formats):
+    """Bảng chi tiết thu gọn trong ``<details>``; biểu đồ phía trên đã tóm tắt các số này."""
+    style = df.style.format(na_rep="—", escape="html").hide(axis="index")
+    if formats:
+        style = style.format(formats, na_rep="—", escape="html")
+    display(HTML(f"<details><summary><strong>{summary}</strong></summary>{style.to_html()}</details>"))
 
 
 def range_text(rng):

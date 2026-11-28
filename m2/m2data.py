@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "myst.yml").exists())
 sys.path.insert(0, str(ROOT / "m1"))
-from m1data import _load, md, pd, pt, show, so, table  # noqa: E402,F401  (dùng lại định dạng của M1)
+from m1data import COLOR_BASE, COLOR_MAIN, COLOR_SECOND, _load, details, md, pd, pt, show, so, table  # noqa: E402,F401  (dùng lại định dạng của M1)
 
 DATA2 = ROOT / "data" / "m2"
 
