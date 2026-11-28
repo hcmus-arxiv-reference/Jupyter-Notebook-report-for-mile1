@@ -19,6 +19,16 @@ Phần **Milestone 2** trình bày Parser: cấu trúc chương trình, phương
 trên cả 5 Range và hiệu năng, theo các yêu cầu trong
 [đề Parsing](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/).
 
+## Luồng dữ liệu
+
+:::{figure} images/pipeline-m1-m3.svg
+:label: fig-pipeline-m1-m3
+:alt: Sơ đồ luồng dữ liệu: arXiv và Semantic Scholar vào Engine crawl, tạo corpus thô và bảng papers, references; Parser M2 tạo elements, hierarchy, bibtex; mô hình Matching tạo predictions; sáu bảng của năm Range được gộp thành dataset Hugging Face.
+
+Luồng dữ liệu từ M1 đến M3. Mỗi thành viên chạy cùng codebase trên Range của mình; bước cuối
+gộp 6 bảng của 5 Range thành dataset nộp. Sơ đồ vẽ theo code ở commit `f1972ad` của repo code.
+:::
+
 ## Thành viên
 
 | Thành viên | GitHub | Range được giao | Phần phụ trách chính |
