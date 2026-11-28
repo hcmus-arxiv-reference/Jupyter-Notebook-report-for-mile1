@@ -13,11 +13,11 @@ Chỉ đọc file trong ``data/m1/``; không gọi mạng, không đọc corpus 
 from __future__ import annotations
 
 import json
+import uuid
 from pathlib import Path
 
 import markdown as _markdown
 import pandas as pd
-import plotly.io as pio
 from IPython.display import HTML, display
 
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "myst.yml").exists())
@@ -90,10 +90,36 @@ def md(text):
     display(HTML(_markdown.markdown(text)))
 
 
+PLOTLY_CDN = "https://cdn.plot.ly/plotly-3.7.0.min.js"
+
+
 def show(fig, top=50):
-    """Hiển thị hình Plotly tương tác trong trang HTML; ``top`` là lề trên (chỗ cho tiêu đề và chú thích)."""
+    """Hiển thị hình Plotly tương tác trong trang HTML; ``top`` là lề trên (chỗ cho tiêu đề và chú thích).
+
+    Trang MyST chèn output bằng JavaScript sau khi trang tải, nên lệnh vẽ có thể chạy trước
+    khi file Plotly từ CDN tải xong (lỗi ``Plotly is not defined``, để lại khung trống). Vì
+    vậy mỗi hình chỉ thêm thẻ ``<script>`` CDN một lần cho cả trang và vẽ khi Plotly đã sẵn sàng.
+    """
     fig.update_layout(template="plotly_white", margin=dict(l=40, r=20, t=top, b=40))
-    display(HTML(pio.to_html(fig, include_plotlyjs="cdn", full_html=False)))
+    height = fig.layout.height or 450
+    div_id = f"plot-{uuid.uuid4().hex}"
+    spec = fig.to_json().replace("</", "<\\/")  # không để chuỗi "</script>" trong dữ liệu đóng thẻ sớm
+    display(HTML(f"""<div id="{div_id}" style="height:{height}px;width:100%"></div>
+<script>(function () {{
+  var spec = {spec};
+  function draw() {{
+    Plotly.newPlot("{div_id}", spec.data, spec.layout, {{responsive: true, displaylogo: false}});
+  }}
+  if (window.Plotly) {{ draw(); return; }}
+  var tag = document.getElementById("plotly-cdn");
+  if (!tag) {{
+    tag = document.createElement("script");
+    tag.id = "plotly-cdn";
+    tag.src = "{PLOTLY_CDN}";
+    document.head.appendChild(tag);
+  }}
+  tag.addEventListener("load", draw);
+}})();</script>"""))
 
 
 def table(df, **formats):
