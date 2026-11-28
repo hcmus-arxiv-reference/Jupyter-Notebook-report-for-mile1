@@ -58,6 +58,9 @@ md("**Ước lượng trước khi chạy** (không phải số đo). Số reque
    "bị HTTP 429:")
 table(est, **{c: so for c in est.columns if c not in ("Range", "Giờ tối thiểu")},
       **{"Giờ tối thiểu": lambda v: so(v, 1)})
+md("Ước lượng này giả sử Discovery gọi arXiv API như ở `m1-bench-v2`. Từ `m1-bench-v3`, metadata và "
+   "ngày Version lấy từ snapshot (trang *Phương pháp thu thập*), nên lượt chạy thật chỉ còn request "
+   "tải source, cộng request API cho các ID không có trong snapshot.")
 ```
 
 ## Kết quả
