@@ -1,101 +1,102 @@
 {
  "allow_fallback": false,
- "avg_seconds_per_publication": 0.3426,
+ "avg_seconds_per_publication": 0.1217,
  "bibliography_supplement": true,
- "bibtex_dedup_rate": 0.914758,
- "bibtex_dedup_saved": 2163276,
- "bibtex_entries_after_dedup": 201585,
- "bibtex_entries_before_dedup": 2364861,
- "bibtex_unresolved_keys": 3225,
- "duplicate_sibling_edges": 12399,
- "elapsed_seconds": 1711.4404,
- "elements_after_dedup": 1767019,
- "elements_before_dedup": 2573302,
- "elements_dedup_rate": 0.313326,
- "elements_dedup_saved": 806283,
+ "bibtex_dedup_rate": 0.912798,
+ "bibtex_dedup_saved": 2195747,
+ "bibtex_entries_after_dedup": 209766,
+ "bibtex_entries_before_dedup": 2405513,
+ "bibtex_unresolved_keys": 3984,
+ "duplicate_sibling_edges": 13666,
+ "elapsed_seconds": 607.89,
+ "elements_after_dedup": 1863142,
+ "elements_before_dedup": 2716889,
+ "elements_dedup_rate": 0.314237,
+ "elements_dedup_saved": 853747,
  "fallback_modules": [],
- "git_commit": "c813d20",
- "hierarchy_edges": 2552443,
+ "git_commit": "f1972ad",
+ "hierarchy_edges": 2694325,
  "module": "export",
  "module_versions": {
-  "assembler": "6",
-  "bibtex": "6",
-  "export": "3",
+  "assembler": "11",
+  "bibtex": "7",
+  "export": "4",
   "leaves": "1",
   "normalize": "2",
-  "pipeline": "6",
-  "structure": "3",
+  "pipeline": "8",
+  "structure": "4",
   "types": "1"
  },
- "output_dir_size_mb": 1377.0705,
- "peak_rss_mb": 3927.84,
- "publication_parse_rate": 0.908927,
+ "output_dir_size_mb": 1448.8526,
+ "peak_rss_children_mb": 1453.16,
+ "peak_rss_mb": 4525.81,
+ "publication_parse_rate": 0.944556,
  "publications_empty_only": 367,
- "publications_failed": 455,
+ "publications_failed": 277,
  "publications_resumed": 0,
- "publications_succeeded": 4541,
+ "publications_succeeded": 4719,
  "publications_total": 4996,
  "root_reviews": 3,
  "seed": null,
- "tables_dir_size_mb": 146.9607,
- "version_coverage_rate": 0.912452,
- "version_tex_parse_rate": 0.906535,
- "versions_bibliography_recovered": 1188,
+ "tables_dir_size_mb": 154.2208,
+ "version_coverage_rate": 0.949054,
+ "version_tex_parse_rate": 0.945611,
+ "versions_bibliography_recovered": 1212,
  "versions_empty_non_tex": 490,
  "versions_empty_unavailable": 22,
- "versions_failed": 704,
+ "versions_failed": 408,
  "versions_missing": 4,
- "versions_parsed": 6867,
+ "versions_parsed": 7163,
  "versions_total_metadata": 8087,
+ "workers": 6,
  "member": "nghiem",
- "machine": "MacBook (Apple silicon, 24 GB RAM), chạy cục bộ 24/11/2026",
+ "machine": "MacBook (Apple silicon, 24 GB RAM), chạy cục bộ 27/11/2026, 6 tiến trình",
  "version_status": {
-  "failed": 704,
-  "parsed": 6867,
+  "parsed": 7163,
   "empty_non_tex": 490,
+  "failed": 408,
   "empty_unavailable": 22,
   "missing": 4
  },
  "failed_version_issues": {
-  "parse_error": 197,
-  "ambiguous_root": 150,
-  "include_error": 148,
-  "unsupported_conditional": 90,
-  "unclosed_conditional": 65,
-  "publication_error": 62,
+  "parse_error": 120,
+  "ambiguous_root": 119,
+  "unsupported_conditional": 73,
+  "unclosed_conditional": 68,
   "invalid_syntax": 61,
   "missing_root": 26,
-  "root_selected_by_title": 13,
-  "unsupported_control": 12,
-  "missing_bbl": 6,
-  "macro_compilation_path": 3
+  "missing_content": 14,
+  "root_selected_by_title": 10,
+  "missing_input": 5,
+  "unsupported_control": 3,
+  "macro_compilation_path": 2
  },
  "publication_coverage": {
-  "100%": 4541,
-  "50–99%": 78,
-  "1–49%": 19,
-  "0%": 358
+  "100%": 4719,
+  "50–99%": 75,
+  "1–49%": 11,
+  "0%": 191
  },
  "coverage_by_versions": {
   "1": {
    "publications": 2893,
-   "full": 2680
+   "full": 2776
   },
   "2": {
    "publications": 1425,
-   "full": 1282
+   "full": 1336
   },
   "3": {
    "publications": 475,
-   "full": 417
+   "full": 432
   },
   "4": {
    "publications": 140,
-   "full": 113
+   "full": 121
   },
   "5": {
    "publications": 63,
-   "full": 49
+   "full": 54
   }
  }
 }

@@ -56,6 +56,7 @@ if RANGES:
         for k in keys:
             tot[k] = tot.get(k, 0) + r[k]
         tot["peak_rss_mb"] = max(tot.get("peak_rss_mb", 0), r["peak_rss_mb"])
+        tot["peak_rss_children_mb"] = max(tot.get("peak_rss_children_mb", 0), r.get("peak_rss_children_mb", 0))
     def row(name, r):
         tex = r["versions_parsed"] + r["versions_failed"]
         return {
@@ -65,7 +66,8 @@ if RANGES:
             "Element trước → sau khử trùng lặp": f"{so(r['elements_before_dedup'])} → {so(r['elements_after_dedup'])}",
             "BibTeX entry trước → sau": f"{so(r['bibtex_entries_before_dedup'])} → {so(r['bibtex_entries_after_dedup'])}",
             "Thời gian (phút)": so(r["elapsed_seconds"] / 60),
-            "RAM đỉnh (MB)": so(r["peak_rss_mb"]),
+            "RAM đỉnh tiến trình chính (MB)": so(r["peak_rss_mb"]),
+            "RAM đỉnh một tiến trình con (MB)": so(r.get("peak_rss_children_mb", 0)),
             "Đầu ra (MB)": so(r["output_dir_size_mb"]),
         }
     rows = [row(MEMBER_NAME[m], r) for m, r in RANGES.items()]
@@ -85,8 +87,10 @@ else:
     pending("ranges/<member>.json")
 ```
 
-Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 24/11, chạy tuần tự (một tiến trình),
-không phải Google Colab CPU như đề quy định cho benchmark; thời gian và RAM trên Colab sẽ khác.
+Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 27/11, chạy song song 6 tiến trình
+(`--workers 6`, xem [Xử lý tăng dần và mở rộng](07-tang-dan-mo-rong.md)), không phải Google Colab CPU
+như đề quy định cho benchmark; thời gian và RAM trên Colab sẽ khác. Tiến trình chính giữ kết quả của
+mọi Publication để ghi bảng, nên RAM của nó lớn hơn RAM của từng tiến trình con parse Publication.
 
 ### Độ phủ Version của từng Publication
 
@@ -136,7 +140,22 @@ if RANGES:
 
 Trước ADR 0005, `ambiguous_root` là nhóm lớn nhất với 1.963 Version. Luật chọn file gốc theo tiêu đề
 metadata, rồi theo tên file (`docs/adr/0005-mot-van-ban-chinh-moi-version.md` trong repo code) giải
-được 1.373 Version và còn lại 590 Version. Mỗi lựa chọn theo luật được ghi `root_selected_by_title`
+được 1.373 Version và còn lại 590 Version trong lượt ngày 24/11. Mỗi lựa chọn theo luật được ghi `root_selected_by_title`
 hoặc `root_selected_by_name` trong log nên kiểm tra lại được. Bảng trên Hugging Face được sinh từ
-commit `c813d20` (main ghép bản sửa môi trường toán và luật chọn file gốc), ngày 24/11.
+commit `f1972ad` của repo code, ngày 27/11.
+
+So với lượt ngày 24/11 (commit `c813d20`), lượt này sửa ba nhóm lỗi tìm ra khi chạy lại riêng các
+Version lỗi và đọc traceback:
+
+- Các bước cùng đọc LaTeX nhưng mỗi bước tự xác định vùng có hiệu lực, nên lệch nhau. Ví dụ, một cite
+  key có khoảng trắng bên trong được bước dựng cây coi là một key, nhưng bước BibTeX lại tách khác.
+  Bộ kiểm tra giữa các bước chặn cứng các chỗ lệch này và loại cả Version. Nay vùng có hiệu lực đi
+  chung một nguồn; cite key không có entry được ghi là chưa giải được thay vì loại Publication.
+- Văn bản trong nhánh chắc chắn tắt (`\iffalse … \fi`) vẫn vào `elements`, kèm các `\cite` trong đó.
+  Nay nhánh này được bỏ như comment.
+- `\input` tới file không có (file của bản phân phối TeX như `epsf`, hình TikZ/PGF mà M1 không giữ)
+  làm lỗi cả Version. Nay chỉ là cảnh báo. Riêng file mục được đọc sau `\begin{document}` mà
+  không có thì vẫn là lỗi `missing_content`, để Version thiếu nguyên một mục không bị tính là parse được.
+
+Kết quả: số Version parse được tăng từ 34.933 lên 36.256, số Version lỗi giảm từ 3.354 xuống 2.029.
 Các nhóm còn lại là giới hạn của cách đọc tĩnh, xem [Hạn chế](06-han-che.md).

@@ -28,7 +28,10 @@ for r in RANGES.values():
 failed = sum(r["versions_failed"] for r in RANGES.values())
 md(f"- **Điều kiện chỉ biết khi biên dịch.** {so(by['unsupported_conditional'] + by['unclosed_conditional'])} "
    "Version dùng lệnh điều kiện mà bộ gom chưa đánh giá được hoặc không đóng; Parser đọc tĩnh, không chạy TeX.\n"
-   f"- **File được gọi nhưng không có.** {so(by['include_error'])} Version `\\input` tới file vắng mặt trong corpus.\n"
+   f"- **Thiếu file mục.** {so(by['missing_content'])} Version gọi một file mục sau `\\begin{{document}}` "
+   "mà file không có trong source; Parser báo lỗi thay vì parse thiếu mục.\n"
+   f"- **`\\input` không đọc được.** {so(by['include_error'])} Version có tên file động, đường dẫn ra ngoài "
+   "thư mục Version hoặc vòng lặp include.\n"
    f"- **Nhiều ứng viên file gốc.** {so(by['ambiguous_root'])} Version còn nhiều file `\\documentclass` sau "
    "luật chọn theo tiêu đề và tên file.\n"
    f"- **Lỗi khi dựng cây hoặc cú pháp TeX hỏng.** {so(by['parse_error'] + by['invalid_syntax'])} Version.\n\n"
@@ -53,6 +56,9 @@ md("Phần bibliography mà M1 lọc mất đã được khôi phục có kiểm
 
 ## Việc còn mở
 
+- Lệnh điều kiện không tính được khi đọc tĩnh (`\if1\blind`, `\ifdefined`) giữ văn bản của cả hai
+  nhánh, nên một số câu chứa văn bản mà bản PDF không in. Chỉ nhánh chắc chắn tắt (`\iffalse`, `\ifnum`
+  với hai số cụ thể) được bỏ.
 - Các Version `ambiguous_root` còn lại là trường hợp luật chọn file gốc không cho kết quả duy nhất,
   ví dụ `Manuscript1.tex` với `Manuscript2.tex`.
 - Thời gian và RAM của M2 đo trên MacBook, chưa có lượt đo trên Google Colab CPU.
