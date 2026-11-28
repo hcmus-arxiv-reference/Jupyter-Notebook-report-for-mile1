@@ -88,6 +88,33 @@ else:
     pending("ranges/<member>.json")
 ```
 
+```{code-cell} python
+:tags: [remove-input]
+if len(RANGES) == len(MEMBER_ORDER):
+    import plotly.graph_objects as go
+    pairs = [("Element", "elements_before_dedup", "elements_after_dedup"),
+             ("BibTeX entry", "bibtex_entries_before_dedup", "bibtex_entries_after_dedup")]
+    kinds = [k for k, _, _ in pairs]
+    before = [sum(r[b] for r in RANGES.values()) / 1e6 for _, b, _ in pairs]
+    after = [sum(r[a] for r in RANGES.values()) / 1e6 for _, _, a in pairs]
+    fig = go.Figure([
+        go.Bar(name="Trước khử trùng lặp (mọi Version)", x=kinds, y=before, marker_color=COLOR_BASE,
+               text=[f"{so(v, 2)} triệu" for v in before], textposition="outside",
+               hovertemplate="%{x}<br>Trước: %{y:.2f} triệu dòng<extra></extra>"),
+        go.Bar(name="Sau khử trùng lặp", x=kinds, y=after, marker_color=COLOR_MAIN,
+               text=[f"{so(a, 2)} triệu<br>−{so(100 * (1 - a / b))}%" for a, b in zip(after, before)],
+               textposition="outside", hovertemplate="%{x}<br>Sau: %{y:.2f} triệu dòng<extra></extra>")])
+    fig.update_layout(barmode="group", bargap=0.35, bargroupgap=0.08,
+                      title=(f"Khử trùng lặp giữa các Version bỏ {so(100 * (1 - after[0] / before[0]))}% Element "
+                             f"và {so(100 * (1 - after[1] / before[1]))}% BibTeX entry (5 Range)"),
+                      yaxis_title="Triệu dòng", legend=dict(orientation="h", y=-0.12), height=420)
+    fig.update_yaxes(range=[0, max(before) * 1.2])
+    show(fig)
+    md("Element giảm vì phần lớn nội dung giữ nguyên giữa các Version nên dùng chung `element_id`. "
+       "BibTeX entry giảm mạnh hơn vì ngoài việc gộp giữa các Version, bảng `bibtex` chỉ giữ entry "
+       "được cite (C12), trong khi số *trước* đếm mọi entry đọc được từ các file `.bib` dùng chung.")
+```
+
 Số hiệu năng đo trên MacBook (Apple silicon, 24 GB RAM) ngày 27/11, chạy song song 6 tiến trình
 (`--workers 6`, xem [Xử lý tăng dần và mở rộng](07-tang-dan-mo-rong.md)), không phải Google Colab CPU
 như đề quy định cho benchmark; thời gian và RAM trên Colab sẽ khác. Tiến trình chính giữ kết quả của
@@ -134,9 +161,23 @@ if RANGES:
     for r in RANGES.values():
         total.update(r["failed_version_issues"])
     failed = sum(r["versions_failed"] for r in RANGES.values())
-    table(pd.DataFrame([{"Mã": f"`{code}`", "Ý nghĩa": ISSUE_LABEL.get(code, ""), "Version": so(n),
-                         "Tỉ lệ trên Version lỗi": pt(n, failed)}
-                        for code, n in total.most_common(8)]))
+    top = total.most_common(8)
+    import plotly.graph_objects as go
+    fig = go.Figure(go.Bar(
+        y=[code for code, _ in top][::-1], x=[n for _, n in top][::-1], orientation="h",
+        marker_color=COLOR_MAIN, text=[so(n) for _, n in top][::-1], textposition="outside",
+        customdata=[ISSUE_LABEL.get(code, "") for code, _ in top][::-1],
+        hovertemplate="%{y}: %{x} Version<br>%{customdata}<extra></extra>"))
+    lead = top[0]
+    fig.update_layout(title=(f"{so(failed)} Version lỗi; nhiều nhất là {lead[0]} "
+                             f"({so(100 * lead[1] / failed)}% số Version lỗi)"),
+                      xaxis_title="Số Version có mã này (một Version có thể mang nhiều mã)",
+                      height=380, bargap=0.3)
+    fig.update_xaxes(range=[0, lead[1] * 1.15])
+    show(fig)
+    details("Ý nghĩa từng mã", pd.DataFrame([{"Mã": f"`{code}`", "Ý nghĩa": ISSUE_LABEL.get(code, ""),
+                                             "Version": so(n), "Tỉ lệ trên Version lỗi": pt(n, failed)}
+                                            for code, n in top]))
 ```
 
 Trước ADR 0005, `ambiguous_root` là nhóm lớn nhất với 1.963 Version. Luật chọn file gốc theo tiêu đề

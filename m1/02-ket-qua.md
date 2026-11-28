@@ -84,8 +84,28 @@ for m, s in SNAPSHOTS.items():
                  "Trung vị sau": mb(after["median"]), "Lớn nhất sau": mb(after["max"]),
                  "Giảm": "—" if st.get("size_reduction_fraction") is None
                          else f"{so(100 * st['size_reduction_fraction'], 1)}%"})
-md("**Theo Publication**")
-table(pd.DataFrame(rows))
+import plotly.graph_objects as go
+sized = {m: s["storage"] for m, s in SNAPSHOTS.items() if s["storage"].get("before_extraction_bytes")}
+if sized:
+    labels = [name(m) for m in sized]
+    before = [st["before_extraction_bytes"] / 1e6 for st in sized.values()]
+    after = [st["complete_publication_retained_bytes"]["mean"] / 1e6 for st in sized.values()]
+    cut = [st["size_reduction_fraction"] for st in sized.values()]
+    fig = go.Figure([
+        go.Bar(name="Trước khi bỏ hình", x=labels, y=before, marker_color=COLOR_BASE,
+               text=[f"{so(v, 2)} MB" for v in before], textposition="outside",
+               hovertemplate="%{x}<br>Trước: %{y:.2f} MB/bài<extra></extra>"),
+        go.Bar(name="Sau khi bỏ hình", x=labels, y=after, marker_color=COLOR_MAIN,
+               text=[f"{so(v, 2)} MB<br>−{so(100 * c, 1)}%" for v, c in zip(after, cut)],
+               textposition="outside",
+               hovertemplate="%{x}<br>Sau: %{y:.2f} MB/bài<extra></extra>")])
+    fig.update_layout(barmode="group", bargap=0.3, bargroupgap=0.08,
+                      title=f"Bỏ hình giảm {so(100 * min(cut), 1)}–{so(100 * max(cut), 1)}% dung lượng mỗi Publication",
+                      yaxis_title="MB trung bình mỗi Publication", legend=dict(orientation="h", y=-0.15),
+                      height=420)
+    fig.update_yaxes(range=[0, max(before) * 1.2])
+    show(fig)
+details("Chi tiết theo Publication", pd.DataFrame(rows))
 
 rows = []
 for m, s in SNAPSHOTS.items():
@@ -99,8 +119,7 @@ for m, s in SNAPSHOTS.items():
                  "Trước khi bỏ hình (TB/Version)": mb(get("sized_version_before_bytes")),
                  "Sau khi bỏ hình (TB/Version)": mb(after.get("mean")),
                  "Trung vị sau": mb(after.get("median")), "Lớn nhất sau": mb(after.get("max"))})
-md("**Theo Version**")
-table(pd.DataFrame(rows))
+details("Chi tiết theo Version", pd.DataFrame(rows))
 missing = [name(m) for m, s in SNAPSHOTS.items() if s["storage"].get("before_extraction_bytes") is None]
 if missing:
     md(f"Range {', '.join(missing)} được crawl bằng phiên bản Engine trước khi có bước ghi kích thước "
@@ -165,7 +184,9 @@ for m, s in SNAPSHOTS.items():
         rows.append({"Range": name(m), "Bảng": table_name, "Đọc được theo schema": "có" if t["valid"] else "không",
                      "Số dòng": t.get("rows"), "Khóa trùng": t.get("duplicate_keys"),
                      "ID ngoài Range": t.get("outside_range")})
-table(pd.DataFrame(rows), **{"Số dòng": so, "Khóa trùng": so, "ID ngoài Range": so})
+bad = [r for r in rows if r["Đọc được theo schema"] != "có" or r["Khóa trùng"] or r["ID ngoài Range"]]
+md(f"**{len(rows) - len(bad)}/{len(rows)} bảng** đọc được theo schema, không có khóa trùng và không có ID ngoài Range.")
+details("Chi tiết từng bảng", pd.DataFrame(rows), **{"Số dòng": so, "Khóa trùng": so, "ID ngoài Range": so})
 n_papers = sum(s["checks"]["tables"]["papers"].get("rows") or 0 for s in SNAPSHOTS.values())
 extra = n_papers - total("complete")
 md("Số dòng ở bảng này đếm trên các bảng `papers`/`references` đã nộp lên Hugging Face "

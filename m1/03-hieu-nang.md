@@ -117,6 +117,42 @@ else:
 
 ```{code-cell} python
 :tags: [remove-input]
+if measured:
+    import plotly.graph_objects as go
+    order = sorted(measured, key=lambda m: measured[m]["total_wall_seconds"])
+    labels = [name(m) for m in order]
+    wall = [measured[m]["total_wall_seconds"] / 3600 for m in order]
+    # Từ m1-bench-v3, request arXiv chỉ còn tải source: một request mỗi Version.
+    floor = [min(SNAPSHOTS[m]["counts"]["expected_versions"] * 3.1 / 3600, w) for m, w in zip(order, wall)]
+    rest = [w - f for w, f in zip(wall, floor)]
+    share = sum(floor) / sum(wall)
+    fig = go.Figure([
+        go.Bar(name="Chờ bắt buộc: số Version × 3,1 giây", y=labels, x=floor, orientation="h",
+               marker_color=COLOR_MAIN, hovertemplate="%{y}<br>Chờ bắt buộc: %{x:.1f} giờ<extra></extra>"),
+        go.Bar(name="Phần còn lại: tải archive lớn, chờ References, ghi file, chờ HTTP 429",
+               y=labels, x=rest, orientation="h", marker_color=COLOR_SECOND,
+               text=[f"{so(w, 1)} giờ" for w in wall], textposition="outside",
+               hovertemplate="%{y}<br>Phần còn lại: %{x:.1f} giờ<extra></extra>")])
+    fig.add_vrect(x0=7, x1=8, fillcolor="#8a8880", opacity=0.18, line_width=0)
+    fig.add_annotation(x=7.5, y=1, xref="x", yref="paper", yanchor="bottom", showarrow=False,
+                       text="trung vị năm trước: 7–8 giờ", font=dict(size=11, color="#52514e"))
+    fig.update_traces(marker_line_color="white", marker_line_width=2)
+    fig.update_layout(barmode="stack", bargap=0.35, height=380, legend_traceorder="normal",
+                      title=(f"Mỗi Range mất {so(min(wall), 1)}–{so(max(wall), 1)} giờ; "
+                             f"{so(100 * share)}% là thời gian chờ bắt buộc giữa các request arXiv"),
+                      xaxis_title="Giờ chạy trên Colab CPU", legend=dict(orientation="h", y=-0.25))
+    fig.update_xaxes(range=[0, max(wall) * 1.15])
+    show(fig, top=80)
+    backoff = sum(b["http"]["backoff_seconds"] for b in BENCHMARKS.values())
+    md(f"Phần màu xanh là giới hạn dưới không thể rút ngắn: mỗi Version cần một request tải source, và "
+       f"hai request phải cách nhau ít nhất 3,1 giây. Thời gian chờ lùi khi bị HTTP 429 lúc tải source "
+       f"của cả 5 Range chỉ {so(backoff / 60, 1)} phút, nên gần như toàn bộ phần màu cam là thời gian tải "
+       "những archive lớn hơn mức 3,1 giây cho phép, cộng thời gian chờ References ở cuối mỗi Publication. "
+       "Dải xám là mức thời gian giảng viên nêu cho các nhóm năm trước, chỉ để tham khảo.")
+```
+
+```{code-cell} python
+:tags: [remove-input]
 if BENCHMARKS:
     TAGS = {"be9e7f9": "m1-bench-v2", "b0c2ff1": "m1-bench-v3", "6f00b0e": "m1-bench-v4", "4c734ce": "m1-bench-v5"}
     table(pd.DataFrame([{"Range": name(m), "Tag": TAGS.get(b["commit"][:7], "—"), "Commit": f"`{b['commit'][:7]}`",
@@ -153,8 +189,7 @@ for m, b in BENCHMARKS.items():
     segments = pd.DataFrame(b["per_segment"])
     if segments.empty:
         continue
-    md(f"Các đoạn chạy của Range {name(m)}:")
-    table(segments.drop(columns=["cooldown_seconds"], errors="ignore").rename(columns={
+    details(f"Các đoạn chạy của Range {name(m)}", segments.drop(columns=["cooldown_seconds"], errors="ignore").rename(columns={
         "name": "Đoạn", "wall_seconds": "Thời gian (giây)", "peak_rss_mb": "RAM lớn nhất (MiB)",
         "done_papers_at_start": "Xong lúc bắt đầu", "done_papers_at_end": "Xong lúc kết thúc",
         "ended": "Kết thúc"}), **{"Thời gian (giây)": so, "RAM lớn nhất (MiB)": lambda v: so(v, 1),
