@@ -101,6 +101,69 @@ flowchart LR
 - **Export** đọc lại cache đã xác minh rồi ghi hai bảng Parquet theo schema của
   đề: `papers` và `references`. Bảng `references` chỉ chứa Reference có arXiv ID.
 
+### Tận dụng thời gian chờ
+
+Khi được hỏi về cách tăng tốc crawl, giảng viên trả lời rằng chính thức là không có
+cách nào, và gợi ý các nhóm "xử lý những dữ liệu đã lấy được trong khi chờ dữ liệu
+mới" (hỏi đáp câu 17). Với arXiv, khoảng cách tối thiểu giữa hai request là cố
+định, nên thời gian một Range gần như bằng số request arXiv nhân 3,1 giây. Nhóm
+không rút ngắn được khoảng này. Việc nhóm làm được là bảo đảm các phần việc khác
+nằm trong khoảng chờ, không cộng thêm vào tổng thời gian:
+
+- **Xử lý archive vừa tải trong khoảng nghỉ giữa hai request arXiv.** Bộ điều
+  tiết tính 3,1 giây từ lúc *bắt đầu* request trước (đoạn *Cách tính 3,1 giây* ở
+  trên). Vì vậy mọi việc làm ngay sau khi archive về đều nằm trong khoảng chờ. Các
+  việc đó gồm: tính sha256 của archive, giải nén, chỉ giữ `.tex/.bib`, tính checksum
+  từng file, đo kích thước trước và sau khi bỏ hình, ghi receipt `source.json`, rồi
+  ghi một dòng Manifest. Request kế tiếp chỉ phải chờ phần còn lại của 3,1 giây. Việc
+  xử lý không chạy song song với lúc đang tải: luồng arXiv vẫn chỉ có một kết nối.
+- **Lấy references trên một luồng khác.** Trong lúc luồng chính tải source từ
+  arXiv, luồng Semantic Scholar gửi các lô 100 Publication. Lô kế tiếp được xếp
+  hàng khi lô hiện tại còn một nửa số Publication chưa tới lượt tải source. Khi S2
+  trả 429, chính luồng này chờ 60 giây rồi thử lại (tối đa 30 phút). Sau khi tải xong
+  source của một Publication, luồng arXiv chờ lô của nó tối đa 10 giây. Quá thời
+  hạn đó thì luồng arXiv chuyển sang Publication sau, và kết quả lô được ghi lại ở
+  một lần kiểm tra sau (giữa hai Publication hoặc trước Export).
+- **Discovery không cần mạng.** Metadata đọc từ file trích snapshot, nên không tốn
+  lượt request arXiv nào trước khi tải source.
+
+**Phân loại kết quả ngay khi tải xong.** Mỗi Version được xếp vào một trạng thái
+ngay trên luồng chính, trước request kế tiếp (`src/crawl/source.py`):
+
+| Phản hồi của arXiv | Trạng thái | Ghi lại |
+|---|---|---|
+| Archive tar (có hoặc không nén gzip), hoặc một file TeX đơn, có ít nhất một `.tex` | `success` | Thư mục `v<n>/` chứa `.tex/.bib` nguyên bản và receipt có checksum từng file |
+| PDF, docx, hoặc archive không có `.tex` | `non_tex` | Receipt rỗng; Version vẫn được tính |
+| HTTP 404/410 (thường là bản đã rút) | `unavailable` | Receipt rỗng kèm mã HTTP (C11) |
+| Trang HTML hay JSON báo lỗi, nội dung không phải TeX/PDF/docx, archive vượt 256 MB hoặc 10.000 file, hoặc lỗi mạng/429/5xx sau khi đã thử lại | `error` | Chỉ một dòng Manifest có mã HTTP và loại lỗi, không có receipt; lượt sau tải lại |
+
+References được phân loại theo cùng cách: Semantic Scholar trả danh sách → `success`.
+Lô không có Publication đó, hoặc S2 trả 404 → `unavailable` với `s2_status: "not_found"`.
+Danh sách từ 1.000 dòng trở lên → lấy lại theo trang. Các lỗi khác → `error`.
+
+**Checkpoint.** Mọi bước ghi đều được thiết kế để có thể dừng giữa chừng mà không để
+lại dữ liệu dở dang:
+
+- Version được giải nén vào một thư mục tạm, rồi mới đổi tên thành `v<n>/`. Nếu tiến
+  trình dừng giữa chừng thì `v<n>/` hoặc chưa có, hoặc là bản đầy đủ. Bản cũ được
+  để sang một bên trước khi thay. Nếu tiến trình dừng đúng lúc đó, lần chạy sau sẽ
+  khôi phục bản cũ.
+- Manifest (`manifests/crawl.jsonl`) chỉ ghi thêm vào cuối, và mỗi dòng được
+  `fsync` xuống đĩa. Khi nạp lại, dòng cuối bị cắt dở do mất điện hay ngắt phiên
+  Colab được bỏ đi. Lỗi ở các dòng trước đó thì làm dừng chương trình, không bị bỏ
+  qua.
+- Chỉ luồng chính ghi cache và Manifest. Luồng Semantic Scholar chỉ gửi HTTP và
+  trả kết quả qua `Future`, nên hai luồng không ghi chồng lên nhau. Khóa
+  `.pipeline.lock` bảo đảm mỗi thư mục dữ liệu chỉ có một lượt chạy.
+- Trước và sau mỗi Publication, Runner ghi `manifests/range-run.json`: Publication
+  đang xử lý, các Publication chưa hoàn chỉnh và bảng đếm trạng thái.
+- Khi chạy lại, trạng thái được kiểm tra lại từ file trên đĩa (receipt và checksum),
+  không gửi request. Version đã xác minh được bỏ qua, chỉ Version `error` hoặc còn
+  thiếu được tải lại. Mỗi lượt chạy đi tối đa 3 vòng qua Range, nghỉ 30 phút giữa
+  các vòng. Tạo file `STOP_RANGE` thì chương trình dừng sau Publication đang xử
+  lý. Ctrl+C hoặc SIGTERM thì dừng ngay. Cả hai cách đều ghi lại các kết quả S2 đã
+  về rồi mới xuất bảng.
+
 ### Tổ chức dữ liệu
 
 File trên đĩa là nguồn dữ liệu gốc; Parquet chỉ là bảng xuất ra
